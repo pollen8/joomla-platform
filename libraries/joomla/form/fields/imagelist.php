@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
@@ -23,6 +27,10 @@ JFormHelper::loadFieldClass('filelist');
  */
 class JFormFieldImageList extends JFormFieldFileList
 {
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 	/**
 	 * The form field type.
 	 *
@@ -32,9 +40,17 @@ class JFormFieldImageList extends JFormFieldFileList
 	public $type = 'ImageList';
 
 	/**
+<<<<<<< HEAD
 	 * Method to get the field options.
 	 *
 	 * @return  array  The field option objects.
+=======
+	 * Method to get the list of images field options.
+	 * Use the filter attribute to specify allowable file extensions.
+	 *
+	 * @return  array  The field option objects.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getOptions()
@@ -48,4 +64,8 @@ class JFormFieldImageList extends JFormFieldFileList
 		// Get the field options.
 		return parent::getOptions();
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.log.logentry');
 
@@ -24,7 +28,12 @@ jimport('joomla.log.logentry');
 abstract class JLogger
 {
 	/**
+<<<<<<< HEAD
 	 * @var    array  Options array for the JLog instance.
+=======
+	 * Options array for the JLog instance.
+	 * @var    array
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $options = array();
@@ -32,13 +41,21 @@ abstract class JLogger
 	/**
 	 * Constructor.
 	 *
+<<<<<<< HEAD
 	 * @param   array  $options  Log object options.
+=======
+	 * @param   array  &$options  Log object options.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
+<<<<<<< HEAD
 	public function __construct(array & $options)
+=======
+	public function __construct(array &$options)
+>>>>>>> upstream/master
 	{
 		// Set the options for the class.
 		$this->options = & $options;
@@ -47,7 +64,11 @@ abstract class JLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
+<<<<<<< HEAD
 	 * @param   JLogEntry  The log entry object to add to the log.
+=======
+	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *

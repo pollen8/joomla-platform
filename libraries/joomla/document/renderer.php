@@ -37,7 +37,13 @@ class JDocumentRenderer extends JObject
 	/**
 	* Class constructor
 	*
+<<<<<<< HEAD
 	* @param   object   $doc  A reference to the JDocument object that instantiated the renderer
+=======
+	* @param   object  &$doc  A reference to the JDocument object that instantiated the renderer
+	*
+	* @return  JDocumentRenderer
+>>>>>>> upstream/master
 	*
 	* @since   11.1
 	*/
@@ -49,11 +55,20 @@ class JDocumentRenderer extends JObject
 	/**
 	 * Renders a script and returns the results as a string
 	 *
+<<<<<<< HEAD
 	 * @param   string   $name     The name of the element to render
 	 * @param   array    $array    Array of values
 	 * @param   string   $content  Override the output of the renderer
 	 *
 	 * @return  string   The output of the script
+=======
+	 * @param   string  $name     The name of the element to render
+	 * @param   array   $params   Array of values
+	 * @param   string  $content  Override the output of the renderer
+	 *
+	 * @return  string  The output of the script
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function render($name, $params = null, $content = null)
@@ -64,9 +79,17 @@ class JDocumentRenderer extends JObject
 	 * Return the content type of the renderer
 	 *
 	 * @return  string  The contentType
+<<<<<<< HEAD
 	 * @since   11.1
 	 */
 	function getContentType() {
+=======
+	 *
+	 * @since   11.1
+	 */
+	function getContentType()
+	{
+>>>>>>> upstream/master
 		return $this->_mime;
 	}
 }

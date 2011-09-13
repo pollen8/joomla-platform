@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
@@ -15,6 +19,10 @@ jimport('joomla.form.helper');
 JFormHelper::loadFieldClass('list');
 
 /**
+<<<<<<< HEAD
+=======
+ * Form Field class for the Joomla Platform.
+>>>>>>> upstream/master
  * Supports an HTML select list of categories
  *
  * @package     Joomla.Platform
@@ -24,20 +32,37 @@ JFormHelper::loadFieldClass('list');
 class JFormFieldCategory extends JFormFieldList
 {
 	/**
+<<<<<<< HEAD
 	 * @var    string	The form field type.
+=======
+	 * The form field type.
+	 *
+	 * @var    string
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	public $type = 'Category';
 
 	/**
+<<<<<<< HEAD
 	 * Method to get the field options.
 	 *
 	 * @return  array    The field option objects.
+=======
+	 * Method to get the field options for category
+	 * Use the extension attribute in a form to specify the.specific extension for
+	 * which categories should be displayed.
+	 * Use the show_root attribute to specify whether to show the global category root in the list.
+	 *
+	 * @return  array    The field option objects.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getOptions()
 	{
 		// Initialise variables.
+<<<<<<< HEAD
 		$options	= array();
 		$extension	= $this->element['extension'] ? (string) $this->element['extension'] : (string) $this->element['scope'];
 		$published	= (string) $this->element['published'];
@@ -50,32 +75,73 @@ class JFormFieldCategory extends JFormFieldList
 				$options = JHtml::_('category.options', $extension, array('filter.published' => explode(',', $published)));
 			}
 			else {
+=======
+		$options = array();
+		$extension = $this->element['extension'] ? (string) $this->element['extension'] : (string) $this->element['scope'];
+		$published = (string) $this->element['published'];
+
+		// Load the category options for a given extension.
+		if (!empty($extension))
+		{
+
+			// Filter over published state or not depending upon if it is present.
+			if ($published)
+			{
+				$options = JHtml::_('category.options', $extension, array('filter.published' => explode(',', $published)));
+			}
+			else
+			{
+>>>>>>> upstream/master
 				$options = JHtml::_('category.options', $extension);
 			}
 
 			// Verify permissions.  If the action attribute is set, then we scan the options.
+<<<<<<< HEAD
 			if ($action	= (string) $this->element['action']) {
+=======
+			if ($action = (string) $this->element['action'])
+			{
+>>>>>>> upstream/master
 
 				// Get the current user object.
 				$user = JFactory::getUser();
 
+<<<<<<< HEAD
 				foreach($options as $i => $option)
+=======
+				foreach ($options as $i => $option)
+>>>>>>> upstream/master
 				{
 					// To take save or create in a category you need to have create rights for that category
 					// unless the item is already in that category.
 					// Unset the option if the user isn't authorised for it. In this field assets are always categories.
+<<<<<<< HEAD
 					if ($user->authorise('core.create', $extension.'.category.'.$option->value) != true ) {
+=======
+					if ($user->authorise('core.create', $extension . '.category.' . $option->value) != true)
+					{
+>>>>>>> upstream/master
 						unset($options[$i]);
 					}
 				}
 
 			}
 
+<<<<<<< HEAD
 			if (isset($this->element['show_root'])) {
 				array_unshift($options, JHtml::_('select.option', '0', JText::_('JGLOBAL_ROOT')));
 			}
 		}
 		else {
+=======
+			if (isset($this->element['show_root']))
+			{
+				array_unshift($options, JHtml::_('select.option', '0', JText::_('JGLOBAL_ROOT')));
+			}
+		}
+		else
+		{
+>>>>>>> upstream/master
 			JError::raiseWarning(500, JText::_('JLIB_FORM_ERROR_FIELDS_CATEGORY_ERROR_EXTENSION_EMPTY'));
 		}
 
@@ -84,4 +150,8 @@ class JFormFieldCategory extends JFormFieldList
 
 		return $options;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

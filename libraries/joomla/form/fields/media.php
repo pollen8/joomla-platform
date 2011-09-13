@@ -7,12 +7,21 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.form.formfield');
 
 /**
+<<<<<<< HEAD
  * Form Field class for the Joomla Framework.
+=======
+ * Form Field class for the Joomla Platform.
+ * Provides a modal media selector including upload mechanism
+>>>>>>> upstream/master
  *
  * @package     Joomla.Platform
  * @subpackage  Form
@@ -37,13 +46,22 @@ class JFormFieldMedia extends JFormField
 	protected static $initialised = false;
 
 	/**
+<<<<<<< HEAD
 	 * Method to get the field input markup.
 	 *
 	 * @return  string  The field input markup.
+=======
+	 * Method to get the field input markup for a media selector.
+	 * Use attributes to identify specific created_by and asset_id fields
+	 *
+	 * @return  string  The field input markup.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getInput()
 	{
+<<<<<<< HEAD
 		$assetField	= $this->element['asset_field'] ? (string) $this->element['asset_field'] : 'asset_id';
 		$authorField= $this->element['created_by_field'] ? (string) $this->element['created_by_field'] : 'created_by';
 		$asset		= $this->form->getValue($assetField) ? $this->form->getValue($assetField) : (string) $this->element['asset_id'] ;
@@ -53,6 +71,19 @@ class JFormFieldMedia extends JFormField
 
 		$link = (string) $this->element['link'];
 		if (!self::$initialised) {
+=======
+		$assetField = $this->element['asset_field'] ? (string) $this->element['asset_field'] : 'asset_id';
+		$authorField = $this->element['created_by_field'] ? (string) $this->element['created_by_field'] : 'created_by';
+		$asset = $this->form->getValue($assetField) ? $this->form->getValue($assetField) : (string) $this->element['asset_id'];
+		if ($asset == '')
+		{
+			$asset = JRequest::getCmd('option');
+		}
+
+		$link = (string) $this->element['link'];
+		if (!self::$initialised)
+		{
+>>>>>>> upstream/master
 
 			// Load the modal behavior script.
 			JHtml::_('behavior.modal');
@@ -79,6 +110,7 @@ class JFormFieldMedia extends JFormField
 		$attr = '';
 
 		// Initialize some field attributes.
+<<<<<<< HEAD
 		$attr .= $this->element['class'] ? ' class="'.(string) $this->element['class'].'"' : '';
 		$attr .= $this->element['size'] ? ' size="'.(int) $this->element['size'].'"' : '';
 
@@ -104,23 +136,68 @@ class JFormFieldMedia extends JFormField
 		}
 		else {
 			$folder='';
+=======
+		$attr .= $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
+		$attr .= $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
+
+		// Initialize JavaScript field attributes.
+		$attr .= $this->element['onchange'] ? ' onchange="' . (string) $this->element['onchange'] . '"' : '';
+
+		// The text field.
+		$html[] = '<div class="fltlft">';
+		$html[] = '	<input type="text" name="' . $this->name . '" id="' . $this->id . '"' . ' value="'
+			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . ' readonly="readonly"' . $attr . ' />';
+		$html[] = '</div>';
+
+		$directory = (string) $this->element['directory'];
+		if ($this->value && file_exists(JPATH_ROOT . '/' . $this->value))
+		{
+			$folder = explode('/', $this->value);
+			array_shift($folder);
+			array_pop($folder);
+			$folder = implode('/', $folder);
+		}
+		elseif (file_exists(JPATH_ROOT . '/' . JComponentHelper::getParams('com_media')->get('image_path', 'images') . '/' . $directory))
+		{
+			$folder = $directory;
+		}
+		else
+		{
+			$folder = '';
+>>>>>>> upstream/master
 		}
 		// The button.
 		$html[] = '<div class="button2-left">';
 		$html[] = '	<div class="blank">';
+<<<<<<< HEAD
 		$html[] = '		<a class="modal" title="'.JText::_('JLIB_FORM_BUTTON_SELECT').'"' .
 					' href="'.($this->element['readonly'] ? '' : ($link ? $link : 'index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;asset='.$asset.'&amp;author='.$this->form->getValue($authorField)) . '&amp;fieldid='.$this->id.'&amp;folder='.$folder).'"' .
 					' rel="{handler: \'iframe\', size: {x: 800, y: 500}}">';
 		$html[] = '			'.JText::_('JLIB_FORM_BUTTON_SELECT').'</a>';
+=======
+		$html[] = '		<a class="modal" title="' . JText::_('JLIB_FORM_BUTTON_SELECT') . '"' . ' href="'
+			. ($this->element['readonly'] ? ''
+				: ($link ? $link
+					: 'index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;asset=' . $asset . '&amp;author='
+						. $this->form->getValue($authorField)) . '&amp;fieldid=' . $this->id . '&amp;folder=' . $folder) . '"'
+			. ' rel="{handler: \'iframe\', size: {x: 800, y: 500}}">';
+		$html[] = '			' . JText::_('JLIB_FORM_BUTTON_SELECT') . '</a>';
+>>>>>>> upstream/master
 		$html[] = '	</div>';
 		$html[] = '</div>';
 
 		$html[] = '<div class="button2-left">';
 		$html[] = '	<div class="blank">';
+<<<<<<< HEAD
 		$html[] = '		<a title="'.JText::_('JLIB_FORM_BUTTON_CLEAR').'"' .
 					' href="#"'.
 					' onclick="document.getElementById(\''.$this->id.'\').value=\'\'; document.getElementById(\''.$this->id.'\').onchange();">';
 		$html[] = '			'.JText::_('JLIB_FORM_BUTTON_CLEAR').'</a>';
+=======
+		$html[] = '		<a title="' . JText::_('JLIB_FORM_BUTTON_CLEAR') . '"' . ' href="#"' . ' onclick="document.getElementById(\'' . $this->id
+			. '\').value=\'\'; document.getElementById(\'' . $this->id . '\').onchange();">';
+		$html[] = '			' . JText::_('JLIB_FORM_BUTTON_CLEAR') . '</a>';
+>>>>>>> upstream/master
 		$html[] = '	</div>';
 		$html[] = '</div>';
 

@@ -14,7 +14,11 @@
  * @subpackage  Cache
  *
  */
+<<<<<<< HEAD
 class JCacheStorageTest extends PHPUnit_Framework_TestCase
+=======
+class JCacheStorageTest extends JoomlaTestCase
+>>>>>>> upstream/master
 {
 	/**
 	 * @var	JCacheStorage
@@ -23,8 +27,15 @@ class JCacheStorageTest extends PHPUnit_Framework_TestCase
 	protected $object;
 
 	/**
+<<<<<<< HEAD
 	 * @var errorState
 	 */
+=======
+	 * @var errors
+	 * @access protected
+	 */
+	protected static $errors;
+>>>>>>> upstream/master
 	protected $savedErrorState;
 
 		/**
@@ -59,7 +70,11 @@ class JCacheStorageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return	bool	To not continue with JError processing
 	 */
+<<<<<<< HEAD
 	static function errorCallback( $error )
+=======
+	static function errorCallback( &$error )
+>>>>>>> upstream/master
 	{
 		JCacheStorageTest::$actualError['code'] = $error->get('code');
 		JCacheStorageTest::$actualError['msg'] = $error->get('message');
@@ -67,6 +82,7 @@ class JCacheStorageTest extends PHPUnit_Framework_TestCase
 		return false;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Sets the JError error handlers.
 	 *
@@ -125,6 +141,8 @@ class JCacheStorageTest extends PHPUnit_Framework_TestCase
 	}
 
 
+=======
+>>>>>>> upstream/master
 	protected function setUp()
 	{
 		include_once JPATH_PLATFORM.'/joomla/cache/cache.php';
@@ -143,6 +161,7 @@ class JCacheStorageTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Saves the current state of the JError error handlers.
 	 *
 	 * @return	void
@@ -156,6 +175,8 @@ class JCacheStorageTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+=======
+>>>>>>> upstream/master
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 *
@@ -251,7 +272,13 @@ class JCacheStorageTest extends PHPUnit_Framework_TestCase
 		}
 
 		$this->object = JCacheStorage::getInstance($handler, $options);
+<<<<<<< HEAD
 		$config = JFactory::getConfig();
+=======
+		if (class_exists('JTestConfig')) {
+			$config = new JTestConfig;
+		}
+>>>>>>> upstream/master
 
 		$this->assertThat(
 			$this->object,
@@ -279,12 +306,21 @@ class JCacheStorageTest extends PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			$this->object->_lifetime,
+<<<<<<< HEAD
 			$this->equalTo(empty($options['lifetime']) ? $config->get('cachetime')*60 : $options['lifetime']*60),
+=======
+//			$this->equalTo(empty($options['lifetime']) ? $config->get('cachetime')*60 : $options['lifetime']*60),
+			$this->equalTo(60),
+>>>>>>> upstream/master
 			'Unexpected value for _lifetime.'
 		);
 
 		$this->assertLessThan(
+<<<<<<< HEAD
 			$config->get('lifetime'),
+=======
+			isset($config->cachetime) ? $config->cachetime : 900,
+>>>>>>> upstream/master
 			abs($this->object->_now - time()),
 			'Unexpected value for configuration lifetime.'
 		);

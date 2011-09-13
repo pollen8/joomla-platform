@@ -22,8 +22,11 @@ Swiff.Uploader = new Class({
 		target: null,
 		zIndex: 9999,
 
+<<<<<<< HEAD
 		height: 30,
 		width: 100,
+=======
+>>>>>>> upstream/master
 		callBacks: null,
 		params: {
 			wMode: 'opaque',
@@ -35,6 +38,12 @@ Swiff.Uploader = new Class({
 		multiple: true,
 		queued: true,
 		verbose: false,
+<<<<<<< HEAD
+=======
+		height: 30,
+		width: 100,
+		passStatus: null,
+>>>>>>> upstream/master
 
 		url: null,
 		method: null,
@@ -47,8 +56,13 @@ Swiff.Uploader = new Class({
 		allowDuplicates: false,
 		timeLimit: (Browser.Platform.linux) ? 0 : 30,
 
+<<<<<<< HEAD
 		buttonImage: null,
 		policyFile: null,
+=======
+		policyFile: null,
+		buttonImage: null,
+>>>>>>> upstream/master
 
 		fileListMax: 0,
 		fileListSizeMax: 0,
@@ -217,24 +231,43 @@ Swiff.Uploader = new Class({
 
 	initializeSwiff: function() {
 		// extracted options for the swf
+<<<<<<< HEAD
 		this.remote('initialize', {
 			width: this.options.width,
 			height: this.options.height,
 			typeFilter: this.options.typeFilter,
 			multiple: this.options.multiple,
 			queued: this.options.queued,
+=======
+		this.remote('xInitialize', {
+			typeFilter: this.options.typeFilter,
+			multiple: this.options.multiple,
+			queued: this.options.queued,
+			verbose: this.options.verbose,
+			width: this.options.width,
+			height: this.options.height,
+			passStatus: this.options.passStatus,
+>>>>>>> upstream/master
 			url: this.options.url,
 			method: this.options.method,
 			data: this.options.data,
 			mergeData: this.options.mergeData,
 			fieldName: this.options.fieldName,
+<<<<<<< HEAD
 			verbose: this.options.verbose,
+=======
+>>>>>>> upstream/master
 			fileSizeMin: this.options.fileSizeMin,
 			fileSizeMax: this.options.fileSizeMax,
 			allowDuplicates: this.options.allowDuplicates,
 			timeLimit: this.options.timeLimit,
+<<<<<<< HEAD
 			buttonImage: this.options.buttonImage,
 			policyFile: this.options.policyFile
+=======
+			policyFile: this.options.policyFile,
+			buttonImage: this.options.buttonImage
+>>>>>>> upstream/master
 		});
 
 		this.loaded = true;
@@ -260,27 +293,44 @@ Swiff.Uploader = new Class({
 			if (options.url) options.url = Swiff.Uploader.qualifyPath(options.url);
 			if (options.buttonImage) options.buttonImage = Swiff.Uploader.qualifyPath(options.buttonImage);
 			this.parent(options);
+<<<<<<< HEAD
 			if (this.loaded) this.remote('setOptions', options);
+=======
+			if (this.loaded) this.remote('xSetOptions', options);
+>>>>>>> upstream/master
 		}
 		return this;
 	},
 
 	setEnabled: function(status) {
+<<<<<<< HEAD
 		this.remote('setEnabled', status);
+=======
+		this.remote('xSetEnabled', status);
+>>>>>>> upstream/master
 	},
 
 	start: function() {
 		this.fireEvent('beforeStart');
+<<<<<<< HEAD
 		this.remote('start');
+=======
+		this.remote('xStart');
+>>>>>>> upstream/master
 	},
 
 	stop: function() {
 		this.fireEvent('beforeStop');
+<<<<<<< HEAD
 		this.remote('stop');
+=======
+		this.remote('xStop');
+>>>>>>> upstream/master
 	},
 
 	remove: function() {
 		this.fireEvent('beforeRemove');
+<<<<<<< HEAD
 		this.remote('remove');
 	},
 
@@ -298,6 +348,25 @@ Swiff.Uploader = new Class({
 
 	fileRequeue: function(file) {
 		this.remote('fileRequeue', file.id);
+=======
+		this.remote('xRemove');
+	},
+
+	fileStart: function(file) {
+		this.remote('xFileStart', file.id);
+	},
+
+	fileStop: function(file) {
+		this.remote('xFileStop', file.id);
+	},
+
+	fileRemove: function(file) {
+		this.remote('xFileRemove', file.id);
+	},
+
+	fileRequeue: function(file) {
+		this.remote('xFileRequeue', file.id);
+>>>>>>> upstream/master
 	},
 
 	appendCookieData: function() {
@@ -460,7 +529,11 @@ Swiff.Uploader.File = new Class({
 	setOptions: function(options) {
 		if (options) {
 			if (options.url) options.url = Swiff.Uploader.qualifyPath(options.url);
+<<<<<<< HEAD
 			this.base.remote('fileSetOptions', this.id, options);
+=======
+			this.base.remote('xFileSetOptions', this.id, options);
+>>>>>>> upstream/master
 			this.options = $merge(this.options, options);
 		}
 		return this;

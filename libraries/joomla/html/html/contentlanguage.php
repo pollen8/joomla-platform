@@ -19,13 +19,21 @@ defined('JPATH_PLATFORM') or die;
 abstract class JHtmlContentLanguage
 {
 	/**
+<<<<<<< HEAD
 	 * @var    array  Cached array of the content language items.
+=======
+	 * Cached array of the content language items.
+	 *
+	 * @var    array
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	protected static $items = null;
 
 	/**
 	 * Get a list of the available content language items.
 	 *
+<<<<<<< HEAD
 	 * @return  string
 	 * @since   11.1
 	 */
@@ -35,6 +43,24 @@ abstract class JHtmlContentLanguage
 			// Get the database object and a new query object.
 			$db		= JFactory::getDBO();
 			$query	= $db->getQuery(true);
+=======
+	 * @param   boolean  $all        True to include All (*)
+	 * @param   boolean  $translate  True to translate All
+	 *
+	 * @return  string
+	 *
+	 * @since   11.1
+	 *
+	 * @see     JFormFieldContentLanguage
+	 */
+	public static function existing($all = false, $translate = false)
+	{
+		if (empty(self::$items))
+		{
+			// Get the database object and a new query object.
+			$db = JFactory::getDBO();
+			$query = $db->getQuery(true);
+>>>>>>> upstream/master
 
 			// Build the query.
 			$query->select('a.lang_code AS value, a.title AS text, a.title_native');
@@ -45,12 +71,23 @@ abstract class JHtmlContentLanguage
 			// Set the query and load the options.
 			$db->setQuery($query);
 			self::$items = $db->loadObjectList();
+<<<<<<< HEAD
 			if ($all) {
 				array_unshift(self::$items, new JObject(array('value'=>'*','text'=>$translate ? JText::alt('JALL','language') : 'JALL_LANGUAGE')));
 			}
 
 			// Detect errors
 			if ($db->getErrorNum()) {
+=======
+			if ($all)
+			{
+				array_unshift(self::$items, new JObject(array('value' => '*', 'text' => $translate ? JText::alt('JALL', 'language') : 'JALL_LANGUAGE')));
+			}
+
+			// Detect errors
+			if ($db->getErrorNum())
+			{
+>>>>>>> upstream/master
 				JError::raiseWarning(500, $db->getErrorMsg());
 			}
 		}

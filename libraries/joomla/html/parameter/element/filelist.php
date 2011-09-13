@@ -15,6 +15,7 @@ defined('JPATH_PLATFORM') or die;
  * @package     Joomla.Platform
  * @subpackage  Parameter
  * @since       11.1
+<<<<<<< HEAD
  * @deprecated  use JForm instead
  */
 
@@ -29,10 +30,42 @@ class JElementFilelist extends JElement
 
 	public function fetchElement($name, $value, &$node, $control_name)
 	{
+=======
+ * @deprecated  use JFormFieldFileList instead
+ */
+class JElementFilelist extends JElement
+{
+	/**
+	 * Element name
+	 *
+	 * @var    string
+	 */
+	protected $_name = 'Filelist';
+
+	/**
+	 * Fetch a filelist element
+	 *
+	 * @param   string  $name          Element name
+	 * @param   string  $value         Element value
+	 * @param   object  &$node         Element object
+	 * @param   string  $control_name  Control name
+	 *
+	 * @return  string
+	 *
+	 * @deprecated    12.1   Use JFormFieldFileList::getOptions instead
+	 * @since   11.1
+	 */
+	public function fetchElement($name, $value, &$node, $control_name)
+	{
+		// Deprecation warning.
+		JLog::add('JElementFileList::fetchElement() is deprecated.', JLog::WARNING, 'deprecated');
+
+>>>>>>> upstream/master
 		jimport('joomla.filesystem.folder');
 		jimport('joomla.filesystem.file');
 
 		// path to images directory
+<<<<<<< HEAD
 		$path		= JPATH_ROOT.DS.$node->attributes('directory');
 		$filter		= $node->attributes('filter');
 		$exclude	= $node->attributes('exclude');
@@ -40,6 +73,15 @@ class JElementFilelist extends JElement
 		$files		= JFolder::files($path, $filter);
 
 		$options = array ();
+=======
+		$path = JPATH_ROOT . '/' . $node->attributes('directory');
+		$filter = $node->attributes('filter');
+		$exclude = $node->attributes('exclude');
+		$stripExt = $node->attributes('stripext');
+		$files = JFolder::files($path, $filter);
+
+		$options = array();
+>>>>>>> upstream/master
 
 		if (!$node->attributes('hide_none'))
 		{
@@ -70,12 +112,20 @@ class JElementFilelist extends JElement
 			}
 		}
 
+<<<<<<< HEAD
 		return JHtml::_('select.genericlist', $options, $control_name .'['. $name .']',
 			array(
 				'id' => 'param'.$name,
 				'list.attr' => 'class="inputbox"',
 				'list.select' => $value
 			)
+=======
+		return JHtml::_(
+			'select.genericlist',
+			$options,
+			$control_name . '[' . $name . ']',
+			array('id' => 'param' . $name, 'list.attr' => 'class="inputbox"', 'list.select' => $value)
+>>>>>>> upstream/master
 		);
 	}
 }

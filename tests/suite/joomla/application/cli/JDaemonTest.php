@@ -36,6 +36,19 @@ class JDaemonTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Restore memory limit after tests
+	 *
+	 */
+	 public static function tearDownAfterClass()
+	 {
+		 ini_restore('memory_limit');
+		 parent::tearDownAfterClass();
+	 }
+
+	/**
+>>>>>>> upstream/master
 	 * Test the JDaemon::writeProcessIdFile method.
 	 */
 	public function testWriteProcessIdFile()

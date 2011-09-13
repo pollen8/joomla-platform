@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * JSON format handler for JRegistry.
@@ -21,9 +25,17 @@ class JRegistryFormatJSON extends JRegistryFormat
 	/**
 	 * Converts an object into a JSON formatted string.
 	 *
+<<<<<<< HEAD
 	 * @param   object   Data source object.
 	 * @param   array    Options used by the formatter.
 	 * @return  string   JSON formatted string.
+=======
+	 * @param   object  $object   Data source object.
+	 * @param   array   $options  Options used by the formatter.
+	 *
+	 * @return  string  JSON formatted string.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function objectToString($object, $options = array())
@@ -36,6 +48,7 @@ class JRegistryFormatJSON extends JRegistryFormat
 	 *
 	 * If the string is not in JSON format, this method will attempt to parse it as INI format.
 	 *
+<<<<<<< HEAD
 	 * @param   string   JSON formatted string to convert.
 	 * @param   array    Options used by the formatter.
 	 * @return  object   Data object.
@@ -47,6 +60,34 @@ class JRegistryFormatJSON extends JRegistryFormat
 			$ini = JRegistryFormat::getInstance('INI');
 			$obj = $ini->stringToObject($data, $process_sections);
 		} else {
+=======
+	 * @param   string  $data     JSON formatted string to convert.
+	 * @param   array   $options  Options used by the formatter.
+	 *
+	 * @return  object   Data object.
+	 *
+	 * @since   11.1
+	 */
+	public function stringToObject($data, $options = array('processSections' => false))
+	{
+		// Fix legacy API.
+		if (is_bool($options))
+		{
+			$options = array('processSections' => $options);
+
+			// Deprecation warning.
+			JLog::add('JRegistryFormatJSON::stringToObject() second argument should not be a boolean.', JLog::WARNING, 'deprecated');
+		}
+
+		$data = trim($data);
+		if ((substr($data, 0, 1) != '{') && (substr($data, -1, 1) != '}'))
+		{
+			$ini = JRegistryFormat::getInstance('INI');
+			$obj = $ini->stringToObject($data, $options);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$obj = json_decode($data);
 		}
 		return $obj;

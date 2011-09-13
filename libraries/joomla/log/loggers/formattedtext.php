@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.log.log');
 jimport('joomla.log.logger');
@@ -33,7 +37,11 @@ class JLoggerFormattedText extends JLogger
 
 	/**
 	 * @var    string  The format for which each entry follows in the log file.  All fields must be named
+<<<<<<< HEAD
 	 *                 in all caps and be within curly brackets eg. {FOOBAR}.
+=======
+	 * in all caps and be within curly brackets eg. {FOOBAR}.
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $format = '{DATETIME}	{PRIORITY}	{CATEGORY}	{MESSAGE}';
@@ -56,6 +64,7 @@ class JLoggerFormattedText extends JLogger
 	 */
 	protected $priorities = array(
 		JLog::EMERGENCY => 'EMERGENCY',
+<<<<<<< HEAD
 		JLog::ALERT     => 'ALERT',
 		JLog::CRITICAL  => 'CRITICAL',
 		JLog::ERROR     => 'ERROR',
@@ -64,41 +73,81 @@ class JLoggerFormattedText extends JLogger
 		JLog::INFO      => 'INFO',
 		JLog::DEBUG     => 'DEBUG'
 	);
+=======
+		JLog::ALERT => 'ALERT',
+		JLog::CRITICAL => 'CRITICAL',
+		JLog::ERROR => 'ERROR',
+		JLog::WARNING => 'WARNING',
+		JLog::NOTICE => 'NOTICE',
+		JLog::INFO => 'INFO',
+		JLog::DEBUG => 'DEBUG');
+>>>>>>> upstream/master
 
 	/**
 	 * Constructor.
 	 *
+<<<<<<< HEAD
 	 * @param   array  $options  Log object options.
+=======
+	 * @param   array  &$options  Log object options.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
+<<<<<<< HEAD
 	public function __construct(array & $options)
+=======
+	public function __construct(array &$options)
+>>>>>>> upstream/master
 	{
 		// Call the parent constructor.
 		parent::__construct($options);
 
 		// The name of the text file defaults to 'error.php' if not explicitly given.
+<<<<<<< HEAD
 		if (empty($this->options['text_file'])) {
+=======
+		if (empty($this->options['text_file']))
+		{
+>>>>>>> upstream/master
 			$this->options['text_file'] = 'error.php';
 		}
 
 		// The name of the text file path defaults to that which is set in configuration if not explicitly given.
+<<<<<<< HEAD
 		if (empty($this->options['text_file_path'])) {
+=======
+		if (empty($this->options['text_file_path']))
+		{
+>>>>>>> upstream/master
 			$this->options['text_file_path'] = JFactory::getConfig()->get('log_path');
 		}
 
 		// False to treat the log file as a php file.
+<<<<<<< HEAD
 		if (empty($this->options['text_file_no_php'])) {
+=======
+		if (empty($this->options['text_file_no_php']))
+		{
+>>>>>>> upstream/master
 			$this->options['text_file_no_php'] = false;
 		}
 
 		// Build the full path to the log file.
+<<<<<<< HEAD
 		$this->path = $this->options['text_file_path'].'/'.$this->options['text_file'];
 
 		// Use the default entry format unless explicitly set otherwise.
 		if (!empty($this->options['text_entry_format'])) {
+=======
+		$this->path = $this->options['text_file_path'] . '/' . $this->options['text_file'];
+
+		// Use the default entry format unless explicitly set otherwise.
+		if (!empty($this->options['text_entry_format']))
+		{
+>>>>>>> upstream/master
 			$this->format = (string) $this->options['text_entry_format'];
 		}
 
@@ -115,7 +164,12 @@ class JLoggerFormattedText extends JLogger
 	 */
 	public function __destruct()
 	{
+<<<<<<< HEAD
 		if (is_resource($this->file)) {
+=======
+		if (is_resource($this->file))
+		{
+>>>>>>> upstream/master
 			fclose($this->file);
 		}
 	}
@@ -123,7 +177,11 @@ class JLoggerFormattedText extends JLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
+<<<<<<< HEAD
 	 * @param   JLogEntry  The log entry object to add to the log.
+=======
+	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+>>>>>>> upstream/master
 	 *
 	 * @return  boolean  True on success.
 	 *
@@ -133,11 +191,17 @@ class JLoggerFormattedText extends JLogger
 	public function addEntry(JLogEntry $entry)
 	{
 		// Initialise the file if not already done.
+<<<<<<< HEAD
 		if (!is_resource($this->file)) {
+=======
+		if (!is_resource($this->file))
+		{
+>>>>>>> upstream/master
 			$this->initFile();
 		}
 
 		// Set some default field values if not already set.
+<<<<<<< HEAD
 		if (!isset ($entry->clientIP)) {
 
 			// Check for proxies as well.
@@ -148,12 +212,33 @@ class JLoggerFormattedText extends JLogger
 				$entry->clientIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
 			}
 			elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+=======
+		if (!isset($entry->clientIP))
+		{
+
+			// Check for proxies as well.
+			if (isset($_SERVER['REMOTE_ADDR']))
+			{
+				$entry->clientIP = $_SERVER['REMOTE_ADDR'];
+			}
+			elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+			{
+				$entry->clientIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
+			}
+			elseif (isset($_SERVER['HTTP_CLIENT_IP']))
+			{
+>>>>>>> upstream/master
 				$entry->clientIP = $_SERVER['HTTP_CLIENT_IP'];
 			}
 		}
 
 		// If the time field is missing or the date field isn't only the date we need to rework it.
+<<<<<<< HEAD
 		if ((strlen($entry->date) != 10) || !isset($entry->time)) {
+=======
+		if ((strlen($entry->date) != 10) || !isset($entry->time))
+		{
+>>>>>>> upstream/master
 
 			// Get the date and time strings in GMT.
 			$entry->datetime = $entry->date->toISO8601();
@@ -171,12 +256,22 @@ class JLoggerFormattedText extends JLogger
 		$line = $this->format;
 		foreach ($this->fields as $field)
 		{
+<<<<<<< HEAD
 			$line = str_replace('{'.$field.'}', (isset($tmp[$field])) ? $tmp[$field] : '-', $line);
 		}
 
 		// Write the new entry to the file.
 		if (!fputs($this->file, $line."\n")) {
 			throw new LogException();
+=======
+			$line = str_replace('{' . $field . '}', (isset($tmp[$field])) ? $tmp[$field] : '-', $line);
+		}
+
+		// Write the new entry to the file.
+		if (!fputs($this->file, $line . "\n"))
+		{
+			throw new LogException;
+>>>>>>> upstream/master
 		}
 	}
 
@@ -195,6 +290,7 @@ class JLoggerFormattedText extends JLogger
 		// Build the log file header.
 
 		// If the no php flag is not set add the php die statement.
+<<<<<<< HEAD
 		if (empty($this->options['text_file_no_php'])) {
 			$head[] = '#<?php die(\'Forbidden.\'); ?>';
 		}
@@ -204,6 +300,18 @@ class JLoggerFormattedText extends JLogger
 
 		// Prepare the fields string
 		$head[] = '#Fields: '.strtolower(str_replace('}', '', str_replace('{', '', $this->format)));
+=======
+		if (empty($this->options['text_file_no_php']))
+		{
+			$head[] = '#<?php die(\'Forbidden.\'); ?>';
+		}
+		$head[] = '#Date: ' . gmdate('Y-m-d H:i:s') . ' UTC';
+		$head[] = '#Software: ' . JPlatform::getLongVersion();
+		$head[] = '';
+
+		// Prepare the fields string
+		$head[] = '#Fields: ' . strtolower(str_replace('}', '', str_replace('{', '', $this->format)));
+>>>>>>> upstream/master
 		$head[] = '';
 
 		return implode("\n", $head);
@@ -221,7 +329,12 @@ class JLoggerFormattedText extends JLogger
 	protected function initFile()
 	{
 		// If the file doesn't already exist we need to create it and generate the file header.
+<<<<<<< HEAD
 		if (!is_file($this->path)) {
+=======
+		if (!is_file($this->path))
+		{
+>>>>>>> upstream/master
 
 			// Make sure the folder exists in which to create the log file.
 			JFolder::create(dirname($this->path));
@@ -229,17 +342,34 @@ class JLoggerFormattedText extends JLogger
 			// Build the log file header.
 			$head = $this->generateFileHeader();
 		}
+<<<<<<< HEAD
 		else {
+=======
+		else
+		{
+>>>>>>> upstream/master
 			$head = false;
 		}
 
 		// Open the file for writing (append mode).
+<<<<<<< HEAD
 		if (!$this->file = fopen($this->path, 'a')) {
 			// Throw exception.
 		}
 		if ($head) {
 			if (!fputs($this->file, $head)) {
 				throw new LogException();
+=======
+		if (!$this->file = fopen($this->path, 'a'))
+		{
+			// Throw exception.
+		}
+		if ($head)
+		{
+			if (!fputs($this->file, $head))
+			{
+				throw new LogException;
+>>>>>>> upstream/master
 			}
 		}
 	}

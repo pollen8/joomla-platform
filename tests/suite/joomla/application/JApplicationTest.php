@@ -7,6 +7,10 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
+=======
+require_once JPATH_PLATFORM.'/joomla/environment/request.php';
+>>>>>>> upstream/master
 require_once JPATH_PLATFORM.'/joomla/application/application.php';
 
 /**
@@ -34,6 +38,22 @@ class JApplicationTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * @todo Implement testInitialise().
+	 */
+	public function testConstructJInput()
+	{
+		$app = new JApplication(array('session' => false));
+		$this->assertThat(
+			$app->input,
+			$this->isInstanceOf('JInput'),
+			__LINE__ . 'JApplication->input not initialized properly'
+		);
+	}
+
+	/**
+>>>>>>> upstream/master
 	 * @todo Implement testRoute().
 	 */
 	public function testRoute()
@@ -196,6 +216,18 @@ class JApplicationTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * @todo Implement testStringURLSafe().
+	 */
+	public function testStringURLSafe()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test has not been implemented yet.');
+	}
+
+	/**
+>>>>>>> upstream/master
 	 * @todo Implement testGetPathway().
 	 */
 	public function testGetPathway()
@@ -214,6 +246,40 @@ class JApplicationTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Testing getHash().
+	 *
+	 * @return  void
+	 *
+	 * @since   11.3
+	 */
+	public function testGetHash()
+	{
+		// Temporarily override the config cache in JFactory.
+		$temp = JFactory::$config;
+		JFactory::$config = new JObject(array('secret' => 'foo'));
+
+		$this->assertThat(
+		    JApplication::getHash('This is a test'),
+		    $this->equalTo(md5('foo'.'This is a test')),
+		    'Tests that the secret string is added to the hash.'
+		);
+
+		JFactory::$config = $temp;
+	}
+
+	/**
+	 * @todo Implement testCheckSession().
+	 */
+	public function testCheckSession()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test has not been implemented yet.');
+	}
+
+	/**
+>>>>>>> upstream/master
 	 * @todo Implement testGetClientId().
 	 */
 	public function testGetClientId()
@@ -239,4 +305,16 @@ class JApplicationTest extends PHPUnit_Framework_TestCase
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
+<<<<<<< HEAD
+=======
+
+	/**
+	 * @todo Implement testIsWinOS().
+	 */
+	public function testIsWinOS()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test has not been implemented yet.');
+	}
+>>>>>>> upstream/master
 }

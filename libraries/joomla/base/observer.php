@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * Abstract observer class to implement the observer design pattern
@@ -29,7 +33,11 @@ abstract class JObserver extends JObject
 	/**
 	 * Constructor
 	 *
+<<<<<<< HEAD
 	 * @param   object  $subject  The object to observe.
+=======
+	 * @param   object  &$subject  The object to observe.
+>>>>>>> upstream/master
 	 *
 	 * @return  JObserver
 	 *
@@ -47,9 +55,16 @@ abstract class JObserver extends JObject
 	/**
 	 * Method to update the state of observable objects
 	 *
+<<<<<<< HEAD
 	 * @param   array  $args  An array of arguments to pass to the listener.
 	 *
 	 * @return  mixed
+=======
+	 * @param   array  &$args  An array of arguments to pass to the listener.
+	 *
+	 * @return  mixed
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public abstract function update(&$args);

@@ -38,6 +38,14 @@ abstract class JButton extends JObject
 
 	/**
 	 * Constructor
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	 *
+	 * @param   object  $parent  The parent
+=======
+>>>>>>> 1739596a2e65b7143de644b4e755263ae63d6cd5
+>>>>>>> upstream/master
 	 */
 	public function __construct($parent = null)
 	{
@@ -54,24 +62,50 @@ abstract class JButton extends JObject
 		return $this->_name;
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * Get the HTML to render the button
+	 *
+	 * @param   array  &$definition  Parameters to be passed
+	 *
+	 * @return  string
+	 */
+>>>>>>> upstream/master
 	public function render(&$definition)
 	{
 		/*
 		 * Initialise some variables
 		 */
+<<<<<<< HEAD
 		$html	= null;
 		$id		= call_user_func_array(array(&$this, 'fetchId'), $definition);
 		$action	= call_user_func_array(array(&$this, 'fetchButton'), $definition);
 
 		// Build id attribute
 		if ($id) {
+=======
+		$html = null;
+		$id = call_user_func_array(array(&$this, 'fetchId'), $definition);
+		$action = call_user_func_array(array(&$this, 'fetchButton'), $definition);
+
+		// Build id attribute
+		if ($id)
+		{
+>>>>>>> upstream/master
 			$id = "id=\"$id\"";
 		}
 
 		// Build the HTML Button
+<<<<<<< HEAD
 		$html	.= "<li class=\"button\" $id>\n";
 		$html	.= $action;
 		$html	.= "</li>\n";
+=======
+		$html .= "<li class=\"button\" $id>\n";
+		$html .= $action;
+		$html .= "</li>\n";
+>>>>>>> upstream/master
 
 		return $html;
 	}
@@ -81,8 +115,15 @@ abstract class JButton extends JObject
 	 *
 	 * Can be redefined in the final class
 	 *
+<<<<<<< HEAD
 	 * @param   string   $identifier	Icon identification string
 	 * @return  string   CSS class name
+=======
+	 * @param   string  $identifier  Icon identification string
+	 *
+	 * @return  string  CSS class name
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function fetchIconClass($identifier)
@@ -91,6 +132,7 @@ abstract class JButton extends JObject
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Get the button id
 	 *
 	 * Can be redefined in the final button class
@@ -103,11 +145,19 @@ abstract class JButton extends JObject
 	}
 
 	/**
+=======
+>>>>>>> upstream/master
 	 * Get the button
 	 *
 	 * Defined in the final button class
 	 *
+<<<<<<< HEAD
 	 * @since       11.1
+=======
+	 * @return  string
+	 *
+	 * @since   11.1
+>>>>>>> upstream/master
 	 */
 	abstract public function fetchButton();
 }

@@ -7,6 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -27,6 +28,33 @@ class JSessionStorageWincache extends JSessionStorage
 	public function __construct( $options = array() )
 	{
 		if (!$this->test()) {
+=======
+defined('JPATH_PLATFORM') or die();
+
+/**
+ * WINCACHE session storage handler for PHP
+ *
+ * @package     Joomla.Platform
+ * @subpackage  Session
+ * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
+ * @since       11.1
+ */
+class JSessionStorageWincache extends JSessionStorage
+{
+	/**
+	 * Constructor
+	 *
+	 * @param   array  $options  Optional parameters.
+	 *
+	 * @return  JSessionStorageWincache
+	 *
+	 * @since   11.1
+	 */
+	public function __construct($options = array())
+	{
+		if (!$this->test())
+		{
+>>>>>>> upstream/master
 			return JError::raiseError(404, JText::_('JLIB_SESSION_WINCACHE_EXTENSION_NOT_AVAILABLE'));
 		}
 
@@ -56,6 +84,7 @@ class JSessionStorageWincache extends JSessionStorage
 		return true;
 	}
 
+<<<<<<< HEAD
  	/**
  	 * Read the data for a particular session identifier from the
  	 * SessionHandler backend.
@@ -67,12 +96,27 @@ class JSessionStorageWincache extends JSessionStorage
 	public function read($id)
 	{
 		$sess_id = 'sess_'.$id;
+=======
+	/**
+	 * Read the data for a particular session identifier from the SessionHandler backend.
+	 *
+	 * @param   string  $id  The session identifier.
+	 *
+	 * @return  string  The session data.
+	 *
+	 * @since   11.1
+	 */
+	public function read($id)
+	{
+		$sess_id = 'sess_' . $id;
+>>>>>>> upstream/master
 		return (string) wincache_ucache_get($sess_id);
 	}
 
 	/**
 	 * Write session data to the SessionHandler backend.
 	 *
+<<<<<<< HEAD
 	 * @param   string   $id            The session identifier.
 	 * @param   string   $session_data  The session data.
 	 *
@@ -81,10 +125,23 @@ class JSessionStorageWincache extends JSessionStorage
 	public function write($id, $session_data)
 	{
 		$sess_id = 'sess_'.$id;
+=======
+	 * @param   string  $id            The session identifier.
+	 * @param   string  $session_data  The session data.
+	 *
+	 * @return  boolean  True on success, false otherwise.
+	 *
+	 * @since   11.1
+	 */
+	public function write($id, $session_data)
+	{
+		$sess_id = 'sess_' . $id;
+>>>>>>> upstream/master
 		return wincache_ucache_set($sess_id, $session_data, ini_get("session.gc_maxlifetime"));
 	}
 
 	/**
+<<<<<<< HEAD
 	  * Destroy the data for a particular session identifier in the
 	  * SessionHandler backend.
 	  *
@@ -95,6 +152,17 @@ class JSessionStorageWincache extends JSessionStorage
 	public function destroy($id)
 	{
 		$sess_id = 'sess_'.$id;
+=======
+	 * Destroy the data for a particular session identifier in the SessionHandler backend.
+	 *
+	 * @param   string  $id  The session identifier.
+	 *
+	 * @return  boolean  True on success, false otherwise.
+	 */
+	public function destroy($id)
+	{
+		$sess_id = 'sess_' . $id;
+>>>>>>> upstream/master
 		return wincache_ucache_delete($sess_id);
 	}
 
@@ -115,7 +183,12 @@ class JSessionStorageWincache extends JSessionStorage
 	 *
 	 * @return boolean  True on success, false otherwise.
 	 */
+<<<<<<< HEAD
 	static public function test() {
+=======
+	static public function test()
+	{
+>>>>>>> upstream/master
 		return (extension_loaded('wincache') && function_exists('wincache_ucache_get') && !strcmp(ini_get('wincache.ucenabled'), "1"));
 	}
 }

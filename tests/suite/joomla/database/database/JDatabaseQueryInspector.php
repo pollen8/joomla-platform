@@ -57,8 +57,13 @@ class JDatabaseQueryInspector extends JDatabaseQuery
 	/**
 	 * Dummy method to just return the text.
 	 *
+<<<<<<< HEAD
 	 * @param   string  The string to be escaped.
 	 * @param   bool    Optional parameter to provide extra escaping.
+=======
+	 * @param   string   $text   The string to be escaped.
+	 * @param   boolean  $extra  Optional parameter to provide extra escaping.
+>>>>>>> upstream/master
 	 *
 	 * @return  string  The escaped string.
 	 *

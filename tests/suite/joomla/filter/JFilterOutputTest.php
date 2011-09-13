@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 require_once JPATH_PLATFORM.'/joomla/utilities/string.php';
+=======
+require_once JPATH_PLATFORM.'/joomla/string/string.php';
+>>>>>>> upstream/master
 require_once JPATH_PLATFORM.'/joomla/filter/filteroutput.php';
 
 /**
@@ -131,6 +135,25 @@ class JFilterOutputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Tests converting strings to URL unicoded slugs.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.3
+	 */
+	public function testStringURLUnicodeSlug()
+	{
+		$this->assertEquals(
+			'what-if-i-do-not-get_this-right',
+			$this->object->stringURLUnicodeSlug('What-if I do.not get_this right?'),
+			'Should be URL unicoded'
+		);
+	}
+
+	/**
+>>>>>>> upstream/master
 	 * Tests replacing single ampersands with the entity, but leaving double ampersands
 	 * and ampsersand-octothorpe combinations intact.
 	 *
@@ -184,5 +207,24 @@ class JFilterOutputTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertEquals($expect, JFilterOutput::cleanText($data));
 	}
+<<<<<<< HEAD
+=======
+
+	/**
+	 * Tests stripping images.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.3
+	 */
+	public function testStripImages()
+	{
+		$this->assertEquals(
+			'Hello  I am waving at you.',
+			$this->object->stripImages('Hello <img src="wave.jpg"> I am waving at you.'),
+			'Should remove img tags'
+		);
+	}
+>>>>>>> upstream/master
 }
 ?>

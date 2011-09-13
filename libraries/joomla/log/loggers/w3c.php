@@ -7,13 +7,21 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.log.log');
 jimport('joomla.log.logger');
 
 // Register the JLoggerFormattedText class with the autoloader.
+<<<<<<< HEAD
 JLoader::register('JLoggerFormattedText', dirname(__FILE__).'/formattedtext.php');
+=======
+JLoader::register('JLoggerFormattedText', dirname(__FILE__) . '/formattedtext.php');
+>>>>>>> upstream/master
 
 /**
  * Joomla! W3C Logging class
@@ -29,7 +37,11 @@ class JLoggerW3C extends JLoggerFormattedText
 {
 	/**
 	 * @var    string  The format which each entry follows in the log file.  All fields must be
+<<<<<<< HEAD
 	 *                 named in all caps and be within curly brackets eg. {FOOBAR}.
+=======
+	 * named in all caps and be within curly brackets eg. {FOOBAR}.
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $format = '{DATE}	{TIME}	{PRIORITY}	{CLIENTIP}	{CATEGORY}	{MESSAGE}';
@@ -37,16 +49,28 @@ class JLoggerW3C extends JLoggerFormattedText
 	/**
 	 * Constructor.
 	 *
+<<<<<<< HEAD
 	 * @param   array  $options  Log object options.
+=======
+	 * @param   array  &$options  Log object options.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
+<<<<<<< HEAD
 	public function __construct(array & $options)
 	{
 		// The name of the text file defaults to 'error.w3c.php' if not explicitly given.
 		if (empty($options['text_file'])) {
+=======
+	public function __construct(array &$options)
+	{
+		// The name of the text file defaults to 'error.w3c.php' if not explicitly given.
+		if (empty($options['text_file']))
+		{
+>>>>>>> upstream/master
 			$options['text_file'] = 'error.w3c.php';
 		}
 

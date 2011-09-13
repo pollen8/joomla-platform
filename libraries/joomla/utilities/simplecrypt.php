@@ -20,40 +20,73 @@ class JSimpleCrypt extends JObject
 {
 	/**
 	 * Encryption/Decryption Key
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @var    string
 	 */
 	protected $_key;
 
 	/**
+<<<<<<< HEAD
 	 * Object Constructor takes an optional key to be used for encryption/decryption.  If no key is given then the
+=======
+	 * Object Constructor takes an optional key to be used for encryption/decryption. If no key is given then the
+>>>>>>> upstream/master
 	 * secret word from the configuration object is used.
 	 *
 	 * @param   string  $key  Optional encryption key
 	 *
 	 * @return  void
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function __construct($key = null)
 	{
+<<<<<<< HEAD
 		if ($key) {
 			$this->_key = (string) $key;
 		} else {
+=======
+		if ($key)
+		{
+			$this->_key = (string) $key;
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$conf = &JFactory::getConfig();
 			$this->_key = md5($conf->get('secret'));
 		}
 	}
+<<<<<<< HEAD
 	/**
 	 * Decrypt
 	 *
 	 * @param   string  $s
 	 *
 	 * @return  string
+=======
+
+	/**
+	 * Decrypt a string
+	 *
+	 * @param   string  $s  String to decrypt
+	 *
+	 * @return  string
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function decrypt($s)
 	{
 		$ai = $this->_hexToIntArray($s);
 		(string) $s1 = $this->_xorString($ai);
+<<<<<<< HEAD
 		return $s1;
 	}
 	/**
@@ -62,11 +95,25 @@ class JSimpleCrypt extends JObject
 	 * @param   string  $s
 	 *
 	 * @return  string
+=======
+
+		return $s1;
+	}
+
+	/**
+	 * Encrypt a string
+	 *
+	 * @param   string  $s  String to encrypt
+	 *
+	 * @return  string
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function encrypt($s)
 	{
 		$ai = $this->_xorCharString($s);
+<<<<<<< HEAD
 		$s1 = "";
 		for ($i = 0, $count = count($ai); $i < $count; $i++)
 			$s1 = $s1 . $this->_intToHex((int) $ai[$i]);
@@ -79,6 +126,26 @@ class JSimpleCrypt extends JObject
 	 * @param   integer  $i
 	 *
 	 * @return  integer
+=======
+		$s1 = '';
+
+		for ($i = 0, $count = count($ai); $i < $count; $i++)
+		{
+			$s1 = $s1 . $this->_intToHex((int) $ai[$i]);
+		}
+
+		return $s1;
+	}
+
+	/**
+	 * Convert hex to an integer
+	 *
+	 * @param   string   $s  The hex string to convert.
+	 * @param   integer  $i  The offset?
+	 *
+	 * @return  integer
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function _hexToInt($s, $i)
@@ -86,11 +153,16 @@ class JSimpleCrypt extends JObject
 		(int) $j = $i * 2;
 		(string) $s1 = $s;
 		(string) $c = substr($s1, $j, 1); // get the char at position $j, length 1
+<<<<<<< HEAD
 		(string) $c1 = substr($s1, $j +1, 1); // get the char at postion $j + 1, length 1
+=======
+		(string) $c1 = substr($s1, $j + 1, 1); // get the char at postion $j + 1, length 1
+>>>>>>> upstream/master
 		(int) $k = 0;
 
 		switch ($c)
 		{
+<<<<<<< HEAD
 			case "A" :
 				$k += 160;
 				break;
@@ -113,12 +185,37 @@ class JSimpleCrypt extends JObject
 				$k += 0;
 				break;
 			default :
+=======
+			case "A":
+				$k += 160;
+				break;
+			case "B":
+				$k += 176;
+				break;
+			case "C":
+				$k += 192;
+				break;
+			case "D":
+				$k += 208;
+				break;
+			case "E":
+				$k += 224;
+				break;
+			case "F":
+				$k += 240;
+				break;
+			case " ":
+				$k += 0;
+				break;
+			default:
+>>>>>>> upstream/master
 				(int) $k = $k + (16 * (int) $c);
 				break;
 		}
 
 		switch ($c1)
 		{
+<<<<<<< HEAD
 			case "A" :
 				$k += 10;
 				break;
@@ -141,6 +238,30 @@ class JSimpleCrypt extends JObject
 				$k += 0;
 				break;
 			default :
+=======
+			case "A":
+				$k += 10;
+				break;
+			case "B":
+				$k += 11;
+				break;
+			case "C":
+				$k += 12;
+				break;
+			case "D":
+				$k += 13;
+				break;
+			case "E":
+				$k += 14;
+				break;
+			case "F":
+				$k += 15;
+				break;
+			case " ":
+				$k += 0;
+				break;
+			default:
+>>>>>>> upstream/master
 				$k += (int) $c1;
 				break;
 		}
@@ -148,11 +269,20 @@ class JSimpleCrypt extends JObject
 		return $k;
 	}
 	/**
+<<<<<<< HEAD
 	 * HexToIntArray
 	 *
 	 * @param   string  $s
 	 *
 	 * @return  array
+=======
+	 * Convert hex to an array of integers
+	 *
+	 * @param   string  $s  The hex string to convert to an integer array.
+	 *
+	 * @return  array  An array of integers.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function _hexToIntArray($s)
@@ -160,45 +290,85 @@ class JSimpleCrypt extends JObject
 		(string) $s1 = $s;
 		(int) $i = strlen($s1);
 		(int) $j = $i / 2;
+<<<<<<< HEAD
 		for ($l = 0; $l < $j; $l++) {
+=======
+		for ($l = 0; $l < $j; $l++)
+		{
+>>>>>>> upstream/master
 			(int) $k = $this->_hexToInt($s1, $l);
 			$ai[$l] = $k;
 		}
 
 		return $ai;
 	}
+<<<<<<< HEAD
 	/**
 	 * CharToInt
 	 *
 	 * @param   string  $c
 	 *
 	 * @return  integer
+=======
+
+	/**
+	 * Convert character string to integer
+	 *
+	 * @param   string  $c  The character to convert to an integer.
+	 *
+	 * @return  integer
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function _charToInt($c)
 	{
 		$ac[0] = $c;
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 		return $ac;
 	}
 
 	/**
 	 * XorString
 	 *
+<<<<<<< HEAD
 	 * @param   string  $ai
 	 *
 	 * @return  string
+=======
+	 * @param   string  $ai  The string.
+	 *
+	 * @return  string
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function _xorString($ai)
 	{
+<<<<<<< HEAD
 		$s = $this->_key; //
+=======
+		$s = $this->_key;
+>>>>>>> upstream/master
 		(int) $i = strlen($s);
 		$ai1 = $ai;
 		(int) $j = count($ai1);
 		for ($i = 0; $i < $j; $i = strlen($s))
+<<<<<<< HEAD
 			$s = $s . $s;
 
 		for ($k = 0; $k < $j; $k++) {
+=======
+		{
+			$s = $s . $s;
+		}
+
+		for ($k = 0; $k < $j; $k++)
+		{
+>>>>>>> upstream/master
 			(string) $c = substr($s, $k, 1);
 			$ac[$k] = chr($ai1[$k] ^ ord($c));
 		}
@@ -206,20 +376,40 @@ class JSimpleCrypt extends JObject
 		(string) $s1 = implode('', $ac);
 		return $s1;
 	}
+<<<<<<< HEAD
 	/**
 	 * inToHex
 	 *
 	 * @param   integer  $i
 	 *
 	 * @return  string
+=======
+
+	/**
+	 * Convert integer to hex
+	 *
+	 * @param   integer  $i  An integer value to convert.
+	 *
+	 * @return  string
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function _intToHex($i)
 	{
 		(int) $j = (int) $i / 16;
+<<<<<<< HEAD
 		if ((int) $j == 0) {
 			(string) $s = " ";
 		} else {
+=======
+		if ((int) $j == 0)
+		{
+			(string) $s = " ";
+		}
+		else
+		{
+>>>>>>> upstream/master
 			(string) $s = strtoupper(dechex($j));
 		}
 		(int) $k = (int) $i - (int) $j * 16;
@@ -227,12 +417,23 @@ class JSimpleCrypt extends JObject
 
 		return $s;
 	}
+<<<<<<< HEAD
 	/**
 	 * Decrypt
 	 *
 	 * @param   string  $s
 	 *
 	 * @return
+=======
+
+	/**
+	 * Use xor encryption
+	 *
+	 * @param   string  $s  The string.
+	 *
+	 * @return  array  An array of integers
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function _xorCharString($s)
@@ -241,11 +442,21 @@ class JSimpleCrypt extends JObject
 		(string) $s1 = $this->_key;
 		(int) $i = strlen($s1);
 		(int) $j = count($ac);
+<<<<<<< HEAD
 		for ($i = 0; $i < $j; $i = strlen($s1)) {
 			$s1 = $s1 . $s1;
 		}
 
 		for ($k = 0; $k < $j; $k++) {
+=======
+		for ($i = 0; $i < $j; $i = strlen($s1))
+		{
+			$s1 = $s1 . $s1;
+		}
+
+		for ($k = 0; $k < $j; $k++)
+		{
+>>>>>>> upstream/master
 			$c = substr($s1, $k, 1);
 			$ai[$k] = ord($c) ^ ord($ac[$k]);
 		}

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.log.log');
 jimport('joomla.log.logger');
@@ -27,6 +31,7 @@ class JLoggerEcho extends JLogger
 	 */
 	protected $priorities = array(
 		JLog::EMERGENCY => 'EMERGENCY',
+<<<<<<< HEAD
 		JLog::ALERT     => 'ALERT',
 		JLog::CRITICAL  => 'CRITICAL',
 		JLog::ERROR     => 'ERROR',
@@ -35,11 +40,24 @@ class JLoggerEcho extends JLogger
 		JLog::INFO      => 'INFO',
 		JLog::DEBUG     => 'DEBUG'
 	);
+=======
+		JLog::ALERT => 'ALERT',
+		JLog::CRITICAL => 'CRITICAL',
+		JLog::ERROR => 'ERROR',
+		JLog::WARNING => 'WARNING',
+		JLog::NOTICE => 'NOTICE',
+		JLog::INFO => 'INFO',
+		JLog::DEBUG => 'DEBUG');
+>>>>>>> upstream/master
 
 	/**
 	 * Method to add an entry to the log.
 	 *
+<<<<<<< HEAD
 	 * @param   JLogEntry  The log entry object to add to the log.
+=======
+	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
@@ -47,9 +65,13 @@ class JLoggerEcho extends JLogger
 	 */
 	public function addEntry(JLogEntry $entry)
 	{
+<<<<<<< HEAD
 		echo $this->priorities[$entry->priority].': '.
 				$entry->message.
 				(empty($entry->category) ? '' : ' ['.$entry->category.']').
 				"\n";
+=======
+		echo $this->priorities[$entry->priority] . ': ' . $entry->message . (empty($entry->category) ? '' : ' [' . $entry->category . ']') . "\n";
+>>>>>>> upstream/master
 	}
 }

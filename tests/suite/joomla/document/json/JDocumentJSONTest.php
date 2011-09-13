@@ -92,6 +92,7 @@ class JDocumentJSONTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
 	 * This method does nothing.
 	 */
 	public function testGetHeadData()
@@ -108,6 +109,8 @@ class JDocumentJSONTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+=======
+>>>>>>> upstream/master
 	 * We test both at once
 	 */
 	public function testGetAndSetName()

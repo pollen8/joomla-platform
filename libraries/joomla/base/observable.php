@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * Abstract observable class to implement the observer design pattern
@@ -56,6 +60,10 @@ class JObservable extends JObject
 	 * Get the state of the JObservable object
 	 *
 	 * @return  mixed    The state of the object.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getState()
@@ -67,6 +75,10 @@ class JObservable extends JObject
 	 * Update each attached observer object and return an array of their return values
 	 *
 	 * @return  array    Array of return values from the observers
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function notify()
@@ -83,22 +95,41 @@ class JObservable extends JObject
 	/**
 	 * Attach an observer object
 	 *
+<<<<<<< HEAD
 	 * @param   object   $observer  An observer object to attach
 	 *
 	 * @return  void
+=======
+	 * @param   object  $observer  An observer object to attach
+	 *
+	 * @return  void
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function attach($observer)
 	{
+<<<<<<< HEAD
 		if (is_array($observer)) {
 			if (!isset($observer['handler']) || !isset($observer['event']) || !is_callable($observer['handler'])) {
+=======
+		if (is_array($observer))
+		{
+			if (!isset($observer['handler']) || !isset($observer['event']) || !is_callable($observer['handler']))
+			{
+>>>>>>> upstream/master
 				return;
 			}
 
 			// Make sure we haven't already attached this array as an observer
 			foreach ($this->_observers as $check)
 			{
+<<<<<<< HEAD
 				if (is_array($check) && $check['event']==$observer['event'] && $check['handler']==$observer['handler']) {
+=======
+				if (is_array($check) && $check['event'] == $observer['event'] && $check['handler'] == $observer['handler'])
+				{
+>>>>>>> upstream/master
 					return;
 				}
 			}
@@ -107,8 +138,15 @@ class JObservable extends JObject
 			end($this->_observers);
 			$methods = array($observer['event']);
 		}
+<<<<<<< HEAD
 		else {
 			if (!($observer instanceof JObserver)) {
+=======
+		else
+		{
+			if (!($observer instanceof JObserver))
+			{
+>>>>>>> upstream/master
 				return;
 			}
 
@@ -117,7 +155,12 @@ class JObservable extends JObject
 
 			foreach ($this->_observers as $check)
 			{
+<<<<<<< HEAD
 				if ($check instanceof $class) {
+=======
+				if ($check instanceof $class)
+				{
+>>>>>>> upstream/master
 					return;
 				}
 			}
@@ -128,11 +171,20 @@ class JObservable extends JObject
 
 		$key = key($this->_observers);
 
+<<<<<<< HEAD
 		foreach($methods AS $method)
 		{
 			$method = strtolower($method);
 
 			if (!isset($this->_methods[$method])) {
+=======
+		foreach ($methods as $method)
+		{
+			$method = strtolower($method);
+
+			if (!isset($this->_methods[$method]))
+			{
+>>>>>>> upstream/master
 				$this->_methods[$method] = array();
 			}
 
@@ -143,9 +195,16 @@ class JObservable extends JObject
 	/**
 	 * Detach an observer object
 	 *
+<<<<<<< HEAD
 	 * @param   object   $observer  An observer object to detach.
 	 *
 	 * @return  bool  True if the observer object was detached.
+=======
+	 * @param   object  $observer  An observer object to detach.
+	 *
+	 * @return  boolean  True if the observer object was detached.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function detach($observer)
@@ -155,6 +214,7 @@ class JObservable extends JObject
 
 		$key = array_search($observer, $this->_observers);
 
+<<<<<<< HEAD
 		if ($key !== false) {
 			unset($this->_observers[$key]);
 			$retval = true;
@@ -164,6 +224,19 @@ class JObservable extends JObject
 				$k = array_search($key, $method);
 
 				if ($k !== false) {
+=======
+		if ($key !== false)
+		{
+			unset($this->_observers[$key]);
+			$retval = true;
+
+			foreach ($this->_methods as &$method)
+			{
+				$k = array_search($key, $method);
+
+				if ($k !== false)
+				{
+>>>>>>> upstream/master
 					unset($method[$k]);
 				}
 			}
@@ -171,4 +244,8 @@ class JObservable extends JObject
 
 		return $retval;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

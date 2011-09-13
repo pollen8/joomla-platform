@@ -9,6 +9,11 @@
 
 defined('JPATH_PLATFORM') or die;
 
+<<<<<<< HEAD
+=======
+require_once dirname(__FILE__).'/mysqlexporter.php';
+
+>>>>>>> upstream/master
 /**
  * MySQL export driver.
  *
@@ -16,6 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       11.1
  */
+<<<<<<< HEAD
 class JDatabaseExporterMySQLi
 {
 	/**
@@ -194,18 +200,37 @@ class JDatabaseExporterMySQLi
 	 * Checks if all data and options are in order prior to exporting.
 	 *
 	 * @return  JDatabaseExporterMySQLi  Method supports chaining.
+=======
+class JDatabaseExporterMySQLi extends JDatabaseExporterMySQL
+{
+	/**
+	 * Checks if all data and options are in order prior to exporting.
+	 *
+	 * @return  JDatabaseExporterMySQLi  Method supports chaining.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 * @throws  Exception if an error is encountered.
 	 */
 	public function check()
 	{
 		// Check if the db connector has been set.
+<<<<<<< HEAD
 		if (!($this->db instanceof JDatabaseMySql)) {
+=======
+		if (!($this->db instanceof JDatabaseMySqli))
+		{
+>>>>>>> upstream/master
 			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
+<<<<<<< HEAD
 		if (empty($this->from)) {
+=======
+		if (empty($this->from))
+		{
+>>>>>>> upstream/master
 			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
@@ -213,6 +238,7 @@ class JDatabaseExporterMySQLi
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Get the generic name of the table, converting the database prefix to the wildcard string.
 	 *
 	 * @param   string  $table	The name of the table.
@@ -256,11 +282,17 @@ class JDatabaseExporterMySQLi
 	}
 
 	/**
+=======
+>>>>>>> upstream/master
 	 * Sets the database connector to use for exporting structure and/or data from MySQL.
 	 *
 	 * @param   JDatabaseDriverMySQLi  $db  The database connector.
 	 *
 	 * @return  JDatabaseExporterMySQLi  Method supports chaining.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function setDbo(JDatabaseMySQLi $db)
@@ -269,6 +301,7 @@ class JDatabaseExporterMySQLi
 
 		return $this;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Sets an internal option to export the structure of the input table(s).
@@ -284,4 +317,6 @@ class JDatabaseExporterMySQLi
 
 		return $this;
 	}
+=======
+>>>>>>> upstream/master
 }

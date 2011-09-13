@@ -12,7 +12,11 @@ defined('JPATH_PLATFORM') or die;
 jimport('joomla.form.formrule');
 
 /**
+<<<<<<< HEAD
  * Form Rule class for the Joomla Framework.
+=======
+ * Form Rule class for the Joomla Platform.
+>>>>>>> upstream/master
  *
  * @package     Joomla.Platform
  * @subpackage  Form
@@ -35,4 +39,8 @@ class JFormRuleBoolean extends JFormRule
 	 * @since  11.1
 	 */
 	protected $modifiers = 'i';
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

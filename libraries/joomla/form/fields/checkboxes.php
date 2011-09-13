@@ -7,16 +7,30 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
 
 /**
+<<<<<<< HEAD
  * Form Field class for the Joomla Framework.
  *
  * @package     Joomla.Platform
  * @subpackage  Form
+=======
+ * Form Field class for the Joomla Platform.
+ * Displays options as a list of check boxes.
+ * Multiselect may be forced to be true.
+ *
+ * @package     Joomla.Platform
+ * @subpackage  Form
+ * @see         JFormFieldCheckbox
+>>>>>>> upstream/master
  * @since       11.1
  */
 class JFormFieldCheckboxes extends JFormField
@@ -38,9 +52,16 @@ class JFormFieldCheckboxes extends JFormField
 	protected $forceMultiple = true;
 
 	/**
+<<<<<<< HEAD
 	 * Method to get the field input markup.
 	 *
 	 * @return  string  The field input markup.
+=======
+	 * Method to get the field input markup for check boxes.
+	 *
+	 * @return  string  The field input markup.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getInput()
@@ -49,16 +70,24 @@ class JFormFieldCheckboxes extends JFormField
 		$html = array();
 
 		// Initialize some field attributes.
+<<<<<<< HEAD
 		$class = $this->element['class'] ? ' class="checkboxes '.(string) $this->element['class'].'"' : ' class="checkboxes"';
 
 		// Start the checkbox field output.
 		$html[] = '<fieldset id="'.$this->id.'"'.$class.'>';
+=======
+		$class = $this->element['class'] ? ' class="checkboxes ' . (string) $this->element['class'] . '"' : ' class="checkboxes"';
+
+		// Start the checkbox field output.
+		$html[] = '<fieldset id="' . $this->id . '"' . $class . '>';
+>>>>>>> upstream/master
 
 		// Get the field options.
 		$options = $this->getOptions();
 
 		// Build the checkbox field output.
 		$html[] = '<ul>';
+<<<<<<< HEAD
 		foreach ($options as $i => $option) {
 
 			// Initialize some option attributes.
@@ -75,6 +104,24 @@ class JFormFieldCheckboxes extends JFormField
 					.$checked.$class.$onclick.$disabled.'/>';
 
 			$html[] = '<label for="'.$this->id.$i.'"'.$class.'>'.JText::_($option->text).'</label>';
+=======
+		foreach ($options as $i => $option)
+		{
+
+			// Initialize some option attributes.
+			$checked = (in_array((string) $option->value, (array) $this->value) ? ' checked="checked"' : '');
+			$class = !empty($option->class) ? ' class="' . $option->class . '"' : '';
+			$disabled = !empty($option->disable) ? ' disabled="disabled"' : '';
+
+			// Initialize some JavaScript option attributes.
+			$onclick = !empty($option->onclick) ? ' onclick="' . $option->onclick . '"' : '';
+
+			$html[] = '<li>';
+			$html[] = '<input type="checkbox" id="' . $this->id . $i . '" name="' . $this->name . '"' . ' value="'
+				. htmlspecialchars($option->value, ENT_COMPAT, 'UTF-8') . '"' . $checked . $class . $onclick . $disabled . '/>';
+
+			$html[] = '<label for="' . $this->id . $i . '"' . $class . '>' . JText::_($option->text) . '</label>';
+>>>>>>> upstream/master
 			$html[] = '</li>';
 		}
 		$html[] = '</ul>';
@@ -89,6 +136,10 @@ class JFormFieldCheckboxes extends JFormField
 	 * Method to get the field options.
 	 *
 	 * @return  array  The field option objects.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getOptions()
@@ -96,15 +147,31 @@ class JFormFieldCheckboxes extends JFormField
 		// Initialize variables.
 		$options = array();
 
+<<<<<<< HEAD
 		foreach ($this->element->children() as $option) {
 
 			// Only add <option /> elements.
 			if ($option->getName() != 'option') {
+=======
+		foreach ($this->element->children() as $option)
+		{
+
+			// Only add <option /> elements.
+			if ($option->getName() != 'option')
+			{
+>>>>>>> upstream/master
 				continue;
 			}
 
 			// Create a new option object based on the <option /> element.
+<<<<<<< HEAD
 			$tmp = JHtml::_('select.option', (string) $option['value'], trim((string) $option), 'value', 'text', ((string) $option['disabled']=='true'));
+=======
+			$tmp = JHtml::_(
+				'select.option', (string) $option['value'], trim((string) $option), 'value', 'text',
+				((string) $option['disabled'] == 'true')
+			);
+>>>>>>> upstream/master
 
 			// Set some option attributes.
 			$tmp->class = (string) $option['class'];

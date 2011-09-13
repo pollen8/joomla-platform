@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * Query Element Class.
@@ -39,9 +43,15 @@ class JDatabaseQueryElement
 	/**
 	 * Constructor.
 	 *
+<<<<<<< HEAD
 	 * @param   string	$name      The name of the element.
 	 * @param   mixed	$elements  String or array.
 	 * @param   string	$glue      The glue for elements.
+=======
+	 * @param   string  $name      The name of the element.
+	 * @param   mixed   $elements  String or array.
+	 * @param   string  $glue      The glue for elements.
+>>>>>>> upstream/master
 	 *
 	 * @return  JDatabaseQueryElement
 	 *
@@ -49,9 +59,15 @@ class JDatabaseQueryElement
 	 */
 	public function __construct($name, $elements, $glue = ',')
 	{
+<<<<<<< HEAD
 		$this->elements	= array();
 		$this->name		= $name;
 		$this->glue		= $glue;
+=======
+		$this->elements = array();
+		$this->name = $name;
+		$this->glue = $glue;
+>>>>>>> upstream/master
 
 		$this->append($elements);
 	}
@@ -65,18 +81,32 @@ class JDatabaseQueryElement
 	 */
 	public function __toString()
 	{
+<<<<<<< HEAD
 		if (substr($this->name, -2) == '()') {
 			return PHP_EOL.substr($this->name, 0, -2).'('.implode($this->glue, $this->elements).')';
 		}
 		else {
 			return PHP_EOL.$this->name.' '.implode($this->glue, $this->elements);
+=======
+		if (substr($this->name, -2) == '()')
+		{
+			return PHP_EOL . substr($this->name, 0, -2) . '(' . implode($this->glue, $this->elements) . ')';
+		}
+		else
+		{
+			return PHP_EOL . $this->name . ' ' . implode($this->glue, $this->elements);
+>>>>>>> upstream/master
 		}
 	}
 
 	/**
 	 * Appends element parts to the internal list.
 	 *
+<<<<<<< HEAD
 	 * @param   mixed  String or array.
+=======
+	 * @param   mixed  $elements  String or array.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
@@ -84,10 +114,19 @@ class JDatabaseQueryElement
 	 */
 	public function append($elements)
 	{
+<<<<<<< HEAD
 		if (is_array($elements)) {
 			$this->elements = array_merge($this->elements, $elements);
 		}
 		else {
+=======
+		if (is_array($elements))
+		{
+			$this->elements = array_merge($this->elements, $elements);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->elements = array_merge($this->elements, array($elements));
 		}
 	}
@@ -222,7 +261,12 @@ abstract class JDatabaseQuery
 	 */
 	public function __call($method, $args)
 	{
+<<<<<<< HEAD
 		if (empty($args)) {
+=======
+		if (empty($args))
+		{
+>>>>>>> upstream/master
 			return;
 		}
 
@@ -275,7 +319,12 @@ abstract class JDatabaseQuery
 			case 'select':
 				$query .= (string) $this->select;
 				$query .= (string) $this->from;
+<<<<<<< HEAD
 				if ($this->join) {
+=======
+				if ($this->join)
+				{
+>>>>>>> upstream/master
 					// special case for joins
 					foreach ($this->join as $join)
 					{
@@ -283,6 +332,7 @@ abstract class JDatabaseQuery
 					}
 				}
 
+<<<<<<< HEAD
 				if ($this->where) {
 					$query .= (string) $this->where;
 				}
@@ -296,6 +346,25 @@ abstract class JDatabaseQuery
 				}
 
 				if ($this->order) {
+=======
+				if ($this->where)
+				{
+					$query .= (string) $this->where;
+				}
+
+				if ($this->group)
+				{
+					$query .= (string) $this->group;
+				}
+
+				if ($this->having)
+				{
+					$query .= (string) $this->having;
+				}
+
+				if ($this->order)
+				{
+>>>>>>> upstream/master
 					$query .= (string) $this->order;
 				}
 
@@ -305,7 +374,12 @@ abstract class JDatabaseQuery
 				$query .= (string) $this->delete;
 				$query .= (string) $this->from;
 
+<<<<<<< HEAD
 				if ($this->join) {
+=======
+				if ($this->join)
+				{
+>>>>>>> upstream/master
 					// special case for joins
 					foreach ($this->join as $join)
 					{
@@ -313,7 +387,12 @@ abstract class JDatabaseQuery
 					}
 				}
 
+<<<<<<< HEAD
 				if ($this->where) {
+=======
+				if ($this->where)
+				{
+>>>>>>> upstream/master
 					$query .= (string) $this->where;
 				}
 
@@ -323,7 +402,12 @@ abstract class JDatabaseQuery
 				$query .= (string) $this->update;
 				$query .= (string) $this->set;
 
+<<<<<<< HEAD
 				if ($this->where) {
+=======
+				if ($this->where)
+				{
+>>>>>>> upstream/master
 					$query .= (string) $this->where;
 				}
 
@@ -333,6 +417,7 @@ abstract class JDatabaseQuery
 				$query .= (string) $this->insert;
 
 				// Set method
+<<<<<<< HEAD
 				if ($this->set) {
 					$query .= (string) $this->set;
 				}
@@ -343,6 +428,21 @@ abstract class JDatabaseQuery
 					}
 
 					$query .= 'VALUES ';
+=======
+				if ($this->set)
+				{
+					$query .= (string) $this->set;
+				}
+				// Columns-Values method
+				else if ($this->values)
+				{
+					if ($this->columns)
+					{
+						$query .= (string) $this->columns;
+					}
+
+					$query .= ' VALUES ';
+>>>>>>> upstream/master
 					$query .= (string) $this->values;
 				}
 
@@ -353,6 +453,23 @@ abstract class JDatabaseQuery
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Magic function to get protected variable value
+	 *
+	 * @param   string  $name  The name of the variable.
+	 *
+	 * @return  mixed
+	 *
+	 * @since   11.1
+	 */
+	public function __get($name)
+	{
+		return isset($this->$name) ? $this->$name : null;
+	}
+
+	/**
+>>>>>>> upstream/master
 	 * Casts a value to a char.
 	 *
 	 * Ensure that the value is properly quoted before passing to the method.
@@ -373,7 +490,11 @@ abstract class JDatabaseQuery
 	 *
 	 * Note, use 'length' to find the number of bytes in a string.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $value  A value.
+=======
+	 * @param   string  $field  A value.
+>>>>>>> upstream/master
 	 *
 	 * @return  string  The required char lenght call.
 	 *
@@ -381,13 +502,21 @@ abstract class JDatabaseQuery
 	 */
 	public function charLength($field)
 	{
+<<<<<<< HEAD
 		return 'CHAR_LENGTH('.$field.')';
+=======
+		return 'CHAR_LENGTH(' . $field . ')';
+>>>>>>> upstream/master
 	}
 
 	/**
 	 * Clear data from the query or a specific clause of the query.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $clear  Optionally, the name of the clause to clear, or nothing to clear the whole query.
+=======
+	 * @param   string  $clause  Optionally, the name of the clause to clear, or nothing to clear the whole query.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
@@ -485,10 +614,19 @@ abstract class JDatabaseQuery
 	 */
 	function columns($columns)
 	{
+<<<<<<< HEAD
 		if (is_null($this->columns)) {
 			$this->columns = new JDatabaseQueryElement('()', $columns);
 		}
 		else {
+=======
+		if (is_null($this->columns))
+		{
+			$this->columns = new JDatabaseQueryElement('()', $columns);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->columns->append($columns);
 		}
 
@@ -507,11 +645,21 @@ abstract class JDatabaseQuery
 	 */
 	function concatenate($values, $separator = null)
 	{
+<<<<<<< HEAD
 		if ($separator) {
 			return 'CONCATENATE('.implode(' || '.$this->quote($separator).' || ', $values).')';
 		}
 		else{
 			return 'CONCATENATE('.implode(' || ', $values).')';
+=======
+		if ($separator)
+		{
+			return 'CONCATENATE(' . implode(' || ' . $this->quote($separator) . ' || ', $values) . ')';
+		}
+		else
+		{
+			return 'CONCATENATE(' . implode(' || ', $values) . ')';
+>>>>>>> upstream/master
 		}
 	}
 
@@ -552,10 +700,18 @@ abstract class JDatabaseQuery
 	 */
 	public function delete($table = null)
 	{
+<<<<<<< HEAD
 		$this->type	= 'delete';
 		$this->delete	= new JDatabaseQueryElement('DELETE', null);
 
 		if (!empty($table)) {
+=======
+		$this->type = 'delete';
+		$this->delete = new JDatabaseQueryElement('DELETE', null);
+
+		if (!empty($table))
+		{
+>>>>>>> upstream/master
 			$this->from($table);
 		}
 
@@ -565,8 +721,13 @@ abstract class JDatabaseQuery
 	/**
 	 * Method to escape a string for usage in an SQL statement.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $text   The string to be escaped.
 	 * @param   bool    $extra  Optional parameter to provide extra escaping.
+=======
+	 * @param   string   $text   The string to be escaped.
+	 * @param   boolean  $extra  Optional parameter to provide extra escaping.
+>>>>>>> upstream/master
 	 *
 	 * @return  string  The escaped string.
 	 *
@@ -575,8 +736,14 @@ abstract class JDatabaseQuery
 	 */
 	public function escape($text, $extra = false)
 	{
+<<<<<<< HEAD
 		if (!($this->db instanceof JDatabase)) {
 			throw new DatabaseException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+=======
+		if (!($this->db instanceof JDatabase))
+		{
+			throw new JDatabaseException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+>>>>>>> upstream/master
 		}
 
 		$this->db->escape($text, $extra);
@@ -595,10 +762,19 @@ abstract class JDatabaseQuery
 	 */
 	public function from($tables)
 	{
+<<<<<<< HEAD
 		if (is_null($this->from)) {
 			$this->from = new JDatabaseQueryElement('FROM', $tables);
 		}
 		else {
+=======
+		if (is_null($this->from))
+		{
+			$this->from = new JDatabaseQueryElement('FROM', $tables);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->from->append($tables);
 		}
 
@@ -616,10 +792,19 @@ abstract class JDatabaseQuery
 	 */
 	public function group($columns)
 	{
+<<<<<<< HEAD
 		if (is_null($this->group)) {
 			$this->group = new JDatabaseQueryElement('GROUP BY', $columns);
 		}
 		else {
+=======
+		if (is_null($this->group))
+		{
+			$this->group = new JDatabaseQueryElement('GROUP BY', $columns);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->group->append($columns);
 		}
 
@@ -636,6 +821,7 @@ abstract class JDatabaseQuery
 	 *
 	 * @since   11.1
 	 */
+<<<<<<< HEAD
 	public function having($conditions, $glue='AND')
 	{
 		if (is_null($this->having)) {
@@ -643,6 +829,17 @@ abstract class JDatabaseQuery
 			$this->having = new JDatabaseQueryElement('HAVING', $conditions, " $glue ");
 		}
 		else {
+=======
+	public function having($conditions, $glue = 'AND')
+	{
+		if (is_null($this->having))
+		{
+			$glue = strtoupper($glue);
+			$this->having = new JDatabaseQueryElement('HAVING', $conditions, " $glue ");
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->having->append($conditions);
 		}
 
@@ -678,8 +875,13 @@ abstract class JDatabaseQuery
 	 */
 	public function insert($table)
 	{
+<<<<<<< HEAD
 		$this->type	= 'insert';
 		$this->insert	= new JDatabaseQueryElement('INSERT INTO', $table);
+=======
+		$this->type = 'insert';
+		$this->insert = new JDatabaseQueryElement('INSERT INTO', $table);
+>>>>>>> upstream/master
 
 		return $this;
 	}
@@ -696,7 +898,12 @@ abstract class JDatabaseQuery
 	 */
 	public function join($type, $conditions)
 	{
+<<<<<<< HEAD
 		if (is_null($this->join)) {
+=======
+		if (is_null($this->join))
+		{
+>>>>>>> upstream/master
 			$this->join = array();
 		}
 		$this->join[] = new JDatabaseQueryElement(strtoupper($type) . ' JOIN', $conditions);
@@ -733,7 +940,11 @@ abstract class JDatabaseQuery
 	 */
 	function length($value)
 	{
+<<<<<<< HEAD
 		return 'LENGTH('.$value.')';
+=======
+		return 'LENGTH(' . $value . ')';
+>>>>>>> upstream/master
 	}
 
 	/**
@@ -747,13 +958,24 @@ abstract class JDatabaseQuery
 	 */
 	public function nullDate($quoted = true)
 	{
+<<<<<<< HEAD
 		if (!($this->db instanceof JDatabase)) {
 			throw new DatabaseException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+=======
+		if (!($this->db instanceof JDatabase))
+		{
+			throw new JDatabaseException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+>>>>>>> upstream/master
 		}
 
 		$result = $this->db->getNullDate($quoted);
 
+<<<<<<< HEAD
 		if ($quoted) {
+=======
+		if ($quoted)
+		{
+>>>>>>> upstream/master
 			return $this->db->quote($result);
 		}
 
@@ -771,10 +993,19 @@ abstract class JDatabaseQuery
 	 */
 	public function order($columns)
 	{
+<<<<<<< HEAD
 		if (is_null($this->order)) {
 			$this->order = new JDatabaseQueryElement('ORDER BY', $columns);
 		}
 		else {
+=======
+		if (is_null($this->order))
+		{
+			$this->order = new JDatabaseQueryElement('ORDER BY', $columns);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->order->append($columns);
 		}
 
@@ -800,8 +1031,13 @@ abstract class JDatabaseQuery
 	/**
 	 * Method to quote and optionally escape a string to database requirements for insertion into the database.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $text    The string to quote.
 	 * @param   bool    $escape  True to escape the string, false to leave it unchanged.
+=======
+	 * @param   string   $text    The string to quote.
+	 * @param   boolean  $escape  True to escape the string, false to leave it unchanged.
+>>>>>>> upstream/master
 	 *
 	 * @return  string  The quoted input string.
 	 *
@@ -810,8 +1046,14 @@ abstract class JDatabaseQuery
 	 */
 	public function quote($text, $escape = true)
 	{
+<<<<<<< HEAD
 		if (!($this->db instanceof JDatabase)) {
 			throw new DatabaseException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+=======
+		if (!($this->db instanceof JDatabase))
+		{
+			throw new JDatabaseException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+>>>>>>> upstream/master
 		}
 
 		return $this->db->quote(($escape ? $this->db->escape($text) : $text));
@@ -830,8 +1072,14 @@ abstract class JDatabaseQuery
 	 */
 	public function quoteName($name)
 	{
+<<<<<<< HEAD
 		if (!($this->db instanceof JDatabase)) {
 			throw new DatabaseException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+=======
+		if (!($this->db instanceof JDatabase))
+		{
+			throw new JDatabaseException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+>>>>>>> upstream/master
 		}
 
 		return $this->db->quoteName($name);
@@ -869,10 +1117,19 @@ abstract class JDatabaseQuery
 	{
 		$this->type = 'select';
 
+<<<<<<< HEAD
 		if (is_null($this->select)) {
 			$this->select = new JDatabaseQueryElement('SELECT', $columns);
 		}
 		else {
+=======
+		if (is_null($this->select))
+		{
+			$this->select = new JDatabaseQueryElement('SELECT', $columns);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->select->append($columns);
 		}
 
@@ -889,6 +1146,7 @@ abstract class JDatabaseQuery
 	 *
 	 * @since   11.1
 	 */
+<<<<<<< HEAD
 	public function set($conditions, $glue=',')
 	{
 		if (is_null($this->set)) {
@@ -896,6 +1154,17 @@ abstract class JDatabaseQuery
 			$this->set = new JDatabaseQueryElement('SET', $conditions, "\n\t$glue ");
 		}
 		else {
+=======
+	public function set($conditions, $glue = ',')
+	{
+		if (is_null($this->set))
+		{
+			$glue = strtoupper($glue);
+			$this->set = new JDatabaseQueryElement('SET', $conditions, "\n\t$glue ");
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->set->append($conditions);
 		}
 
@@ -924,18 +1193,33 @@ abstract class JDatabaseQuery
 	/**
 	 * Adds a tuple, or array of tuples that would be used as values for an INSERT INTO statement.
 	 *
+<<<<<<< HEAD
 	 * @param  string  $values  A single tuple, or array of tuples.
 	 *
 	 * @return  JDatabaseQuerySQLAzure  Returns this object to allow chaining.
+=======
+	 * @param   string  $values  A single tuple, or array of tuples.
+	 *
+	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+>>>>>>> upstream/master
 	 *
 	 * @since   11.1
 	 */
 	function values($values)
 	{
+<<<<<<< HEAD
 		if (is_null($this->values)) {
 			$this->values = new JDatabaseQueryElement('()', $values, '), (');
 		}
 		else {
+=======
+		if (is_null($this->values))
+		{
+			$this->values = new JDatabaseQueryElement('()', $values, '), (');
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->values->append($values);
 		}
 
@@ -954,11 +1238,21 @@ abstract class JDatabaseQuery
 	 */
 	public function where($conditions, $glue = 'AND')
 	{
+<<<<<<< HEAD
 		if (is_null($this->where)) {
 			$glue = strtoupper($glue);
 			$this->where = new JDatabaseQueryElement('WHERE', $conditions, " $glue ");
 		}
 		else {
+=======
+		if (is_null($this->where))
+		{
+			$glue = strtoupper($glue);
+			$this->where = new JDatabaseQueryElement('WHERE', $conditions, " $glue ");
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->where->append($conditions);
 		}
 

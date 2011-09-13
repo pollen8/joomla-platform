@@ -7,10 +7,17 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
 
 jimport('joomla.application.applicationexception');
 jimport('joomla.application.input.cli');
+=======
+defined('JPATH_PLATFORM') or die();
+
+jimport('joomla.application.applicationexception');
+jimport('joomla.application.input');
+>>>>>>> upstream/master
 jimport('joomla.event.dispatcher');
 jimport('joomla.log.log');
 jimport('joomla.registry.registry');
@@ -25,19 +32,37 @@ jimport('joomla.registry.registry');
 class JCli
 {
 	/**
+<<<<<<< HEAD
 	 * @var    JInput  The application input object.
+=======
+	 * The application input object.
+	 *
+	 * @var    JInputCli
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	public $input;
 
 	/**
+<<<<<<< HEAD
 	 * @var    JRegistry  The application configuration object.
+=======
+	 * The application configuration object.
+	 *
+	 * @var    JRegistry
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $config;
 
 	/**
+<<<<<<< HEAD
 	 * @var    JCli  The application instance.
+=======
+	 * The application instance.
+	 *
+	 * @var    JCli
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected static $instance;
@@ -52,15 +77,30 @@ class JCli
 	protected function __construct()
 	{
 		// Close the application if we are not executed from the command line.
+<<<<<<< HEAD
 		if (!defined('STDOUT') || !defined('STDIN') || !isset($_SERVER['argv'])) {
+=======
+		if (!defined('STDOUT') || !defined('STDIN') || !isset($_SERVER['argv']))
+		{
+>>>>>>> upstream/master
 			$this->close();
 		}
 
 		// Get the command line options
+<<<<<<< HEAD
 		$this->input = new JInputCli();
 
 		// Create the registry with a default namespace of config
 		$this->config = new JRegistry();
+=======
+		if (class_exists('JInput'))
+		{
+			$this->input = new JInputCli;
+		}
+
+		// Create the registry with a default namespace of config
+		$this->config = new JRegistry;
+>>>>>>> upstream/master
 
 		// Load the configuration object.
 		$this->loadConfiguration($this->fetchConfigurationData());
@@ -79,6 +119,7 @@ class JCli
 	 *
 	 * This method must be invoked as: $cli = JCli::getInstance();
 	 *
+<<<<<<< HEAD
 	 * @return  JCli  A JCli object
 	 * @since   11.1
 	 */
@@ -87,6 +128,27 @@ class JCli
 		// Only create the object if it doesn't exist.
 		if (empty(self::$instance)) {
 			self::$instance = new JCli();
+=======
+	 * @param   string  $name  The name (optional) of the JCli class to instantiate.
+	 *
+	 * @return  JCli  A JCli object
+	 *
+	 * @since   11.1
+	 */
+	public static function &getInstance($name = null)
+	{
+		// Only create the object if it doesn't exist.
+		if (empty(self::$instance))
+		{
+			if (class_exists($name) && (is_subclass_of($name, 'JCli')))
+			{
+				self::$instance = new $name;
+			}
+			else
+			{
+				self::$instance = new JCli;
+			}
+>>>>>>> upstream/master
 		}
 
 		return self::$instance;
@@ -107,7 +169,11 @@ class JCli
 	/**
 	 * Exit the application.
 	 *
+<<<<<<< HEAD
 	 * @param   integer  $code  Exit code.
+=======
+	 * @param   integer  $code  The exit code (optional; default is 0).
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
@@ -130,10 +196,19 @@ class JCli
 	public function loadConfiguration($data)
 	{
 		// Load the data into the configuration object.
+<<<<<<< HEAD
 		if (is_array($data)) {
 			$this->config->loadArray($data);
 		}
 		elseif (is_object($data)) {
+=======
+		if (is_array($data))
+		{
+			$this->config->loadArray($data);
+		}
+		elseif (is_object($data))
+		{
+>>>>>>> upstream/master
 			$this->config->loadObject($data);
 		}
 	}
@@ -141,8 +216,13 @@ class JCli
 	/**
 	 * Write a string to standard output.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $text  The text to display.
 	 * @param   bool    $nl    True to append a new line at the end of the output string.
+=======
+	 * @param   string   $text  The text to display.
+	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
@@ -150,7 +230,11 @@ class JCli
 	 */
 	public function out($text = '', $nl = true)
 	{
+<<<<<<< HEAD
 		fwrite(STDOUT, $text.($nl ? "\n" : null));
+=======
+		fwrite(STDOUT, $text . ($nl ? "\n" : null));
+>>>>>>> upstream/master
 	}
 
 	/**
@@ -184,7 +268,11 @@ class JCli
 	 * Calls all handlers associated with an event group.
 	 *
 	 * @param   string  $event  The event name.
+<<<<<<< HEAD
 	 * @param   array   $args   An array of arguments.
+=======
+	 * @param   array   $args   An array of arguments (optional).
+>>>>>>> upstream/master
 	 *
 	 * @return  array   An array of results from each function call.
 	 *
@@ -198,13 +286,22 @@ class JCli
 	/**
 	 * Returns a property of the object or the default value if the property is not set.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $key      The name of the property
 	 * @param   mixed   $default  The default value if none is set.
+=======
+	 * @param   string  $key      The name of the property.
+	 * @param   mixed   $default  The default value (optional) if none is set.
+>>>>>>> upstream/master
 	 *
 	 * @return  mixed   The value of the configuration.
 	 *
 	 * @since   11.1
+<<<<<<< HEAD
  	 */
+=======
+	 */
+>>>>>>> upstream/master
 	public function get($key, $default = null)
 	{
 		return $this->config->get($key, $default);
@@ -213,8 +310,13 @@ class JCli
 	/**
 	 * Modifies a property of the object, creating it if it does not already exist.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $key    The name of the property
 	 * @param   mixed   $value  The value of the property to set
+=======
+	 * @param   string  $key    The name of the property.
+	 * @param   mixed   $value  The value of the property to set (optional).
+>>>>>>> upstream/master
 	 *
 	 * @return  mixed   Previous value of the property
 	 *
@@ -238,6 +340,7 @@ class JCli
 	 */
 	protected function fetchConfigurationData()
 	{
+<<<<<<< HEAD
 		// Set the configuration file name.
 		$file = JPATH_BASE.'/configuration.php';
 
@@ -256,3 +359,29 @@ class JCli
 		return $config;
 	}
 }
+=======
+		// Instantiate variables.
+		$config = array();
+
+		// Handle the convention-based default case for configuration file.
+		if (defined('JPATH_BASE'))
+		{
+			// Set the configuration file name and check to see if it exists.
+			$file = JPATH_BASE . '/configuration.php';
+			if (is_file($file))
+			{
+				// Import the configuration file.
+				include_once $file;
+
+				// Instantiate the configuration object if it exists.
+				if (class_exists('JConfig'))
+				{
+					$config = new JConfig;
+				}
+			}
+		}
+
+		return $config;
+	}
+}
+>>>>>>> upstream/master

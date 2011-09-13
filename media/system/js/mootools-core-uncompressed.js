@@ -33,8 +33,13 @@ provides: [Core, MooTools, Type, typeOf, instanceOf, Native]
 (function(){
 
 this.MooTools = {
+<<<<<<< HEAD
 	version: '1.3',
 	build: 'a3eed692dd85050d80168ec2c708efe901bb7db3'
+=======
+	version: '1.3.2',
+	build: 'c9f1ff10e9e7facb65e9481049ed1b450959d587'
+>>>>>>> upstream/master
 };
 
 // typeOf, instanceOf
@@ -196,7 +201,11 @@ var hooksOf = function(object){
 };
 
 var implement = function(name, method){
+<<<<<<< HEAD
 	if (method && method.$hidden) return this;
+=======
+	if (method && method.$hidden) return;
+>>>>>>> upstream/master
 
 	var hooks = hooksOf(this);
 
@@ -205,13 +214,18 @@ var implement = function(name, method){
 		if (typeOf(hook) == 'type') implement.call(hook, name, method);
 		else hook.call(this, name, method);
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> upstream/master
 	var previous = this.prototype[name];
 	if (previous == null || !previous.$protected) this.prototype[name] = method;
 
 	if (this[name] == null && typeOf(method) == 'function') extend.call(this, name, function(item){
 		return method.apply(item, slice.call(arguments, 1));
 	});
+<<<<<<< HEAD
 
 	return this;
 };
@@ -221,6 +235,14 @@ var extend = function(name, method){
 	var previous = this[name];
 	if (previous == null || !previous.$protected) this[name] = method;
 	return this;
+=======
+};
+
+var extend = function(name, method){
+	if (method && method.$hidden) return;
+	var previous = this[name];
+	if (previous == null || !previous.$protected) this[name] = method;
+>>>>>>> upstream/master
 };
 
 Type.implement({
@@ -308,9 +330,16 @@ Number.extend('random', function(min, max){
 
 // forEach, each
 
+<<<<<<< HEAD
 Object.extend('forEach', function(object, fn, bind){
 	for (var key in object){
 		if (object.hasOwnProperty(key)) fn.call(bind, object[key], key, object);
+=======
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+Object.extend('forEach', function(object, fn, bind){
+	for (var key in object){
+		if (hasOwnProperty.call(object, key)) fn.call(bind, object[key], key, object);
+>>>>>>> upstream/master
 	}
 });
 
@@ -541,6 +570,7 @@ provides: Array
 
 Array.implement({
 
+<<<<<<< HEAD
 	invoke: function(methodName){
 		var args = Array.slice(arguments, 1);
 		return this.map(function(item){
@@ -548,6 +578,9 @@ Array.implement({
 		});
 	},
 
+=======
+	/*<!ES5>*/
+>>>>>>> upstream/master
 	every: function(fn, bind){
 		for (var i = 0, l = this.length; i < l; i++){
 			if ((i in this) && !fn.call(bind, this[i], i, this)) return false;
@@ -563,12 +596,15 @@ Array.implement({
 		return results;
 	},
 
+<<<<<<< HEAD
 	clean: function(){
 		return this.filter(function(item){
 			return item != null;
 		});
 	},
 
+=======
+>>>>>>> upstream/master
 	indexOf: function(item, from){
 		var len = this.length;
 		for (var i = (from < 0) ? Math.max(0, len + from) : from || 0; i < len; i++){
@@ -591,6 +627,23 @@ Array.implement({
 		}
 		return false;
 	},
+<<<<<<< HEAD
+=======
+	/*</!ES5>*/
+
+	clean: function(){
+		return this.filter(function(item){
+			return item != null;
+		});
+	},
+
+	invoke: function(methodName){
+		var args = Array.slice(arguments, 1);
+		return this.map(function(item){
+			return item[methodName].apply(item, args);
+		});
+	},
+>>>>>>> upstream/master
 
 	associate: function(keys){
 		var obj = {}, length = Math.min(this.length, keys.length);
@@ -874,6 +927,7 @@ Function.implement({
 		try {
 			return this.apply(bind, Array.from(args));
 		} catch (e){}
+<<<<<<< HEAD
 
 		return null;
 	},
@@ -882,12 +936,27 @@ Function.implement({
 		var self = this,
 			args = (arguments.length > 1) ? Array.slice(arguments, 1) : null;
 
+=======
+		
+		return null;
+	},
+
+	/*<!ES5>*/
+	bind: function(bind){
+		var self = this,
+			args = (arguments.length > 1) ? Array.slice(arguments, 1) : null;
+		
+>>>>>>> upstream/master
 		return function(){
 			if (!args && !arguments.length) return self.call(bind);
 			if (args && arguments.length) return self.apply(bind, args.concat(Array.from(arguments)));
 			return self.apply(bind, args || arguments);
 		};
 	},
+<<<<<<< HEAD
+=======
+	/*</!ES5>*/
+>>>>>>> upstream/master
 
 	pass: function(args, bind){
 		var self = this;
@@ -898,11 +967,19 @@ Function.implement({
 	},
 
 	delay: function(delay, bind, args){
+<<<<<<< HEAD
 		return setTimeout(this.pass(args, bind), delay);
 	},
 
 	periodical: function(periodical, bind, args){
 		return setInterval(this.pass(args, bind), periodical);
+=======
+		return setTimeout(this.pass((args == null ? [] : args), bind), delay);
+	},
+
+	periodical: function(periodical, bind, args){
+		return setInterval(this.pass((args == null ? [] : args), bind), periodical);
+>>>>>>> upstream/master
 	}
 
 });
@@ -973,6 +1050,12 @@ provides: [Object, Hash]
 ...
 */
 
+<<<<<<< HEAD
+=======
+(function(){
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+>>>>>>> upstream/master
 
 Object.extend({
 
@@ -980,7 +1063,11 @@ Object.extend({
 		var results = {};
 		for (var i = 0, l = keys.length; i < l; i++){
 			var k = keys[i];
+<<<<<<< HEAD
 			results[k] = object[k];
+=======
+			if (k in object) results[k] = object[k];
+>>>>>>> upstream/master
 		}
 		return results;
 	},
@@ -988,29 +1075,48 @@ Object.extend({
 	map: function(object, fn, bind){
 		var results = {};
 		for (var key in object){
+<<<<<<< HEAD
 			if (object.hasOwnProperty(key)) results[key] = fn.call(bind, object[key], key, object);
+=======
+			if (hasOwnProperty.call(object, key)) results[key] = fn.call(bind, object[key], key, object);
+>>>>>>> upstream/master
 		}
 		return results;
 	},
 
 	filter: function(object, fn, bind){
 		var results = {};
+<<<<<<< HEAD
 		Object.each(object, function(value, key){
 			if (fn.call(bind, value, key, object)) results[key] = value;
 		});
+=======
+		for (var key in object){
+			var value = object[key];
+			if (hasOwnProperty.call(object, key) && fn.call(bind, value, key, object)) results[key] = value;
+		}
+>>>>>>> upstream/master
 		return results;
 	},
 
 	every: function(object, fn, bind){
 		for (var key in object){
+<<<<<<< HEAD
 			if (object.hasOwnProperty(key) && !fn.call(bind, object[key], key)) return false;
+=======
+			if (hasOwnProperty.call(object, key) && !fn.call(bind, object[key], key)) return false;
+>>>>>>> upstream/master
 		}
 		return true;
 	},
 
 	some: function(object, fn, bind){
 		for (var key in object){
+<<<<<<< HEAD
 			if (object.hasOwnProperty(key) && fn.call(bind, object[key], key)) return true;
+=======
+			if (hasOwnProperty.call(object, key) && fn.call(bind, object[key], key)) return true;
+>>>>>>> upstream/master
 		}
 		return false;
 	},
@@ -1018,7 +1124,11 @@ Object.extend({
 	keys: function(object){
 		var keys = [];
 		for (var key in object){
+<<<<<<< HEAD
 			if (object.hasOwnProperty(key)) keys.push(key);
+=======
+			if (hasOwnProperty.call(object, key)) keys.push(key);
+>>>>>>> upstream/master
 		}
 		return keys;
 	},
@@ -1026,7 +1136,11 @@ Object.extend({
 	values: function(object){
 		var values = [];
 		for (var key in object){
+<<<<<<< HEAD
 			if (object.hasOwnProperty(key)) values.push(object[key]);
+=======
+			if (hasOwnProperty.call(object, key)) values.push(object[key]);
+>>>>>>> upstream/master
 		}
 		return values;
 	},
@@ -1037,7 +1151,11 @@ Object.extend({
 
 	keyOf: function(object, value){
 		for (var key in object){
+<<<<<<< HEAD
 			if (object.hasOwnProperty(key) && object[key] === value) return key;
+=======
+			if (hasOwnProperty.call(object, key) && object[key] === value) return key;
+>>>>>>> upstream/master
 		}
 		return null;
 	},
@@ -1071,6 +1189,10 @@ Object.extend({
 
 });
 
+<<<<<<< HEAD
+=======
+})();
+>>>>>>> upstream/master
 
 //<1.2compat>
 
@@ -1324,12 +1446,20 @@ Document.mirror(function(name, method){
 });
 
 document.html = document.documentElement;
+<<<<<<< HEAD
 document.head = document.getElementsByTagName('head')[0];
+=======
+if (!document.head) document.head = document.getElementsByTagName('head')[0];
+>>>>>>> upstream/master
 
 if (document.execCommand) try {
 	document.execCommand("BackgroundImageCache", false, true);
 } catch (e){}
 
+<<<<<<< HEAD
+=======
+/*<ltIE9>*/
+>>>>>>> upstream/master
 if (this.attachEvent && !this.addEventListener){
 	var unloadEvent = function(){
 		this.detachEvent('onunload', unloadEvent);
@@ -1361,6 +1491,10 @@ try {
 		};
 	});
 }
+<<<<<<< HEAD
+=======
+/*</ltIE9>*/
+>>>>>>> upstream/master
 
 //<1.2compat>
 
@@ -1452,18 +1586,33 @@ var Event = new Type('Event', function(event, win){
 	var type = event.type,
 		target = event.target || event.srcElement,
 		page = {},
+<<<<<<< HEAD
 		client = {};
 	while (target && target.nodeType == 3) target = target.parentNode;
 
 	if (type.indexOf('key') != -1){
 		var code = event.which || event.keyCode;
 		var key = Object.keyOf(Event.Keys, code);
+=======
+		client = {},
+		related = null,
+		rightClick, wheel, code, key;
+	while (target && target.nodeType == 3) target = target.parentNode;
+
+	if (type.indexOf('key') != -1){
+		code = event.which || event.keyCode;
+		key = Object.keyOf(Event.Keys, code);
+>>>>>>> upstream/master
 		if (type == 'keydown'){
 			var fKey = code - 111;
 			if (fKey > 0 && fKey < 13) key = 'f' + fKey;
 		}
 		if (!key) key = String.fromCharCode(code).toLowerCase();
+<<<<<<< HEAD
 	} else if (type.test(/click|mouse|menu/i)){
+=======
+	} else if ((/click|mouse|menu/i).test(type)){
+>>>>>>> upstream/master
 		doc = (!doc.compatMode || doc.compatMode == 'CSS1Compat') ? doc.html : doc.body;
 		page = {
 			x: (event.pageX != null) ? event.pageX : event.clientX + doc.scrollLeft,
@@ -1473,12 +1622,20 @@ var Event = new Type('Event', function(event, win){
 			x: (event.pageX != null) ? event.pageX - win.pageXOffset : event.clientX,
 			y: (event.pageY != null) ? event.pageY - win.pageYOffset : event.clientY
 		};
+<<<<<<< HEAD
 		if (type.test(/DOMMouseScroll|mousewheel/)){
 			var wheel = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
 		}
 		var rightClick = (event.which == 3) || (event.button == 2),
 			related = null;
 		if (type.test(/over|out/)){
+=======
+		if ((/DOMMouseScroll|mousewheel/).test(type)){
+			wheel = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
+		}
+		rightClick = (event.which == 3) || (event.button == 2);
+		if ((/over|out/).test(type)){
+>>>>>>> upstream/master
 			related = event.relatedTarget || event[(type == 'mouseover' ? 'from' : 'to') + 'Element'];
 			var testRelated = function(){
 				while (related && related.nodeType == 3) related = related.parentNode;
@@ -1487,7 +1644,11 @@ var Event = new Type('Event', function(event, win){
 			var hasRelated = (Browser.firefox2) ? testRelated.attempt() : testRelated();
 			related = (hasRelated) ? related : null;
 		}
+<<<<<<< HEAD
 	} else if (type.test(/gesture|touch/i)){
+=======
+	} else if ((/gesture|touch/i).test(type)){
+>>>>>>> upstream/master
 		this.rotation = event.rotation;
 		this.scale = event.scale;
 		this.targetTouches = event.targetTouches;
@@ -1756,7 +1917,11 @@ this.Events = new Class({
 		}, this);
 		return this;
 	},
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> upstream/master
 	removeEvent: function(type, fn){
 		type = removeOn(type);
 		var events = this.$events[type];
@@ -1777,7 +1942,13 @@ this.Events = new Class({
 		for (type in this.$events){
 			if (events && events != type) continue;
 			var fns = this.$events[type];
+<<<<<<< HEAD
 			for (var i = fns.length; i--;) this.removeEvent(type, fns[i]);
+=======
+			for (var i = fns.length; i--;) if (i in fns){
+				this.removeEvent(type, fns[i]);
+			}
+>>>>>>> upstream/master
 		}
 		return this;
 	}
@@ -1788,8 +1959,12 @@ this.Options = new Class({
 
 	setOptions: function(){
 		var options = this.options = Object.merge.apply(null, [{}, this.options].append(arguments));
+<<<<<<< HEAD
 		if (!this.addEvent) return this;
 		for (var option in options){
+=======
+		if (this.addEvent) for (var option in options){
+>>>>>>> upstream/master
 			if (typeOf(options[option]) != 'function' || !(/^on[A-Z]/).test(option)) continue;
 			this.addEvent(option, options[option]);
 			delete options[option];
@@ -1810,7 +1985,11 @@ provides: Slick.Parser
 ...
 */
 
+<<<<<<< HEAD
 (function(){
+=======
+;(function(){
+>>>>>>> upstream/master
 
 var parsed,
 	separatorIndex,
@@ -1827,6 +2006,7 @@ var parse = function(expression, isReversed){
 	reversed = !!isReversed;
 	var currentCache = (reversed) ? reverseCache : cache;
 	if (currentCache[expression]) return currentCache[expression];
+<<<<<<< HEAD
 	parsed = {Slick: true, expressions: [], raw: expression, reverse: function(){
 		return parse(this.raw, true);
 	}};
@@ -1834,6 +2014,20 @@ var parse = function(expression, isReversed){
 	while (expression != (expression = expression.replace(regexp, parser)));
 	parsed.length = parsed.expressions.length;
 	return currentCache[expression] = (reversed) ? reverse(parsed) : parsed;
+=======
+	parsed = {
+		Slick: true,
+		expressions: [],
+		raw: expression,
+		reverse: function(){
+			return parse(this.raw, true);
+		}
+	};
+	separatorIndex = -1;
+	while (expression != (expression = expression.replace(regexp, parser)));
+	parsed.length = parsed.expressions.length;
+	return currentCache[parsed.raw] = (reversed) ? reverse(parsed) : parsed;
+>>>>>>> upstream/master
 };
 
 var reverseCombinator = function(combinator){
@@ -1862,7 +2056,13 @@ var reverse = function(expression){
 };
 
 var escapeRegExp = function(string){// Credit: XRegExp 0.6.1 (c) 2007-2008 Steven Levithan <http://stevenlevithan.com/regex/xregexp/> MIT License
+<<<<<<< HEAD
 	return string.replace(/[-[\]{}()*+?.\\^$|,#\s]/g, "\\$&");
+=======
+	return string.replace(/[-[\]{}()*+?.\\^$|,#\s]/g, function(match){
+		return '\\' + match;
+	});
+>>>>>>> upstream/master
 };
 
 var regexp = new RegExp(
@@ -1894,7 +2094,11 @@ __END__
 	)?\
 	)"
 */
+<<<<<<< HEAD
 	"^(?:\\s*(,)\\s*|\\s*(<combinator>+)\\s*|(\\s+)|(<unicode>+|\\*)|\\#(<unicode>+)|\\.(<unicode>+)|\\[\\s*(<unicode1>+)(?:\\s*([*^$!~|]?=)(?:\\s*(?:([\"']?)(.*?)\\9)))?\\s*\\](?!\\])|:+(<unicode>+)(?:\\((?:(?:([\"'])([^\\12]*)\\12)|((?:\\([^)]+\\)|[^()]*)+))\\))?)"
+=======
+	"^(?:\\s*(,)\\s*|\\s*(<combinator>+)\\s*|(\\s+)|(<unicode>+|\\*)|\\#(<unicode>+)|\\.(<unicode>+)|\\[\\s*(<unicode1>+)(?:\\s*([*^$!~|]?=)(?:\\s*(?:([\"']?)(.*?)\\9)))?\\s*\\](?!\\])|(:+)(<unicode>+)(?:\\((?:(?:([\"'])([^\\13]*)\\13)|((?:\\([^)]+\\)|[^()]*)+))\\))?)"
+>>>>>>> upstream/master
 	.replace(/<combinator>/, '[' + escapeRegExp(">+~`!@$%^&={}\\;</") + ']')
 	.replace(/<unicode>/g, '(?:[\\w\\u00a1-\\uFFFF-]|\\\\[^\\s0-9a-f])')
 	.replace(/<unicode1>/g, '(?:[:\\w\\u00a1-\\uFFFF-]|\\\\[^\\s0-9a-f])')
@@ -1916,6 +2120,10 @@ function parser(
 	attributeQuote,
 	attributeValue,
 
+<<<<<<< HEAD
+=======
+	pseudoMarker,
+>>>>>>> upstream/master
 	pseudoClass,
 	pseudoQuote,
 	pseudoClassQuotedValue,
@@ -1961,7 +2169,12 @@ function parser(
 		if (!currentParsed.pseudos) currentParsed.pseudos = [];
 		currentParsed.pseudos.push({
 			key: pseudoClass.replace(reUnescape, ''),
+<<<<<<< HEAD
 			value: pseudoClassValue
+=======
+			value: pseudoClassValue,
+			type: pseudoMarker.length == 1 ? 'class' : 'element'
+>>>>>>> upstream/master
 		});
 
 	} else if (attributeKey){
@@ -2034,9 +2247,17 @@ requires: Slick.Parser
 ...
 */
 
+<<<<<<< HEAD
 (function(){
 
 var local = {};
+=======
+;(function(){
+
+var local = {},
+	featuresCache = {},
+	toString = Object.prototype.toString;
+>>>>>>> upstream/master
 
 // Feature / Bug detection
 
@@ -2045,16 +2266,27 @@ local.isNativeCode = function(fn){
 };
 
 local.isXML = function(document){
+<<<<<<< HEAD
 	return (!!document.xmlVersion) || (!!document.xml) || (Object.prototype.toString.call(document) === '[object XMLDocument]') ||
 	(document.nodeType === 9 && document.documentElement.nodeName !== 'HTML');
+=======
+	return (!!document.xmlVersion) || (!!document.xml) || (toString.call(document) == '[object XMLDocument]') ||
+	(document.nodeType == 9 && document.documentElement.nodeName != 'HTML');
+>>>>>>> upstream/master
 };
 
 local.setDocument = function(document){
 
 	// convert elements / window arguments to document. if document cannot be extrapolated, the function returns.
+<<<<<<< HEAD
 
 	if (document.nodeType === 9); // document
 	else if (document.ownerDocument) document = document.ownerDocument; // node
+=======
+	var nodeType = document.nodeType;
+	if (nodeType == 9); // document
+	else if (nodeType) document = document.ownerDocument; // node
+>>>>>>> upstream/master
 	else if (document.navigator) document = document.document; // window
 	else return;
 
@@ -2062,6 +2294,7 @@ local.setDocument = function(document){
 
 	if (this.document === document) return;
 	this.document = document;
+<<<<<<< HEAD
 	var root = this.root = document.documentElement;
 
 	this.isXMLDocument = this.isXML(document);
@@ -2091,17 +2324,72 @@ local.setDocument = function(document){
 	} catch(e){};
 
 	if (this.isHTMLDocument){
+=======
+
+	// check if we have done feature detection on this document before
+
+	var root = document.documentElement,
+		rootUid = this.getUIDXML(root),
+		features = featuresCache[rootUid],
+		feature;
+
+	if (features){
+		for (feature in features){
+			this[feature] = features[feature];
+		}
+		return;
+	}
+
+	features = featuresCache[rootUid] = {};
+
+	features.root = root;
+	features.isXMLDocument = this.isXML(document);
+
+	features.brokenStarGEBTN
+	= features.starSelectsClosedQSA
+	= features.idGetsName
+	= features.brokenMixedCaseQSA
+	= features.brokenGEBCN
+	= features.brokenCheckedQSA
+	= features.brokenEmptyAttributeQSA
+	= features.isHTMLDocument
+	= features.nativeMatchesSelector
+	= false;
+
+	var starSelectsClosed, starSelectsComments,
+		brokenSecondClassNameGEBCN, cachedGetElementsByClassName,
+		brokenFormAttributeGetter;
+
+	var selected, id = 'slick_uniqueid';
+	var testNode = document.createElement('div');
+	
+	var testRoot = document.body || document.getElementsByTagName('body')[0] || root;
+	testRoot.appendChild(testNode);
+
+	// on non-HTML documents innerHTML and getElementsById doesnt work properly
+	try {
+		testNode.innerHTML = '<a id="'+id+'"></a>';
+		features.isHTMLDocument = !!document.getElementById(id);
+	} catch(e){};
+
+	if (features.isHTMLDocument){
+>>>>>>> upstream/master
 
 		testNode.style.display = 'none';
 
 		// IE returns comment nodes for getElementsByTagName('*') for some documents
 		testNode.appendChild(document.createComment(''));
+<<<<<<< HEAD
 		starSelectsComments = (testNode.getElementsByTagName('*').length > 0);
+=======
+		starSelectsComments = (testNode.getElementsByTagName('*').length > 1);
+>>>>>>> upstream/master
 
 		// IE returns closed nodes (EG:"</foo>") for getElementsByTagName('*') for some documents
 		try {
 			testNode.innerHTML = 'foo</foo>';
 			selected = testNode.getElementsByTagName('*');
+<<<<<<< HEAD
 			starSelectsClosed = (selected && selected.length && selected[0].nodeName.charAt(0) == '/');
 		} catch(e){};
 
@@ -2152,16 +2440,118 @@ local.setDocument = function(document){
 		try {
 			testNode.innerHTML = '<a class=""></a>';
 			this.brokenEmptyAttributeQSA = (testNode.querySelectorAll('[class*=""]').length != 0);
+=======
+			starSelectsClosed = (selected && !!selected.length && selected[0].nodeName.charAt(0) == '/');
+		} catch(e){};
+
+		features.brokenStarGEBTN = starSelectsComments || starSelectsClosed;
+
+		// IE returns elements with the name instead of just id for getElementsById for some documents
+		try {
+			testNode.innerHTML = '<a name="'+ id +'"></a><b id="'+ id +'"></b>';
+			features.idGetsName = document.getElementById(id) === testNode.firstChild;
+		} catch(e){};
+
+		if (testNode.getElementsByClassName){
+
+			// Safari 3.2 getElementsByClassName caches results
+			try {
+				testNode.innerHTML = '<a class="f"></a><a class="b"></a>';
+				testNode.getElementsByClassName('b').length;
+				testNode.firstChild.className = 'b';
+				cachedGetElementsByClassName = (testNode.getElementsByClassName('b').length != 2);
+			} catch(e){};
+
+			// Opera 9.6 getElementsByClassName doesnt detects the class if its not the first one
+			try {
+				testNode.innerHTML = '<a class="a"></a><a class="f b a"></a>';
+				brokenSecondClassNameGEBCN = (testNode.getElementsByClassName('a').length != 2);
+			} catch(e){};
+
+			features.brokenGEBCN = cachedGetElementsByClassName || brokenSecondClassNameGEBCN;
+		}
+		
+		if (testNode.querySelectorAll){
+			// IE 8 returns closed nodes (EG:"</foo>") for querySelectorAll('*') for some documents
+			try {
+				testNode.innerHTML = 'foo</foo>';
+				selected = testNode.querySelectorAll('*');
+				features.starSelectsClosedQSA = (selected && !!selected.length && selected[0].nodeName.charAt(0) == '/');
+			} catch(e){};
+
+			// Safari 3.2 querySelectorAll doesnt work with mixedcase on quirksmode
+			try {
+				testNode.innerHTML = '<a class="MiX"></a>';
+				features.brokenMixedCaseQSA = !testNode.querySelectorAll('.MiX').length;
+			} catch(e){};
+
+			// Webkit and Opera dont return selected options on querySelectorAll
+			try {
+				testNode.innerHTML = '<select><option selected="selected">a</option></select>';
+				features.brokenCheckedQSA = (testNode.querySelectorAll(':checked').length == 0);
+			} catch(e){};
+
+			// IE returns incorrect results for attr[*^$]="" selectors on querySelectorAll
+			try {
+				testNode.innerHTML = '<a class=""></a>';
+				features.brokenEmptyAttributeQSA = (testNode.querySelectorAll('[class*=""]').length != 0);
+			} catch(e){};
+
+		}
+
+		// IE6-7, if a form has an input of id x, form.getAttribute(x) returns a reference to the input
+		try {
+			testNode.innerHTML = '<form action="s"><input id="action"/></form>';
+			brokenFormAttributeGetter = (testNode.firstChild.getAttribute('action') != 's');
+		} catch(e){};
+
+		// native matchesSelector function
+
+		features.nativeMatchesSelector = root.matchesSelector || /*root.msMatchesSelector ||*/ root.mozMatchesSelector || root.webkitMatchesSelector;
+		if (features.nativeMatchesSelector) try {
+			// if matchesSelector trows errors on incorrect sintaxes we can use it
+			features.nativeMatchesSelector.call(root, ':slick');
+			features.nativeMatchesSelector = null;
+>>>>>>> upstream/master
 		} catch(e){};
 
 	}
 
+<<<<<<< HEAD
 	root.removeChild(testNode);
 	testNode = null;
 
 	// hasAttribute
 
 	this.hasAttribute = (root && this.isNativeCode(root.hasAttribute)) ? function(node, attribute) {
+=======
+	try {
+		root.slick_expando = 1;
+		delete root.slick_expando;
+		features.getUID = this.getUIDHTML;
+	} catch(e) {
+		features.getUID = this.getUIDXML;
+	}
+
+	testRoot.removeChild(testNode);
+	testNode = selected = testRoot = null;
+
+	// getAttribute
+
+	features.getAttribute = (features.isHTMLDocument && brokenFormAttributeGetter) ? function(node, name){
+		var method = this.attributeGetters[name];
+		if (method) return method.call(node);
+		var attributeNode = node.getAttributeNode(name);
+		return (attributeNode) ? attributeNode.nodeValue : null;
+	} : function(node, name){
+		var method = this.attributeGetters[name];
+		return (method) ? method.call(node) : node.getAttribute(name);
+	};
+
+	// hasAttribute
+
+	features.hasAttribute = (root && this.isNativeCode(root.hasAttribute)) ? function(node, attribute) {
+>>>>>>> upstream/master
 		return node.hasAttribute(attribute);
 	} : function(node, attribute) {
 		node = node.getAttributeNode(attribute);
@@ -2170,7 +2560,11 @@ local.setDocument = function(document){
 
 	// contains
 	// FIXME: Add specs: local.contains should be different for xml and html documents?
+<<<<<<< HEAD
 	this.contains = (root && this.isNativeCode(root.contains)) ? function(context, node){
+=======
+	features.contains = (root && this.isNativeCode(root.contains)) ? function(context, node){
+>>>>>>> upstream/master
 		return context.contains(node);
 	} : (root && root.compareDocumentPosition) ? function(context, node){
 		return context === node || !!(context.compareDocumentPosition(node) & 16);
@@ -2184,7 +2578,11 @@ local.setDocument = function(document){
 	// document order sorting
 	// credits to Sizzle (http://sizzlejs.com/)
 
+<<<<<<< HEAD
 	this.documentSorter = (root.compareDocumentPosition) ? function(a, b){
+=======
+	features.documentSorter = (root.compareDocumentPosition) ? function(a, b){
+>>>>>>> upstream/master
 		if (!a.compareDocumentPosition || !b.compareDocumentPosition) return 0;
 		return a.compareDocumentPosition(b) & 4 ? -1 : a === b ? 0 : 1;
 	} : ('sourceIndex' in root) ? function(a, b){
@@ -2200,12 +2598,21 @@ local.setDocument = function(document){
 		return aRange.compareBoundaryPoints(Range.START_TO_END, bRange);
 	} : null ;
 
+<<<<<<< HEAD
 	this.getUID = (this.isHTMLDocument) ? this.getUIDHTML : this.getUIDXML;
 
+=======
+	root = null;
+
+	for (feature in features){
+		this[feature] = features[feature];
+	}
+>>>>>>> upstream/master
 };
 
 // Main Method
 
+<<<<<<< HEAD
 local.search = function(context, expression, append, first){
 
 	var found = this.found = (first) ? null : (append || []);
@@ -2230,11 +2637,37 @@ local.search = function(context, expression, append, first){
 
 	// avoid duplicating items already in the append array
 	if (shouldUniques) for (i = found.length; i--;) this.uniques[this.getUID(found[i])] = true;
+=======
+var reSimpleSelector = /^([#.]?)((?:[\w-]+|\*))$/,
+	reEmptyAttribute = /\[.+[*$^]=(?:""|'')?\]/,
+	qsaFailExpCache = {};
+
+local.search = function(context, expression, append, first){
+
+	var found = this.found = (first) ? null : (append || []);
+	
+	if (!context) return found;
+	else if (context.navigator) context = context.document; // Convert the node from a window to a document
+	else if (!context.nodeType) return found;
+
+	// setup
+
+	var parsed, i,
+		uniques = this.uniques = {},
+		hasOthers = !!(append && append.length),
+		contextIsDocument = (context.nodeType == 9);
+
+	if (this.document !== (contextIsDocument ? context : context.ownerDocument)) this.setDocument(context);
+
+	// avoid duplicating items already in the append array
+	if (hasOthers) for (i = found.length; i--;) uniques[this.getUID(found[i])] = true;
+>>>>>>> upstream/master
 
 	// expression checks
 
 	if (typeof expression == 'string'){ // expression is a string
 
+<<<<<<< HEAD
 		// Overrides
 
 		for (i = this.overrides.length; i--;){
@@ -2246,6 +2679,114 @@ local.search = function(context, expression, append, first){
 				return result;
 			}
 		}
+=======
+		/*<simple-selectors-override>*/
+		var simpleSelector = expression.match(reSimpleSelector);
+		simpleSelectors: if (simpleSelector) {
+
+			var symbol = simpleSelector[1],
+				name = simpleSelector[2],
+				node, nodes;
+
+			if (!symbol){
+
+				if (name == '*' && this.brokenStarGEBTN) break simpleSelectors;
+				nodes = context.getElementsByTagName(name);
+				if (first) return nodes[0] || null;
+				for (i = 0; node = nodes[i++];){
+					if (!(hasOthers && uniques[this.getUID(node)])) found.push(node);
+				}
+
+			} else if (symbol == '#'){
+
+				if (!this.isHTMLDocument || !contextIsDocument) break simpleSelectors;
+				node = context.getElementById(name);
+				if (!node) return found;
+				if (this.idGetsName && node.getAttributeNode('id').nodeValue != name) break simpleSelectors;
+				if (first) return node || null;
+				if (!(hasOthers && uniques[this.getUID(node)])) found.push(node);
+
+			} else if (symbol == '.'){
+
+				if (!this.isHTMLDocument || ((!context.getElementsByClassName || this.brokenGEBCN) && context.querySelectorAll)) break simpleSelectors;
+				if (context.getElementsByClassName && !this.brokenGEBCN){
+					nodes = context.getElementsByClassName(name);
+					if (first) return nodes[0] || null;
+					for (i = 0; node = nodes[i++];){
+						if (!(hasOthers && uniques[this.getUID(node)])) found.push(node);
+					}
+				} else {
+					var matchClass = new RegExp('(^|\\s)'+ Slick.escapeRegExp(name) +'(\\s|$)');
+					nodes = context.getElementsByTagName('*');
+					for (i = 0; node = nodes[i++];){
+						className = node.className;
+						if (!(className && matchClass.test(className))) continue;
+						if (first) return node;
+						if (!(hasOthers && uniques[this.getUID(node)])) found.push(node);
+					}
+				}
+
+			}
+
+			if (hasOthers) this.sort(found);
+			return (first) ? null : found;
+
+		}
+		/*</simple-selectors-override>*/
+
+		/*<query-selector-override>*/
+		querySelector: if (context.querySelectorAll) {
+
+			if (!this.isHTMLDocument
+				|| qsaFailExpCache[expression]
+				//TODO: only skip when expression is actually mixed case
+				|| this.brokenMixedCaseQSA
+				|| (this.brokenCheckedQSA && expression.indexOf(':checked') > -1)
+				|| (this.brokenEmptyAttributeQSA && reEmptyAttribute.test(expression))
+				|| (!contextIsDocument //Abort when !contextIsDocument and...
+					//  there are multiple expressions in the selector
+					//  since we currently only fix non-document rooted QSA for single expression selectors
+					&& expression.indexOf(',') > -1
+				)
+				|| Slick.disableQSA
+			) break querySelector;
+
+			var _expression = expression, _context = context;
+			if (!contextIsDocument){
+				// non-document rooted QSA
+				// credits to Andrew Dupont
+				var currentId = _context.getAttribute('id'), slickid = 'slickid__';
+				_context.setAttribute('id', slickid);
+				_expression = '#' + slickid + ' ' + _expression;
+				context = _context.parentNode;
+			}
+
+			try {
+				if (first) return context.querySelector(_expression) || null;
+				else nodes = context.querySelectorAll(_expression);
+			} catch(e) {
+				qsaFailExpCache[expression] = 1;
+				break querySelector;
+			} finally {
+				if (!contextIsDocument){
+					if (currentId) _context.setAttribute('id', currentId);
+					else _context.removeAttribute('id');
+					context = _context;
+				}
+			}
+
+			if (this.starSelectsClosedQSA) for (i = 0; node = nodes[i++];){
+				if (node.nodeName > '@' && !(hasOthers && uniques[this.getUID(node)])) found.push(node);
+			} else for (i = 0; node = nodes[i++];){
+				if (!(hasOthers && uniques[this.getUID(node)])) found.push(node);
+			}
+
+			if (hasOthers) this.sort(found);
+			return found;
+
+		}
+		/*</query-selector-override>*/
+>>>>>>> upstream/master
 
 		parsed = this.Slick.parse(expression);
 		if (!parsed.length) return found;
@@ -2260,10 +2801,17 @@ local.search = function(context, expression, append, first){
 		return found;
 	}
 
+<<<<<<< HEAD
 	// cache elements for the nth selectors
 
 	/*<pseudo-selectors>*//*<nth-pseudo-selectors>*/
 
+=======
+	/*<pseudo-selectors>*//*<nth-pseudo-selectors>*/
+
+	// cache elements for the nth selectors
+
+>>>>>>> upstream/master
 	this.posNTH = {};
 	this.posNTHLast = {};
 	this.posNTHType = {};
@@ -2272,7 +2820,11 @@ local.search = function(context, expression, append, first){
 	/*</nth-pseudo-selectors>*//*</pseudo-selectors>*/
 
 	// if append is null and there is only a single selector with one expression use pushArray, else use pushUID
+<<<<<<< HEAD
 	this.push = (!shouldUniques && (first || (parsed.length == 1 && parsed.expressions[0].length == 1))) ? this.pushArray : this.pushUID;
+=======
+	this.push = (!hasOthers && (first || (parsed.length == 1 && parsed.expressions[0].length == 1))) ? this.pushArray : this.pushUID;
+>>>>>>> upstream/master
 
 	if (found == null) found = [];
 
@@ -2318,7 +2870,12 @@ local.search = function(context, expression, append, first){
 		currentItems = this.found;
 	}
 
+<<<<<<< HEAD
 	if (shouldUniques || (parsed.expressions.length > 1)) this.sort(found);
+=======
+	// should sort if there are nodes in append and if you pass multiple expressions.
+	if (hasOthers || (parsed.expressions.length > 1)) this.sort(found);
+>>>>>>> upstream/master
 
 	return (first) ? (found[0] || null) : found;
 };
@@ -2326,7 +2883,11 @@ local.search = function(context, expression, append, first){
 // Utils
 
 local.uidx = 1;
+<<<<<<< HEAD
 local.uidk = 'slick:uniqueid';
+=======
+local.uidk = 'slick-uniqueid';
+>>>>>>> upstream/master
 
 local.getUIDXML = function(node){
 	var uid = node.getAttribute(this.uidk);
@@ -2380,12 +2941,20 @@ local.createNTHPseudo = function(child, sibling, positions, ofType){
 			if (ofType){
 				var nodeName = node.nodeName;
 				do {
+<<<<<<< HEAD
 					if (el.nodeName !== nodeName) continue;
+=======
+					if (el.nodeName != nodeName) continue;
+>>>>>>> upstream/master
 					this[positions][this.getUID(el)] = count++;
 				} while ((el = el[sibling]));
 			} else {
 				do {
+<<<<<<< HEAD
 					if (el.nodeType !== 1) continue;
+=======
+					if (el.nodeType != 1) continue;
+>>>>>>> upstream/master
 					this[positions][this.getUID(el)] = count++;
 				} while ((el = el[sibling]));
 			}
@@ -2419,10 +2988,20 @@ local.pushUID = function(node, tag, id, classes, attributes, pseudos){
 };
 
 local.matchNode = function(node, selector){
+<<<<<<< HEAD
+=======
+	if (this.isHTMLDocument && this.nativeMatchesSelector){
+		try {
+			return this.nativeMatchesSelector.call(node, selector.replace(/\[([^=]+)=\s*([^'"\]]+?)\s*\]/g, '[$1="$2"]'));
+		} catch(matchError) {}
+	}
+	
+>>>>>>> upstream/master
 	var parsed = this.Slick.parse(selector);
 	if (!parsed) return true;
 
 	// simple (single) selectors
+<<<<<<< HEAD
 	if(parsed.length == 1 && parsed.expressions[0].length == 1){
 		var exp = parsed.expressions[0][0];
 		return this.matchSelector(node, (this.isXMLDocument) ? exp.tag : exp.tag.toUpperCase(), exp.id, exp.classes, exp.attributes, exp.pseudos);
@@ -2430,6 +3009,21 @@ local.matchNode = function(node, selector){
 
 	var nodes = this.search(this.document, parsed);
 	for (var i = 0, item; item = nodes[i++];){
+=======
+	var expressions = parsed.expressions, reversedExpressions, simpleExpCounter = 0, i;
+	for (i = 0; (currentExpression = expressions[i]); i++){
+		if (currentExpression.length == 1){
+			var exp = currentExpression[0];
+			if (this.matchSelector(node, (this.isXMLDocument) ? exp.tag : exp.tag.toUpperCase(), exp.id, exp.classes, exp.attributes, exp.pseudos)) return true;
+			simpleExpCounter++;
+		}
+	}
+
+	if (simpleExpCounter == parsed.length) return false;
+
+	var nodes = this.search(this.document, parsed), item;
+	for (i = 0; item = nodes[i++];){
+>>>>>>> upstream/master
 		if (item === node) return true;
 	}
 	return false;
@@ -2444,10 +3038,18 @@ local.matchPseudo = function(node, name, argument){
 
 local.matchSelector = function(node, tag, id, classes, attributes, pseudos){
 	if (tag){
+<<<<<<< HEAD
 		if (tag == '*'){
 			if (node.nodeName < '@') return false; // Fix for comment nodes and closed nodes
 		} else {
 			if (node.nodeName != tag) return false;
+=======
+		var nodeName = (this.isXMLDocument) ? node.nodeName : node.nodeName.toUpperCase();
+		if (tag == '*'){
+			if (nodeName < '@') return false; // Fix for comment nodes and closed nodes
+		} else {
+			if (nodeName != tag) return false;
+>>>>>>> upstream/master
 		}
 	}
 
@@ -2455,7 +3057,11 @@ local.matchSelector = function(node, tag, id, classes, attributes, pseudos){
 
 	var i, part, cls;
 	if (classes) for (i = classes.length; i--;){
+<<<<<<< HEAD
 		cls = ('className' in node) ? node.className : node.getAttribute('class');
+=======
+		cls = node.getAttribute('class') || node.className;
+>>>>>>> upstream/master
 		if (!(cls && classes[i].regexp.test(cls))) return false;
 	}
 	if (attributes) for (i = attributes.length; i--;){
@@ -2484,15 +3090,29 @@ var combinators = {
 					children = node.all[id];
 					if (!children) return;
 					if (!children[0]) children = [children];
+<<<<<<< HEAD
 					for (i = 0; item = children[i++];) if (item.getAttributeNode('id').nodeValue == id){
 						this.push(item, tag, null, classes, attributes, pseudos);
 						break;
 					}
+=======
+					for (i = 0; item = children[i++];){
+						var idNode = item.getAttributeNode('id');
+						if (idNode && idNode.nodeValue == id){
+							this.push(item, tag, null, classes, attributes, pseudos);
+							break;
+						}
+					} 
+>>>>>>> upstream/master
 					return;
 				}
 				if (!item){
 					// if the context is in the dom we return, else we will try GEBTN, breaking the getById label
+<<<<<<< HEAD
 					if (this.contains(this.document.documentElement, node)) return;
+=======
+					if (this.contains(this.root, node)) return;
+>>>>>>> upstream/master
 					else break getById;
 				} else if (this.document !== node && !this.contains(node, item)) return;
 				this.push(item, tag, null, classes, attributes, pseudos);
@@ -2515,12 +3135,20 @@ var combinators = {
 
 	'>': function(node, tag, id, classes, attributes, pseudos){ // direct children
 		if ((node = node.firstChild)) do {
+<<<<<<< HEAD
 			if (node.nodeType === 1) this.push(node, tag, id, classes, attributes, pseudos);
+=======
+			if (node.nodeType == 1) this.push(node, tag, id, classes, attributes, pseudos);
+>>>>>>> upstream/master
 		} while ((node = node.nextSibling));
 	},
 
 	'+': function(node, tag, id, classes, attributes, pseudos){ // next sibling
+<<<<<<< HEAD
 		while ((node = node.nextSibling)) if (node.nodeType === 1){
+=======
+		while ((node = node.nextSibling)) if (node.nodeType == 1){
+>>>>>>> upstream/master
 			this.push(node, tag, id, classes, attributes, pseudos);
 			break;
 		}
@@ -2529,14 +3157,22 @@ var combinators = {
 	'^': function(node, tag, id, classes, attributes, pseudos){ // first child
 		node = node.firstChild;
 		if (node){
+<<<<<<< HEAD
 			if (node.nodeType === 1) this.push(node, tag, id, classes, attributes, pseudos);
+=======
+			if (node.nodeType == 1) this.push(node, tag, id, classes, attributes, pseudos);
+>>>>>>> upstream/master
 			else this['combinator:+'](node, tag, id, classes, attributes, pseudos);
 		}
 	},
 
 	'~': function(node, tag, id, classes, attributes, pseudos){ // next siblings
 		while ((node = node.nextSibling)){
+<<<<<<< HEAD
 			if (node.nodeType !== 1) continue;
+=======
+			if (node.nodeType != 1) continue;
+>>>>>>> upstream/master
 			var uid = this.getUID(node);
 			if (this.bitUniques[uid]) break;
 			this.bitUniques[uid] = true;
@@ -2554,7 +3190,11 @@ var combinators = {
 		this['combinator:!~'](node, tag, id, classes, attributes, pseudos);
 	},
 
+<<<<<<< HEAD
 	'!': function(node, tag, id, classes, attributes, pseudos){  // all parent nodes up to document
+=======
+	'!': function(node, tag, id, classes, attributes, pseudos){ // all parent nodes up to document
+>>>>>>> upstream/master
 		while ((node = node.parentNode)) if (node !== this.document) this.push(node, tag, id, classes, attributes, pseudos);
 	},
 
@@ -2564,7 +3204,11 @@ var combinators = {
 	},
 
 	'!+': function(node, tag, id, classes, attributes, pseudos){ // previous sibling
+<<<<<<< HEAD
 		while ((node = node.previousSibling)) if (node.nodeType === 1){
+=======
+		while ((node = node.previousSibling)) if (node.nodeType == 1){
+>>>>>>> upstream/master
 			this.push(node, tag, id, classes, attributes, pseudos);
 			break;
 		}
@@ -2573,14 +3217,22 @@ var combinators = {
 	'!^': function(node, tag, id, classes, attributes, pseudos){ // last child
 		node = node.lastChild;
 		if (node){
+<<<<<<< HEAD
 			if (node.nodeType === 1) this.push(node, tag, id, classes, attributes, pseudos);
+=======
+			if (node.nodeType == 1) this.push(node, tag, id, classes, attributes, pseudos);
+>>>>>>> upstream/master
 			else this['combinator:!+'](node, tag, id, classes, attributes, pseudos);
 		}
 	},
 
 	'!~': function(node, tag, id, classes, attributes, pseudos){ // previous siblings
 		while ((node = node.previousSibling)){
+<<<<<<< HEAD
 			if (node.nodeType !== 1) continue;
+=======
+			if (node.nodeType != 1) continue;
+>>>>>>> upstream/master
 			var uid = this.getUID(node);
 			if (this.bitUniques[uid]) break;
 			this.bitUniques[uid] = true;
@@ -2610,20 +3262,34 @@ var pseudos = {
 	},
 
 	'first-child': function(node){
+<<<<<<< HEAD
 		while ((node = node.previousSibling)) if (node.nodeType === 1) return false;
+=======
+		while ((node = node.previousSibling)) if (node.nodeType == 1) return false;
+>>>>>>> upstream/master
 		return true;
 	},
 
 	'last-child': function(node){
+<<<<<<< HEAD
 		while ((node = node.nextSibling)) if (node.nodeType === 1) return false;
+=======
+		while ((node = node.nextSibling)) if (node.nodeType == 1) return false;
+>>>>>>> upstream/master
 		return true;
 	},
 
 	'only-child': function(node){
 		var prev = node;
+<<<<<<< HEAD
 		while ((prev = prev.previousSibling)) if (prev.nodeType === 1) return false;
 		var next = node;
 		while ((next = next.nextSibling)) if (next.nodeType === 1) return false;
+=======
+		while ((prev = prev.previousSibling)) if (prev.nodeType == 1) return false;
+		var next = node;
+		while ((next = next.nextSibling)) if (next.nodeType == 1) return false;
+>>>>>>> upstream/master
 		return true;
 	},
 
@@ -2641,11 +3307,19 @@ var pseudos = {
 		return this['pseudo:nth-child'](node, '' + index + 1);
 	},
 
+<<<<<<< HEAD
 	'even': function(node, argument){
 		return this['pseudo:nth-child'](node, '2n');
 	},
 
 	'odd': function(node, argument){
+=======
+	'even': function(node){
+		return this['pseudo:nth-child'](node, '2n');
+	},
+
+	'odd': function(node){
+>>>>>>> upstream/master
 		return this['pseudo:nth-child'](node, '2n+1');
 	},
 
@@ -2655,21 +3329,35 @@ var pseudos = {
 
 	'first-of-type': function(node){
 		var nodeName = node.nodeName;
+<<<<<<< HEAD
 		while ((node = node.previousSibling)) if (node.nodeName === nodeName) return false;
+=======
+		while ((node = node.previousSibling)) if (node.nodeName == nodeName) return false;
+>>>>>>> upstream/master
 		return true;
 	},
 
 	'last-of-type': function(node){
 		var nodeName = node.nodeName;
+<<<<<<< HEAD
 		while ((node = node.nextSibling)) if (node.nodeName === nodeName) return false;
+=======
+		while ((node = node.nextSibling)) if (node.nodeName == nodeName) return false;
+>>>>>>> upstream/master
 		return true;
 	},
 
 	'only-of-type': function(node){
 		var prev = node, nodeName = node.nodeName;
+<<<<<<< HEAD
 		while ((prev = prev.previousSibling)) if (prev.nodeName === nodeName) return false;
 		var next = node;
 		while ((next = next.nextSibling)) if (next.nodeName === nodeName) return false;
+=======
+		while ((prev = prev.previousSibling)) if (prev.nodeName == nodeName) return false;
+		var next = node;
+		while ((next = next.nextSibling)) if (next.nodeName == nodeName) return false;
+>>>>>>> upstream/master
 		return true;
 	},
 
@@ -2678,11 +3366,19 @@ var pseudos = {
 	// custom pseudos
 
 	'enabled': function(node){
+<<<<<<< HEAD
 		return (node.disabled === false);
 	},
 
 	'disabled': function(node){
 		return (node.disabled === true);
+=======
+		return !node.disabled;
+	},
+
+	'disabled': function(node){
+		return node.disabled;
+>>>>>>> upstream/master
 	},
 
 	'checked': function(node){
@@ -2696,7 +3392,11 @@ var pseudos = {
 	'root': function(node){
 		return (node === this.root);
 	},
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> upstream/master
 	'selected': function(node){
 		return node.selected;
 	}
@@ -2711,7 +3411,11 @@ for (var p in pseudos) local['pseudo:' + p] = pseudos[p];
 local.attributeGetters = {
 
 	'class': function(){
+<<<<<<< HEAD
 		return ('className' in this) ? this.className : this.getAttribute('class');
+=======
+		return this.getAttribute('class') || this.className;
+>>>>>>> upstream/master
 	},
 
 	'for': function(){
@@ -2724,6 +3428,7 @@ local.attributeGetters = {
 
 	'style': function(){
 		return (this.style) ? this.style.cssText : this.getAttribute('style');
+<<<<<<< HEAD
 	}
 
 };
@@ -2851,12 +3556,30 @@ local.override(/^#[\w-]+$/, function(expression, found, first){ // ID override
 /*</overrides>*/
 
 if (typeof document != 'undefined') local.setDocument(document);
+=======
+	},
+	
+	'tabindex': function(){
+		var attributeNode = this.getAttributeNode('tabindex');
+		return (attributeNode && attributeNode.specified) ? attributeNode.nodeValue : null;
+	},
+
+	'type': function(){
+		return this.getAttribute('type');
+	}
+
+};
+>>>>>>> upstream/master
 
 // Slick
 
 var Slick = local.Slick = (this.Slick || {});
 
+<<<<<<< HEAD
 Slick.version = '0.9dev';
+=======
+Slick.version = '1.1.5';
+>>>>>>> upstream/master
 
 // Slick finder
 
@@ -2886,7 +3609,10 @@ Slick.getAttribute = function(node, name){
 Slick.match = function(node, selector){
 	if (!(node && selector)) return false;
 	if (!selector || selector === node) return true;
+<<<<<<< HEAD
 	if (typeof selector != 'string') return false;
+=======
+>>>>>>> upstream/master
 	local.setDocument(node);
 	return local.matchNode(node, selector);
 };
@@ -2960,7 +3686,11 @@ var Element = function(tag, props){
 
 	if (!props) props = {};
 
+<<<<<<< HEAD
 	if (!tag.test(/^[\w-]+$/)){
+=======
+	if (!(/^[\w-]+$/).test(tag)){
+>>>>>>> upstream/master
 		var parsed = Slick.parse(tag).expressions[0][0];
 		tag = (parsed.tag == '*') ? 'div' : parsed.tag;
 		if (parsed.id && props.id == null) props.id = parsed.id;
@@ -2968,8 +3698,15 @@ var Element = function(tag, props){
 		var attributes = parsed.attributes;
 		if (attributes) for (var i = 0, l = attributes.length; i < l; i++){
 			var attr = attributes[i];
+<<<<<<< HEAD
 			if (attr.value != null && attr.operator == '=' && props[attr.key] == null)
 				props[attr.key] = attr.value;
+=======
+			if (props[attr.key] != null) continue;
+
+			if (attr.value != null && attr.operator == '=') props[attr.key] = attr.value;
+			else if (!attr.value && !attr.operator) props[attr.key] = true;
+>>>>>>> upstream/master
 		}
 
 		if (parsed.classList && props['class'] == null) props['class'] = parsed.classList.join(' ');
@@ -3072,6 +3809,18 @@ new Type('Elements', Elements).implement({
 		return (this.length = length);
 	}.protect(),
 
+<<<<<<< HEAD
+=======
+	unshift: function(){
+		var items = [];
+		for (var i = 0, l = arguments.length; i < l; i++){
+			var item = document.id(arguments[i]);
+			if (item) items.push(item);
+		}
+		return Array.prototype.unshift.apply(this, items);
+	}.protect(),
+
+>>>>>>> upstream/master
 	concat: function(){
 		var newElements = new Elements(this);
 		for (var i = 0, l = arguments.length; i < l; i++){
@@ -3094,6 +3843,15 @@ new Type('Elements', Elements).implement({
 
 });
 
+<<<<<<< HEAD
+=======
+//<1.2compat>
+
+Elements.alias('extend', 'append');
+
+//</1.2compat>
+
+>>>>>>> upstream/master
 (function(){
 
 // FF, IE
@@ -3169,7 +3927,11 @@ Document.implement({
 
 			element: function(el, nocash){
 				$uid(el);
+<<<<<<< HEAD
 				if (!nocash && !el.$family && !(/^object|embed$/i).test(el.tagName)){
+=======
+				if (!nocash && !el.$family && !(/^(?:object|embed)$/i).test(el.tagName)){
+>>>>>>> upstream/master
 					Object.append(el, Element.Prototype);
 				}
 				return el;
@@ -3282,16 +4044,26 @@ if (window.$$ == null) Window.implement('$$', function(selector){
 (function(){
 
 var collected = {}, storage = {};
+<<<<<<< HEAD
 var props = {input: 'checked', option: 'selected', textarea: 'value'};
+=======
+var formProps = {input: 'checked', option: 'selected', textarea: 'value'};
+>>>>>>> upstream/master
 
 var get = function(uid){
 	return (storage[uid] || (storage[uid] = {}));
 };
 
 var clean = function(item){
+<<<<<<< HEAD
 	if (item.removeEvents) item.removeEvents();
 	if (item.clearAttributes) item.clearAttributes();
 	var uid = item.uid;
+=======
+	var uid = item.uid;
+	if (item.removeEvents) item.removeEvents();
+	if (item.clearAttributes) item.clearAttributes();
+>>>>>>> upstream/master
 	if (uid != null){
 		delete collected[uid];
 		delete storage[uid];
@@ -3303,7 +4075,11 @@ var camels = ['defaultValue', 'accessKey', 'cellPadding', 'cellSpacing', 'colSpa
 	'rowSpan', 'tabIndex', 'useMap'
 ];
 var bools = ['compact', 'nowrap', 'ismap', 'declare', 'noshade', 'checked', 'disabled', 'readOnly', 'multiple', 'selected',
+<<<<<<< HEAD
 	'noresize', 'defer'
+=======
+	'noresize', 'defer', 'defaultChecked'
+>>>>>>> upstream/master
 ];
  var attributes = {
 	'html': 'innerHTML',
@@ -3311,7 +4087,11 @@ var bools = ['compact', 'nowrap', 'ismap', 'declare', 'noshade', 'checked', 'dis
 	'for': 'htmlFor',
 	'text': (function(){
 		var temp = document.createElement('div');
+<<<<<<< HEAD
 		return (temp.innerText == null) ? 'textContent' : 'innerText';
+=======
+		return (temp.textContent == null) ? 'innerText' : 'textContent';
+>>>>>>> upstream/master
 	})()
 };
 var readOnly = ['type'];
@@ -3375,7 +4155,11 @@ Object.each(inserters, function(inserter, where){
 var injectCombinator = function(expression, combinator){
 	if (!expression) return combinator;
 
+<<<<<<< HEAD
 	expression = Slick.parse(expression);
+=======
+	expression = Object.clone(Slick.parse(expression));
+>>>>>>> upstream/master
 
 	var expressions = expression.expressions;
 	for (var i = expressions.length; i--;)
@@ -3578,6 +4362,7 @@ Element.implement({
 		return queryString.join('&');
 	},
 
+<<<<<<< HEAD
 	clone: function(contents, keepid){
 		contents = contents !== false;
 		var clone = this.cloneNode(contents);
@@ -3613,6 +4398,8 @@ Element.implement({
 		return document.id(clone);
 	},
 
+=======
+>>>>>>> upstream/master
 	destroy: function(){
 		var children = clean(this).getElementsByTagName('*');
 		Array.each(children, clean);
@@ -3635,6 +4422,43 @@ Element.implement({
 
 });
 
+<<<<<<< HEAD
+=======
+var cleanClone = function(node, element, keepid){
+	if (!keepid) node.setAttributeNode(document.createAttribute('id'));
+	if (node.clearAttributes){
+		node.clearAttributes();
+		node.mergeAttributes(element);
+		node.removeAttribute('uid');
+		if (node.options){
+			var no = node.options, eo = element.options;
+			for (var i = no.length; i--;) no[i].selected = eo[i].selected;
+		}
+	}
+
+	var prop = formProps[element.tagName.toLowerCase()];
+	if (prop && element[prop]) node[prop] = element[prop];
+};
+
+Element.implement('clone', function(contents, keepid){
+	contents = contents !== false;
+	var clone = this.cloneNode(contents), i;
+
+	if (contents){
+		var ce = clone.getElementsByTagName('*'), te = this.getElementsByTagName('*');
+		for (i = ce.length; i--;) cleanClone(ce[i], te[i], keepid);
+	}
+
+	cleanClone(clone, this, keepid);
+
+	if (Browser.ie){
+		var co = clone.getElementsByTagName('object'), to = this.getElementsByTagName('object');
+		for (i = co.length; i--;) co[i].outerHTML = to[i].outerHTML;
+	}
+	return document.id(clone);
+});
+
+>>>>>>> upstream/master
 var contains = {contains: function(element){
 	return Slick.contains(this, element);
 }};
@@ -3660,44 +4484,74 @@ Element.implement('hasChild', function(element){
 				old();
 			};
 		} else {
+<<<<<<< HEAD
 			collected[this.uid] = this;
 		}
 		if (this.addEventListener) this.addEventListener(type, fn, false);
+=======
+			collected[$uid(this)] = this;
+		}
+		if (this.addEventListener) this.addEventListener(type, fn, !!arguments[2]);
+>>>>>>> upstream/master
 		else this.attachEvent('on' + type, fn);
 		return this;
 	},
 
 	removeListener: function(type, fn){
+<<<<<<< HEAD
 		if (this.removeEventListener) this.removeEventListener(type, fn, false);
+=======
+		if (this.removeEventListener) this.removeEventListener(type, fn, !!arguments[2]);
+>>>>>>> upstream/master
 		else this.detachEvent('on' + type, fn);
 		return this;
 	},
 
 	retrieve: function(property, dflt){
+<<<<<<< HEAD
 		var storage = get(this.uid), prop = storage[property];
+=======
+		var storage = get($uid(this)), prop = storage[property];
+>>>>>>> upstream/master
 		if (dflt != null && prop == null) prop = storage[property] = dflt;
 		return prop != null ? prop : null;
 	},
 
 	store: function(property, value){
+<<<<<<< HEAD
 		var storage = get(this.uid);
+=======
+		var storage = get($uid(this));
+>>>>>>> upstream/master
 		storage[property] = value;
 		return this;
 	},
 
 	eliminate: function(property){
+<<<<<<< HEAD
 		var storage = get(this.uid);
+=======
+		var storage = get($uid(this));
+>>>>>>> upstream/master
 		delete storage[property];
 		return this;
 	}
 
 });
 
+<<<<<<< HEAD
 // IE purge
+=======
+/*<ltIE9>*/
+>>>>>>> upstream/master
 if (window.attachEvent && !window.addEventListener) window.addListener('unload', function(){
 	Object.each(collected, clean);
 	if (window.CollectGarbage) CollectGarbage();
 });
+<<<<<<< HEAD
+=======
+/*</ltIE9>*/
+>>>>>>> upstream/master
 
 })();
 
@@ -3733,6 +4587,10 @@ Element.Properties.tag = {
 
 };
 
+<<<<<<< HEAD
+=======
+/*<ltIE9>*/
+>>>>>>> upstream/master
 (function(maxLength){
 	if (maxLength != null) Element.Properties.maxlength = Element.Properties.maxLength = {
 		get: function(){
@@ -3741,7 +4599,13 @@ Element.Properties.tag = {
 		}
 	};
 })(document.createElement('input').getAttribute('maxLength'));
+<<<<<<< HEAD
 
+=======
+/*</ltIE9>*/
+
+/*<!webkit>*/
+>>>>>>> upstream/master
 Element.Properties.html = (function(){
 
 	var tableTest = Function.attempt(function(){
@@ -3778,6 +4642,10 @@ Element.Properties.html = (function(){
 
 	return html;
 })();
+<<<<<<< HEAD
+=======
+/*</!webkit>*/
+>>>>>>> upstream/master
 
 
 /*
@@ -3812,9 +4680,16 @@ var setOpacity = function(element, opacity){
 	if (hasOpacity){
 		element.style.opacity = opacity;
 	} else {
+<<<<<<< HEAD
 		opacity = (opacity == 1) ? '' : 'alpha(opacity=' + opacity * 100 + ')';
 		var filter = element.style.filter || element.getComputedStyle('filter') || '';
 		element.style.filter = filter.test(reAlpha) ? filter.replace(reAlpha, opacity) : filter + opacity;
+=======
+		opacity = (opacity * 100).limit(0, 100).round();
+		opacity = (opacity == 100) ? '' : 'alpha(opacity=' + opacity + ')';
+		var filter = element.style.filter || element.getComputedStyle('filter') || '';
+		element.style.filter = reAlpha.test(filter) ? filter.replace(reAlpha, opacity) : filter + opacity;
+>>>>>>> upstream/master
 	}
 };
 
@@ -3900,7 +4775,11 @@ Element.implement({
 			if (color) result = result.replace(color[0], color[0].rgbToHex());
 		}
 		if (Browser.opera || (Browser.ie && isNaN(parseFloat(result)))){
+<<<<<<< HEAD
 			if (property.test(/^(height|width)$/)){
+=======
+			if ((/^(height|width)$/).test(property)){
+>>>>>>> upstream/master
 				var values = (property == 'width') ? ['left', 'right'] : ['top', 'bottom'], size = 0;
 				values.each(function(value){
 					size += this.getStyle('border-' + value + '-width').toInt() + this.getStyle('padding-' + value).toInt();
@@ -3908,7 +4787,11 @@ Element.implement({
 				return this['offset' + property.capitalize()] - size + 'px';
 			}
 			if (Browser.opera && String(result).indexOf('px') != -1) return result;
+<<<<<<< HEAD
 			if (property.test(/(border(.+)Width|margin|padding)/)) return '0px';
+=======
+			if ((/^border(.+)Width|margin|padding/).test(property)) return '0px';
+>>>>>>> upstream/master
 		}
 		return result;
 	},
@@ -4019,7 +4902,11 @@ Element.Properties.events = {set: function(events){
 					if (condition.call(self, event) === false) event.stop();
 				};
 			}
+<<<<<<< HEAD
 			this.addListener(realType, defn);
+=======
+			this.addListener(realType, defn, arguments[2]);
+>>>>>>> upstream/master
 		}
 		events[type].values.push(defn);
 		return this;
@@ -4039,7 +4926,11 @@ Element.Properties.events = {set: function(events){
 			if (custom.onRemove) custom.onRemove.call(this, fn);
 			type = custom.base || type;
 		}
+<<<<<<< HEAD
 		return (Element.NativeEvents[type]) ? this.removeListener(type, value) : this;
+=======
+		return (Element.NativeEvents[type]) ? this.removeListener(type, value, arguments[2]) : this;
+>>>>>>> upstream/master
 	},
 
 	addEvents: function(events){
@@ -4095,12 +4986,15 @@ Element.Properties.events = {set: function(events){
 
 });
 
+<<<<<<< HEAD
 // IE9
 try {
 	if (typeof HTMLElement != 'undefined')
 		HTMLElement.prototype.fireEvent = Element.prototype.fireEvent;
 } catch(e){}
 
+=======
+>>>>>>> upstream/master
 Element.NativeEvents = {
 	click: 2, dblclick: 2, mouseup: 2, mousedown: 2, contextmenu: 2, //mouse buttons
 	mousewheel: 2, DOMMouseScroll: 2, //mouse wheel
@@ -4170,6 +5064,24 @@ provides: [Element.Dimensions]
 
 (function(){
 
+<<<<<<< HEAD
+=======
+var element = document.createElement('div'),
+	child = document.createElement('div');
+element.style.height = '0';
+element.appendChild(child);
+var brokenOffsetParent = (child.offsetParent === element);
+element = child = null;
+
+var isOffset = function(el){
+	return styleString(el, 'position') != 'static' || isBody(el);
+};
+
+var isOffsetStatic = function(el){
+	return isOffset(el) || (/^(?:table|td|th)$/i).test(el.tagName);
+};
+
+>>>>>>> upstream/master
 Element.implement({
 
 	scrollTo: function(x, y){
@@ -4207,6 +5119,7 @@ Element.implement({
 		return position;
 	},
 
+<<<<<<< HEAD
 	getOffsetParent: function(){
 		var element = this;
 		if (isBody(element)) return null;
@@ -4215,6 +5128,25 @@ Element.implement({
 			if (styleString(element, 'position') != 'static' || isBody(element)) return element;
 		}
 		return null;
+=======
+	getOffsetParent: brokenOffsetParent ? function(){
+		var element = this;
+		if (isBody(element) || styleString(element, 'position') == 'fixed') return null;
+
+		var isOffsetCheck = (styleString(element, 'position') == 'static') ? isOffsetStatic : isOffset;
+		while ((element = element.parentNode)){
+			if (isOffsetCheck(element)) return element;
+		}
+		return null;
+	} : function(){
+		var element = this;
+		if (isBody(element) || styleString(element, 'position') == 'fixed') return null;
+
+		try {
+			return element.offsetParent;
+		} catch(e) {}
+		return null;
+>>>>>>> upstream/master
 	},
 
 	getOffsets: function(){
@@ -4270,7 +5202,11 @@ Element.implement({
 			x: offset.x - scroll.x,
 			y: offset.y - scroll.y
 		};
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> upstream/master
 		if (relative && (relative = document.id(relative))){
 			var relativePosition = relative.getPosition();
 			return {x: position.x - relativePosition.x - leftBorder(relative), y: position.y - relativePosition.y - topBorder(relative)};
@@ -4344,6 +5280,7 @@ var styleString = Element.getComputedStyle;
 
 function styleNumber(element, style){
 	return styleString(element, style).toInt() || 0;
+<<<<<<< HEAD
 };
 
 function borderBox(element){
@@ -4361,11 +5298,34 @@ function leftBorder(element){
 function isBody(element){
 	return (/^(?:body|html)$/i).test(element.tagName);
 };
+=======
+}
+
+function borderBox(element){
+	return styleString(element, '-moz-box-sizing') == 'border-box';
+}
+
+function topBorder(element){
+	return styleNumber(element, 'border-top-width');
+}
+
+function leftBorder(element){
+	return styleNumber(element, 'border-left-width');
+}
+
+function isBody(element){
+	return (/^(?:body|html)$/i).test(element.tagName);
+}
+>>>>>>> upstream/master
 
 function getCompatElement(element){
 	var doc = element.getDocument();
 	return (!doc.compatMode || doc.compatMode == 'CSS1Compat') ? doc.html : doc.body;
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> upstream/master
 
 })();
 
@@ -4437,9 +5397,17 @@ var Fx = this.Fx = new Class({
 		onCancel: nil,
 		onComplete: nil,
 		*/
+<<<<<<< HEAD
 		fps: 50,
 		unit: false,
 		duration: 500,
+=======
+		fps: 60,
+		unit: false,
+		duration: 500,
+		frames: null,
+		frameSkip: true,
+>>>>>>> upstream/master
 		link: 'ignore'
 	},
 
@@ -4454,6 +5422,7 @@ var Fx = this.Fx = new Class({
 		};
 	},
 
+<<<<<<< HEAD
 	step: function(){
 		var time = Date.now();
 		if (time < this.time + this.options.duration){
@@ -4462,6 +5431,24 @@ var Fx = this.Fx = new Class({
 		} else {
 			this.set(this.compute(this.from, this.to, 1));
 			this.complete();
+=======
+	step: function(now){
+		if (this.options.frameSkip){
+			var diff = (this.time != null) ? (now - this.time) : 0, frames = diff / this.frameInterval;
+			this.time = now;
+			this.frame += frames;
+		} else {
+			this.frame++;
+		}
+		
+		if (this.frame < this.frames){
+			var delta = this.transition(this.frame / this.frames);
+			this.set(this.compute(this.from, this.to, delta));
+		} else {
+			this.frame = this.frames;
+			this.set(this.compute(this.from, this.to, 1));
+			this.stop();
+>>>>>>> upstream/master
 		}
 	},
 
@@ -4474,7 +5461,11 @@ var Fx = this.Fx = new Class({
 	},
 
 	check: function(){
+<<<<<<< HEAD
 		if (!this.timer) return true;
+=======
+		if (!this.isRunning()) return true;
+>>>>>>> upstream/master
 		switch (this.options.link){
 			case 'cancel': this.cancel(); return true;
 			case 'chain': this.chain(this.caller.pass(arguments, this)); return false;
@@ -4484,6 +5475,7 @@ var Fx = this.Fx = new Class({
 
 	start: function(from, to){
 		if (!this.check(from, to)) return this;
+<<<<<<< HEAD
 		var duration = this.options.duration;
 		this.options.duration = Fx.Durations[duration] || duration.toInt();
 		this.from = from;
@@ -4540,6 +5532,62 @@ var Fx = this.Fx = new Class({
 		this.time = Date.now() - this.time;
 		this.timer = addInstance(this);
 		return true;
+=======
+		this.from = from;
+		this.to = to;
+		this.frame = (this.options.frameSkip) ? 0 : -1;
+		this.time = null;
+		this.transition = this.getTransition();
+		var frames = this.options.frames, fps = this.options.fps, duration = this.options.duration;
+		this.duration = Fx.Durations[duration] || duration.toInt();
+		this.frameInterval = 1000 / fps;
+		this.frames = frames || Math.round(this.duration / this.frameInterval);
+		this.fireEvent('start', this.subject);
+		pushInstance.call(this, fps);
+		return this;
+	},
+	
+	stop: function(){
+		if (this.isRunning()){
+			this.time = null;
+			pullInstance.call(this, this.options.fps);
+			if (this.frames == this.frame){
+				this.fireEvent('complete', this.subject);
+				if (!this.callChain()) this.fireEvent('chainComplete', this.subject);
+			} else {
+				this.fireEvent('stop', this.subject);
+			}
+		}
+		return this;
+	},
+	
+	cancel: function(){
+		if (this.isRunning()){
+			this.time = null;
+			pullInstance.call(this, this.options.fps);
+			this.frame = this.frames;
+			this.fireEvent('cancel', this.subject).clearChain();
+		}
+		return this;
+	},
+	
+	pause: function(){
+		if (this.isRunning()){
+			this.time = null;
+			pullInstance.call(this, this.options.fps);
+		}
+		return this;
+	},
+	
+	resume: function(){
+		if ((this.frame < this.frames) && !this.isRunning()) pushInstance.call(this, this.options.fps);
+		return this;
+	},
+	
+	isRunning: function(){
+		var list = instances[this.options.fps];
+		return list && list.contains(this);
+>>>>>>> upstream/master
 	}
 
 });
@@ -4555,6 +5603,7 @@ Fx.Durations = {'short': 250, 'normal': 500, 'long': 1000};
 var instances = {}, timers = {};
 
 var loop = function(){
+<<<<<<< HEAD
 	for (var i = this.length; i--;){
 		if (this[i]) this[i].step();
 	}
@@ -4574,6 +5623,30 @@ var removeInstance = function(instance){
 	list.erase(instance);
 	if (!list.length && timers[fps]) timers[fps] = clearInterval(timers[fps]);
 	return false;
+=======
+	var now = Date.now();
+	for (var i = this.length; i--;){
+		var instance = this[i];
+		if (instance) instance.step(now);
+	}
+};
+
+var pushInstance = function(fps){
+	var list = instances[fps] || (instances[fps] = []);
+	list.push(this);
+	if (!timers[fps]) timers[fps] = loop.periodical(Math.round(1000 / fps), list);
+};
+
+var pullInstance = function(fps){
+	var list = instances[fps];
+	if (list){
+		list.erase(this);
+		if (!list.length && timers[fps]){
+			delete instances[fps];
+			timers[fps] = clearInterval(timers[fps]);
+		}
+	}
+>>>>>>> upstream/master
 };
 
 })();
@@ -4661,7 +5734,11 @@ Fx.CSS = new Class({
 
 	search: function(selector){
 		if (Fx.CSS.Cache[selector]) return Fx.CSS.Cache[selector];
+<<<<<<< HEAD
 		var to = {};
+=======
+		var to = {}, selectorTest = new RegExp('^' + selector.escapeRegExp() + '$');
+>>>>>>> upstream/master
 		Array.each(document.styleSheets, function(sheet, j){
 			var href = sheet.href;
 			if (href && href.contains('://') && !href.contains(document.domain)) return;
@@ -4671,11 +5748,19 @@ Fx.CSS = new Class({
 				var selectorText = (rule.selectorText) ? rule.selectorText.replace(/^\w+/, function(m){
 					return m.toLowerCase();
 				}) : null;
+<<<<<<< HEAD
 				if (!selectorText || !selectorText.test('^' + selector + '$')) return;
 				Element.Styles.each(function(value, style){
 					if (!rule.style[style] || Element.ShortStyles[style]) return;
 					value = String(rule.style[style]);
 					to[style] = (value.test(/^rgb/)) ? value.rgbToHex() : value;
+=======
+				if (!selectorText || !selectorTest.test(selectorText)) return;
+				Object.each(Element.Styles, function(value, style){
+					if (!rule.style[style] || Element.ShortStyles[style]) return;
+					value = String(rule.style[style]);
+					to[style] = ((/^rgb/).test(value)) ? value.rgbToHex() : value;
+>>>>>>> upstream/master
 				});
 			});
 		});
@@ -4950,15 +6035,27 @@ Fx.implement({
 
 Fx.Transition = function(transition, params){
 	params = Array.from(params);
+<<<<<<< HEAD
 	return Object.append(transition, {
 		easeIn: function(pos){
 			return transition(pos, params);
 		},
+=======
+	var easeIn = function(pos){
+		return transition(pos, params);
+	};
+	return Object.append(easeIn, {
+		easeIn: easeIn,
+>>>>>>> upstream/master
 		easeOut: function(pos){
 			return 1 - transition(1 - pos, params);
 		},
 		easeInOut: function(pos){
+<<<<<<< HEAD
 			return (pos <= 0.5) ? transition(2 * pos, params) / 2 : (2 - transition(2 * (1 - pos), params)) / 2;
+=======
+			return (pos <= 0.5 ? transition(2 * pos, params) : (2 - transition(2 * (1 - pos), params))) / 2;
+>>>>>>> upstream/master
 		}
 	});
 };
@@ -4996,7 +6093,11 @@ Fx.Transitions.extend({
 	},
 
 	Sine: function(p){
+<<<<<<< HEAD
 		return 1 - Math.sin((1 - p) * Math.PI / 2);
+=======
+		return 1 - Math.cos(p * Math.PI / 2);
+>>>>>>> upstream/master
 	},
 
 	Back: function(p, x){
@@ -5023,7 +6124,11 @@ Fx.Transitions.extend({
 
 ['Quad', 'Cubic', 'Quart', 'Quint'].each(function(transition, i){
 	Fx.Transitions[transition] = new Fx.Transition(function(p){
+<<<<<<< HEAD
 		return Math.pow(p, [i + 2]);
+=======
+		return Math.pow(p, i + 2);
+>>>>>>> upstream/master
 	});
 });
 
@@ -5046,7 +6151,12 @@ provides: Request
 
 (function(){
 
+<<<<<<< HEAD
 var progressSupport = ('onprogress' in new Browser.Request);
+=======
+var empty = function(){},
+	progressSupport = ('onprogress' in new Browser.Request);
+>>>>>>> upstream/master
 
 var Request = this.Request = new Class({
 
@@ -5099,9 +6209,16 @@ var Request = this.Request = new Class({
 			var status = xhr.status;
 			this.status = (status == 1223) ? 204 : status;
 		}.bind(this));
+<<<<<<< HEAD
 		xhr.onreadystatechange = function(){};
 		clearTimeout(this.timer);
 
+=======
+		xhr.onreadystatechange = empty;
+		if (progressSupport) xhr.onprogress = xhr.onloadstart = empty;
+		clearTimeout(this.timer);
+		
+>>>>>>> upstream/master
 		this.response = {text: this.xhr.responseText || '', xml: this.xhr.responseXML};
 		if (this.options.isSuccess.call(this, this.status))
 			this.success(this.response.text, this.response.xml);
@@ -5138,6 +6255,7 @@ var Request = this.Request = new Class({
 	onFailure: function(){
 		this.fireEvent('complete').fireEvent('failure', this.xhr);
 	},
+<<<<<<< HEAD
 
 	loadstart: function(event){
 		this.fireEvent('loadstart', [event, this.xhr]);
@@ -5147,6 +6265,17 @@ var Request = this.Request = new Class({
 		this.fireEvent('progress', [event, this.xhr]);
 	},
 
+=======
+	
+	loadstart: function(event){
+		this.fireEvent('loadstart', [event, this.xhr]);
+	},
+	
+	progress: function(event){
+		this.fireEvent('progress', [event, this.xhr]);
+	},
+	
+>>>>>>> upstream/master
 	timeout: function(){
 		this.fireEvent('timeout', this.xhr);
 	},
@@ -5170,7 +6299,11 @@ var Request = this.Request = new Class({
 		}
 		return false;
 	},
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> upstream/master
 	send: function(options){
 		if (!this.check(options)) return this;
 
@@ -5206,7 +6339,11 @@ var Request = this.Request = new Class({
 		}
 
 		if (!url) url = document.location.pathname;
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> upstream/master
 		var trimPosition = url.lastIndexOf('/');
 		if (trimPosition > -1 && (trimPosition = url.indexOf('#')) > -1) url = url.substr(0, trimPosition);
 
@@ -5226,7 +6363,11 @@ var Request = this.Request = new Class({
 
 		xhr.open(method.toUpperCase(), url, this.options.async, this.options.user, this.options.password);
 		if (this.options.user && 'withCredentials' in xhr) xhr.withCredentials = true;
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> upstream/master
 		xhr.onreadystatechange = this.onStateChange.bind(this);
 
 		Object.each(this.headers, function(value, key){
@@ -5250,7 +6391,12 @@ var Request = this.Request = new Class({
 		var xhr = this.xhr;
 		xhr.abort();
 		clearTimeout(this.timer);
+<<<<<<< HEAD
 		xhr.onreadystatechange = xhr.onprogress = xhr.onloadstart = function(){};
+=======
+		xhr.onreadystatechange = empty;
+		if (progressSupport) xhr.onprogress = xhr.onloadstart = empty;
+>>>>>>> upstream/master
 		this.xhr = new Browser.Request();
 		this.fireEvent('cancel');
 		return this;
@@ -5261,10 +6407,18 @@ var Request = this.Request = new Class({
 var methods = {};
 ['get', 'post', 'put', 'delete', 'GET', 'POST', 'PUT', 'DELETE'].each(function(method){
 	methods[method] = function(data){
+<<<<<<< HEAD
 		return this.send({
 			data: data,
 			method: method
 		});
+=======
+		var object = {
+			method: method
+		};
+		if (data != null) object.data = data;
+		return this.send(object);
+>>>>>>> upstream/master
 	};
 });
 
@@ -5404,7 +6558,11 @@ provides: JSON
 ...
 */
 
+<<<<<<< HEAD
 if (!this.JSON) this.JSON = {};
+=======
+if (typeof JSON == 'undefined') this.JSON = {};
+>>>>>>> upstream/master
 
 //<1.2compat>
 
@@ -5415,6 +6573,7 @@ JSON = new Hash({
 
 //</1.2compat>
 
+<<<<<<< HEAD
 Object.append(JSON, {
 
 	$specialChars: {'\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"' : '\\"', '\\': '\\\\'},
@@ -5449,6 +6608,60 @@ Object.append(JSON, {
 	}
 
 });
+=======
+(function(){
+
+var special = {'\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"' : '\\"', '\\': '\\\\'};
+
+var escape = function(chr){
+	return special[chr] || '\\u' + ('0000' + chr.charCodeAt(0).toString(16)).slice(-4);
+};
+
+JSON.validate = function(string){
+	string = string.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@').
+					replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+					replace(/(?:^|:|,)(?:\s*\[)+/g, '');
+
+	return (/^[\],:{}\s]*$/).test(string);
+};
+
+JSON.encode = JSON.stringify ? function(obj){
+	return JSON.stringify(obj);
+} : function(obj){
+	if (obj && obj.toJSON) obj = obj.toJSON();
+
+	switch (typeOf(obj)){
+		case 'string':
+			return '"' + obj.replace(/[\x00-\x1f\\"]/g, escape) + '"';
+		case 'array':
+			return '[' + obj.map(JSON.encode).clean() + ']';
+		case 'object': case 'hash':
+			var string = [];
+			Object.each(obj, function(value, key){
+				var json = JSON.encode(value);
+				if (json) string.push(JSON.encode(key) + ':' + json);
+			});
+			return '{' + string + '}';
+		case 'number': case 'boolean': return '' + obj;
+		case 'null': return 'null';
+	}
+
+	return null;
+};
+
+JSON.decode = function(string, secure){
+	if (!string || typeOf(string) != 'string') return null;
+
+	if (secure || JSON.secure){
+		if (JSON.parse) return JSON.parse(string);
+		if (!JSON.validate(string)) throw new Error('JSON could not decode the input; security is enabled and the value is not secure.');
+	}
+
+	return eval('(' + string + ')');
+};
+
+})();
+>>>>>>> upstream/master
 
 
 /*
@@ -5472,6 +6685,10 @@ Request.JSON = new Class({
 	Extends: Request,
 
 	options: {
+<<<<<<< HEAD
+=======
+		/*onError: function(text, error){},*/
+>>>>>>> upstream/master
 		secure: true
 	},
 
@@ -5484,11 +6701,21 @@ Request.JSON = new Class({
 	},
 
 	success: function(text){
+<<<<<<< HEAD
 		var secure = this.options.secure;
 		var json = this.response.json = Function.attempt(function(){
 			return JSON.decode(text, secure);
 		});
 
+=======
+		var json;
+		try {
+			json = this.response.json = JSON.decode(text, this.options.secure);
+		} catch (error){
+			this.fireEvent('error', [text, error]);
+			return;
+		}
+>>>>>>> upstream/master
 		if (json == null) this.onFailure();
 		else this.onSuccess(json, text);
 	}
@@ -5508,7 +6735,11 @@ license: MIT-style license.
 credits:
   - Based on the functions by Peter-Paul Koch (http://quirksmode.org).
 
+<<<<<<< HEAD
 requires: Options
+=======
+requires: [Options, Browser]
+>>>>>>> upstream/master
 
 provides: Cookie
 
@@ -5595,19 +6826,27 @@ var ready,
 	checks = [],
 	shouldPoll,
 	timer,
+<<<<<<< HEAD
 	isFramed = true;
 
 // Thanks to Rich Dougherty <http://www.richdougherty.com/>
 try {
 	isFramed = window.frameElement != null;
 } catch(e){}
+=======
+	testElement = document.createElement('div');
+>>>>>>> upstream/master
 
 var domready = function(){
 	clearTimeout(timer);
 	if (ready) return;
 	Browser.loaded = ready = true;
 	document.removeListener('DOMContentLoaded', domready).removeListener('readystatechange', check);
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> upstream/master
 	document.fireEvent('domready');
 	window.fireEvent('domready');
 };
@@ -5617,7 +6856,10 @@ var check = function(){
 		domready();
 		return true;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 	return false;
 };
 
@@ -5628,6 +6870,7 @@ var poll = function(){
 
 document.addListener('DOMContentLoaded', domready);
 
+<<<<<<< HEAD
 // doScroll technique by Diego Perini http://javascript.nwbox.com/IEContentLoaded/
 var testElement = document.createElement('div');
 if (testElement.doScroll && !isFramed){
@@ -5641,6 +6884,25 @@ if (testElement.doScroll && !isFramed){
 	});
 	shouldPoll = true;
 }
+=======
+/*<ltIE8>*/
+// doScroll technique by Diego Perini http://javascript.nwbox.com/IEContentLoaded/
+// testElement.doScroll() throws when the DOM is not ready, only in the top window
+var doScrollWorks = function(){
+	try {
+		testElement.doScroll();
+		return true;
+	} catch (e){}
+	return false;
+}
+// If doScroll works already, it can't be used to determine domready
+//   e.g. in an iframe
+if (testElement.doScroll && !doScrollWorks()){
+	checks.push(doScrollWorks);
+	shouldPoll = true;
+}
+/*</ltIE8>*/
+>>>>>>> upstream/master
 
 if (document.readyState) checks.push(function(){
 	var state = document.readyState;
@@ -5669,7 +6931,10 @@ Element.Events.load = {
 			domready();
 			delete Element.Events.load;
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 		return true;
 	}
 };
@@ -5694,7 +6959,11 @@ license: MIT-style license.
 credits:
   - Flash detection & Internet Explorer + Flash Player 9 fix inspired by SWFObject.
 
+<<<<<<< HEAD
 requires: [Options, Object]
+=======
+requires: [Options, Object, Element]
+>>>>>>> upstream/master
 
 provides: Swiff
 
@@ -5703,8 +6972,11 @@ provides: Swiff
 
 (function(){
 
+<<<<<<< HEAD
 var id = 0;
 
+=======
+>>>>>>> upstream/master
 var Swiff = this.Swiff = new Class({
 
 	Implements: Options,
@@ -5730,7 +7002,11 @@ var Swiff = this.Swiff = new Class({
 	},
 
 	initialize: function(path, options){
+<<<<<<< HEAD
 		this.instance = 'Swiff_' + id++;
+=======
+		this.instance = 'Swiff_' + String.uniqueID();
+>>>>>>> upstream/master
 
 		this.setOptions(options);
 		options = this.options;
@@ -5784,7 +7060,11 @@ var Swiff = this.Swiff = new Class({
 	},
 
 	remote: function(){
+<<<<<<< HEAD
 		return Swiff.remote.apply(Swiff, [this.toElement()].extend(arguments));
+=======
+		return Swiff.remote.apply(Swiff, [this.toElement()].append(arguments));
+>>>>>>> upstream/master
 	}
 
 });

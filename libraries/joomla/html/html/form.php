@@ -14,7 +14,11 @@ defined('JPATH_PLATFORM') or die;
  *
  * @package     Joomla.Platform
  * @subpackage  HTML
+<<<<<<< HEAD
  * @version     11.1
+=======
+ * @since       11.1
+>>>>>>> upstream/master
  */
 abstract class JHtmlForm
 {
@@ -24,10 +28,21 @@ abstract class JHtmlForm
 	 * Use in conjuction with JRequest::checkToken
 	 *
 	 * @return  void
+<<<<<<< HEAD
+=======
+	 *
+	 * @see     JRequest::checkToken
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public static function token()
 	{
+<<<<<<< HEAD
 		return '<input type="hidden" name="'.JUtility::getToken().'" value="1" />';
 	}
 }
+=======
+		return '<input type="hidden" name="' . JUtility::getToken() . '" value="1" />';
+	}
+}
+>>>>>>> upstream/master

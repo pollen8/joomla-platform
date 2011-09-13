@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.html.html');
 jimport('joomla.session.session');
@@ -16,7 +20,12 @@ jimport('joomla.form.helper');
 JFormHelper::loadFieldClass('list');
 
 /**
+<<<<<<< HEAD
  * Form Field class for the Joomla Framework.
+=======
+ * Form Field class for the Joomla Platform.
+ * Provides a select list of session handler options.
+>>>>>>> upstream/master
  *
  * @package     Joomla.Platform
  * @subpackage  Form
@@ -24,6 +33,10 @@ JFormHelper::loadFieldClass('list');
  */
 class JFormFieldSessionHandler extends JFormFieldList
 {
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 	/**
 	 * The form field type.
 	 *
@@ -33,9 +46,16 @@ class JFormFieldSessionHandler extends JFormFieldList
 	protected $type = 'SessionHandler';
 
 	/**
+<<<<<<< HEAD
 	 * Method to get the field options.
 	 *
 	 * @return  array  The field option objects.
+=======
+	 * Method to get the session handler field options.
+	 *
+	 * @return  array  The field option objects.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getOptions()
@@ -44,8 +64,14 @@ class JFormFieldSessionHandler extends JFormFieldList
 		$options = array();
 
 		// Get the options from JSession.
+<<<<<<< HEAD
 		foreach (JSession::getStores() as $store) {
 			$options[] = JHtml::_('select.option', $store, JText::_('JLIB_FORM_VALUE_SESSION_'.$store), 'value', 'text');
+=======
+		foreach (JSession::getStores() as $store)
+		{
+			$options[] = JHtml::_('select.option', $store, JText::_('JLIB_FORM_VALUE_SESSION_' . $store), 'value', 'text');
+>>>>>>> upstream/master
 		}
 
 		// Merge any additional options in the XML definition.

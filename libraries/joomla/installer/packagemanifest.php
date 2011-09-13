@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.filesystem.file');
 jimport('joomla.installer.extension');
@@ -75,6 +79,7 @@ class JPackageManifest extends JObject
 	/**
 	 * Constructor
 	 *
+<<<<<<< HEAD
 	 * @param   string  $xmlpath	Path to XML manifest file.
 	 *
 	 * @return  object  JPackageManifest
@@ -83,6 +88,18 @@ class JPackageManifest extends JObject
 	function __construct($xmlpath='')
 	{
 		if (strlen($xmlpath)) {
+=======
+	 * @param   string  $xmlpath  Path to XML manifest file.
+	 *
+	 * @return  object  JPackageManifest
+	 *
+	 * @since
+	 */
+	function __construct($xmlpath = '')
+	{
+		if (strlen($xmlpath))
+		{
+>>>>>>> upstream/master
 			$this->loadManifestFromXML($xmlpath);
 		}
 	}
@@ -90,9 +107,16 @@ class JPackageManifest extends JObject
 	/**
 	 * Load a manifest from an XML file
 	 *
+<<<<<<< HEAD
 	 * @param   string  $xmlpath	Path to XML manifest file
 	 *
 	 * @return  boolean	Result of load
+=======
+	 * @param   string  $xmlfile  Path to XML manifest file
+	 *
+	 * @return  boolean	Result of load
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	function loadManifestFromXML($xmlfile)
@@ -101,11 +125,17 @@ class JPackageManifest extends JObject
 
 		$xml = JFactory::getXML($xmlfile);
 
+<<<<<<< HEAD
 		if( ! $xml) {
+=======
+		if (!$xml)
+		{
+>>>>>>> upstream/master
 			$this->_errors[] = JText::sprintf('JLIB_INSTALLER_ERROR_LOAD_XML', $xmlfile);
 
 			return false;
 		}
+<<<<<<< HEAD
 		else {
 			$this->name			= (string) $xml->name;
 			$this->packagename	= (string) $xml->packagename;
@@ -119,6 +149,23 @@ class JPackageManifest extends JObject
 			$this->version		= (string) $xml->version;
 
 			if (isset($xml->files->file) && count($xml->files->file)) {
+=======
+		else
+		{
+			$this->name = (string) $xml->name;
+			$this->packagename = (string) $xml->packagename;
+			$this->update = (string) $xml->update;
+			$this->authorurl = (string) $xml->authorUrl;
+			$this->author = (string) $xml->author;
+			$this->authoremail = (string) $xml->authorEmail;
+			$this->description = (string) $xml->description;
+			$this->packager = (string) $xml->packager;
+			$this->packagerurl = (string) $xml->packagerurl;
+			$this->version = (string) $xml->version;
+
+			if (isset($xml->files->file) && count($xml->files->file))
+			{
+>>>>>>> upstream/master
 				foreach ($xml->files->file as $file)
 				{
 					// NOTE: JExtension doesn't expect a string.

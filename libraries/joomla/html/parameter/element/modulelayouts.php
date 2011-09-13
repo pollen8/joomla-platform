@@ -9,14 +9,24 @@
 
 defined('JPATH_PLATFORM') or die;
 
+<<<<<<< HEAD
 require_once dirname(__FILE__).'/list.php';
+=======
+require_once dirname(__FILE__) . '/list.php';
+>>>>>>> upstream/master
 
 /**
  * Parameter to display a list of the layouts for a module from the module or default template overrides.
  *
  * @package     Joomla.Platform
  * @subpackage  Parameter
+<<<<<<< HEAD
  * @deprecated  Use JForm instead
+=======
+ * @note        Note that JFormFieldModuleLayout does not end in s.
+ * @since       11.1
+ * @deprecated  Use JFormFieldModuleLayout instead
+>>>>>>> upstream/master
  */
 class JElementModuleLayouts extends JElementList
 {
@@ -27,6 +37,7 @@ class JElementModuleLayouts extends JElementList
 
 	/**
 	 * Get the options for the list.
+<<<<<<< HEAD
 	 */
 	protected function _getOptions(&$node)
 	{
@@ -55,10 +66,53 @@ class JElementModuleLayouts extends JElementList
 		}
 
 		if ($path1 && $path2) {
+=======
+	 *
+	 * @param   object  &$node  The current JSimpleXMLElement node.
+	 *
+	 * @return  string
+	 *
+	 * @deprecated    12.1   Use JFormFieldModuleLayouts::getInput instead.
+	 * @since   11.1
+	 */
+	protected function _getOptions(&$node)
+	{
+		// Deprecation warning.
+		JLog::add('JElementModuleLayouts::_getOptions() is deprecated.', JLog::WARNING, 'deprecated');
+
+		$clientId = ($v = $node->attributes('client_id')) ? $v : 0;
+
+		$options = array();
+		$path1 = null;
+		$path2 = null;
+
+		// Load template entries for each menuid
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select('template');
+		$query->from('#__template_styles');
+		$query->where('client_id = ' . (int) $clientId);
+		$query->where('home = 1');
+		$db->setQuery($query);
+		$template = $db->loadResult();
+
+		if ($module = $node->attributes('module'))
+		{
+			$base = ($clientId == 1) ? JPATH_ADMINISTRATOR : JPATH_SITE;
+			$module = preg_replace('#\W#', '', $module);
+			$path1 = $base . '/modules/' . $module . '/tmpl';
+			$path2 = $base . '/templates/' . $template . '/html/' . $module;
+			$options[] = JHTML::_('select.option', '', '');
+		}
+
+		if ($path1 && $path2)
+		{
+>>>>>>> upstream/master
 			jimport('joomla.filesystem.file');
 			$path1 = JPath::clean($path1);
 			$path2 = JPath::clean($path2);
 
+<<<<<<< HEAD
 			$files	= JFolder::files($path1, '^[^_]*\.php$');
 			foreach ($files as $file) {
 				$options[]	= JHTML::_('select.option', JFile::stripExt($file));
@@ -70,6 +124,22 @@ class JElementModuleLayouts extends JElementList
 					$options[]	= JHTML::_('select.option', JFile::stripExt($file));
 				}
 				$options[]	= JHTML::_('select.optgroup', JText::_('JOPTION_FROM_DEFAULT'));
+=======
+			$files = JFolder::files($path1, '^[^_]*\.php$');
+			foreach ($files as $file)
+			{
+				$options[] = JHTML::_('select.option', JFile::stripExt($file));
+			}
+
+			if (is_dir($path2) && $files = JFolder::files($path2, '^[^_]*\.php$'))
+			{
+				$options[] = JHTML::_('select.optgroup', JText::_('JOPTION_FROM_DEFAULT'));
+				foreach ($files as $file)
+				{
+					$options[] = JHTML::_('select.option', JFile::stripExt($file));
+				}
+				$options[] = JHTML::_('select.optgroup', JText::_('JOPTION_FROM_DEFAULT'));
+>>>>>>> upstream/master
 			}
 		}
 
@@ -78,4 +148,8 @@ class JElementModuleLayouts extends JElementList
 
 		return $options;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

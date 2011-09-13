@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+
+require_once dirname(__FILE__).'/mysqlimporter.php';
+>>>>>>> upstream/master
 
 /**
  * MySQL import driver.
@@ -16,6 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       11.1
  */
+<<<<<<< HEAD
 class JDatabaseImporterMySQLi
 {
 	/**
@@ -93,18 +100,37 @@ class JDatabaseImporterMySQLi
 	 * Checks if all data and options are in order prior to exporting.
 	 *
 	 * @return  JDatabaseImporterMySQLi  Method supports chaining.
+=======
+class JDatabaseImporterMySQLi extends JDatabaseImporterMySQL
+{
+	/**
+	 * Checks if all data and options are in order prior to exporting.
+	 *
+	 * @return  JDatabaseImporterMySQLi  Method supports chaining.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 * @throws  Exception if an error is encountered.
 	 */
 	public function check()
 	{
 		// Check if the db connector has been set.
+<<<<<<< HEAD
 		if (!($this->db instanceof JDatabaseMySql)) {
+=======
+		if (!($this->db instanceof JDatabaseMySqli))
+		{
+>>>>>>> upstream/master
 			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
+<<<<<<< HEAD
 		if (empty($this->from)) {
+=======
+		if (empty($this->from))
+		{
+>>>>>>> upstream/master
 			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
@@ -112,6 +138,7 @@ class JDatabaseImporterMySQLi
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Specifies the data source to import.
 	 *
 	 * @param   mixed  $from  The data source to import.
@@ -585,11 +612,17 @@ class JDatabaseImporterMySQLi
 	}
 
 	/**
+=======
+>>>>>>> upstream/master
 	 * Sets the database connector to use for exporting structure and/or data from MySQL.
 	 *
 	 * @param   JDatabaseMySQLi  $db  The database connector.
 	 *
 	 * @return  JDatabaseImporterMySQLi  Method supports chaining.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function setDbo(JDatabaseMySQLi $db)
@@ -598,6 +631,7 @@ class JDatabaseImporterMySQLi
 
 		return $this;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Sets an internal option to merge the structure based on the input data.
@@ -613,4 +647,6 @@ class JDatabaseImporterMySQLi
 
 		return $this;
 	}
+=======
+>>>>>>> upstream/master
 }

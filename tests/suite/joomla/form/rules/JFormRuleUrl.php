@@ -31,21 +31,36 @@ class JFormRuleUrlTest extends JoomlaTestCase
 
 	/**
 	 * Test the JFormRuleUrl::test method.
+<<<<<<< HEAD
 	 * 
      * @dataProvider provider
      */	
+=======
+	 *
+     * @dataProvider provider
+     */
+>>>>>>> upstream/master
 	public function testUrl($xmlfield,$url,$expected)
 	{
 		// Initialise variables.
 
 		$rule = new JFormRuleUrl;
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> upstream/master
 		// The field allows you to optionally limit the accepted schemes to a specific list.
 		// Url1 tests without a list, Url2 tests with a list.
 		$xml = simplexml_load_string('<form><field name="url1" />
 		<field name="url2" schemes="gopher" /></form>', 'JXMLElement');
+<<<<<<< HEAD
 		
 		if ($xmlfield == '0'){ 
+=======
+
+		if ($xmlfield == '0'){
+>>>>>>> upstream/master
 			if ($expected == 'false'){
 				// Test fail conditions.
 				$this->assertThat(
@@ -53,7 +68,11 @@ class JFormRuleUrlTest extends JoomlaTestCase
 					$this->isFalse(),
 					'Line:'.__LINE__.' The rule should return'.$expected.'.'
 				);
+<<<<<<< HEAD
 			}	
+=======
+			}
+>>>>>>> upstream/master
 			if ($expected == 'true'){
 				// Test pass conditions.
 				$this->assertThat(
@@ -61,9 +80,15 @@ class JFormRuleUrlTest extends JoomlaTestCase
 					$this->isTrue(),
 					'Line:'.__LINE__.' The rule should return'.$expected.'.'
 				);
+<<<<<<< HEAD
 			}	
 		}
 		if ($xmlfield == '1'){ 
+=======
+			}
+		}
+		if ($xmlfield == '1'){
+>>>>>>> upstream/master
 			if ($expected == 'false'){
 				// Test fail conditions.
 				$this->assertThat(
@@ -71,7 +96,11 @@ class JFormRuleUrlTest extends JoomlaTestCase
 					$this->isFalse(),
 					'Line:'.__LINE__.' The rule should return'.$expected.'.'
 				);
+<<<<<<< HEAD
 			}	
+=======
+			}
+>>>>>>> upstream/master
 			if ($expected == 'true'){
 				// Test pass conditions.
 				$this->assertThat(
@@ -79,13 +108,22 @@ class JFormRuleUrlTest extends JoomlaTestCase
 					$this->isTrue(),
 					'Line:'.__LINE__.' The rule should return'.$expected.'.'
 				);
+<<<<<<< HEAD
 			}	
 		}					
+=======
+			}
+		}
+>>>>>>> upstream/master
 	}
 	public function provider()
 	{
 		// Most test urls are directly from or based on the RFCs noted in the rule.
+<<<<<<< HEAD
 		return  
+=======
+		return
+>>>>>>> upstream/master
 		array(
 			array('Simple String'				=> '0','bogus', 'false'),
 			array('No scheme'					=> '0','mydomain.com', 'false'),
@@ -113,5 +151,9 @@ class JFormRuleUrlTest extends JoomlaTestCase
 			array('UTF-8 in path'				=> '0','http://mydomain.com/объектов', 'true'),
 			array('Puny code in domain' 		=> '0','http://www.österreich.at', 'true'),
 		);
+<<<<<<< HEAD
 	}	
+=======
+	}
+>>>>>>> upstream/master
 }

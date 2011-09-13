@@ -16,5 +16,9 @@ class BogusLoad
 	{
 		$this->someMethodCalled = true;
 	}
+<<<<<<< HEAD
 }
 ?>
+=======
+}
+>>>>>>> upstream/master

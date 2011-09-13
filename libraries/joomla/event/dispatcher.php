@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.base.observable');
 
@@ -20,7 +24,11 @@ jimport('joomla.base.observable');
  * @package     Joomla.Platform
  * @subpackage  Event
  * @link        http://docs.joomla.org/Tutorial:Plugins Plugin tutorials
+<<<<<<< HEAD
  * @see	        JPlugin
+=======
+ * @see         JPlugin
+>>>>>>> upstream/master
  * @since       11.1
  */
 class JDispatcher extends JObservable
@@ -30,14 +38,24 @@ class JDispatcher extends JObservable
 	 * if it doesn't already exist.
 	 *
 	 * @return  JDispatcher  The EventDispatcher object.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public static function getInstance()
 	{
 		static $instance;
 
+<<<<<<< HEAD
 		if (!is_object($instance)) {
 			$instance = new JDispatcher();
+=======
+		if (!is_object($instance))
+		{
+			$instance = new JDispatcher;
+>>>>>>> upstream/master
 		}
 
 		return $instance;
@@ -46,10 +64,18 @@ class JDispatcher extends JObservable
 	/**
 	 * Registers an event handler to the event dispatcher
 	 *
+<<<<<<< HEAD
 	 * @param   string   $event    Name of the event to register handler for
 	 * @param   string   $handler  Name of the event handler
 	 *
 	 * @return  void
+=======
+	 * @param   string  $event    Name of the event to register handler for
+	 * @param   string  $handler  Name of the event handler
+	 *
+	 * @return  void
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function register($event, $handler)
@@ -76,8 +102,13 @@ class JDispatcher extends JObservable
 	 * Triggers an event by dispatching arguments to all observers that handle
 	 * the event and returning their return values.
 	 *
+<<<<<<< HEAD
 	 * @param   string   $event  The event to trigger.
 	 * @param   array    $args   An array of arguments.
+=======
+	 * @param   string  $event  The event to trigger.
+	 * @param   array   $args   An array of arguments.
+>>>>>>> upstream/master
 	 *
 	 * @return  array  An array of results from each function call.
 	 *
@@ -92,33 +123,64 @@ class JDispatcher extends JObservable
 		 * If no arguments were passed, we still need to pass an empty array to
 		 * the call_user_func_array function.
 		 */
+<<<<<<< HEAD
 		$args = (array)$args;
+=======
+		$args = (array) $args;
+>>>>>>> upstream/master
 
 		$event = strtolower($event);
 
 		// Check if any plugins are attached to the event.
+<<<<<<< HEAD
 		if (!isset($this->_methods[$event]) || empty($this->_methods[$event])) {
+=======
+		if (!isset($this->_methods[$event]) || empty($this->_methods[$event]))
+		{
+>>>>>>> upstream/master
 			// No Plugins Associated To Event!
 			return $result;
 		}
 		// Loop through all plugins having a method matching our event
+<<<<<<< HEAD
 		foreach ($this->_methods[$event] AS $key)
 		{
 			// Check if the plugin is present.
 			if (!isset($this->_observers[$key])) {
+=======
+		foreach ($this->_methods[$event] as $key)
+		{
+			// Check if the plugin is present.
+			if (!isset($this->_observers[$key]))
+			{
+>>>>>>> upstream/master
 				continue;
 			}
 
 			// Fire the event for an object based observer.
+<<<<<<< HEAD
 			if (is_object($this->_observers[$key])) {
+=======
+			if (is_object($this->_observers[$key]))
+			{
+>>>>>>> upstream/master
 				$args['event'] = $event;
 				$value = $this->_observers[$key]->update($args);
 			}
 			// Fire the event for a function based observer.
+<<<<<<< HEAD
 			elseif (is_array($this->_observers[$key])) {
 				$value = call_user_func_array($this->_observers[$key]['handler'], $args);
 			}
 			if (isset($value)) {
+=======
+			elseif (is_array($this->_observers[$key]))
+			{
+				$value = call_user_func_array($this->_observers[$key]['handler'], $args);
+			}
+			if (isset($value))
+			{
+>>>>>>> upstream/master
 				$result[] = $value;
 			}
 		}

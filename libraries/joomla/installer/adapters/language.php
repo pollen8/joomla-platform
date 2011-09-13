@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.base.adapterinstance');
 
@@ -21,50 +25,98 @@ jimport('joomla.base.adapterinstance');
 class JInstallerLanguage extends JAdapterInstance
 {
 	/**
+<<<<<<< HEAD
 	 * @var    boolean  Core language pack flag
+=======
+	 * Core language pack flag
+	 *
+	 * @var    boolean
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	protected $_core = false;
 
 	/**
 	 * Custom install method
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * Note: This behaves badly due to hacks made in the middle of 1.5.x to add
 	 * the ability to install multiple distinct packs in one install. The
 	 * preferred method is to use a package to install multiple language packs.
 	 *
 	 * @return  boolean  True on success
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function install()
 	{
 		$source = $this->parent->getPath('source');
+<<<<<<< HEAD
 		if (!$source) {
 			$this->parent->setPath('source', ($this->parent->extension->client_id ? JPATH_ADMINISTRATOR : JPATH_SITE) . '/language/'.$this->parent->extension->element);
+=======
+		if (!$source)
+		{
+			$this->parent
+				->setPath(
+					'source',
+					($this->parent->extension->client_id ? JPATH_ADMINISTRATOR : JPATH_SITE) . '/language/' . $this->parent->extension->element
+				);
+>>>>>>> upstream/master
 		}
 		$this->manifest = $this->parent->getManifest();
 		$root = $this->manifest->document;
 
 		// Get the client application target
+<<<<<<< HEAD
 		if ((string)$this->manifest->attributes()->client == 'both')
 		{
 			JError::raiseWarning(42, JText::_('JLIB_INSTALLER_ERROR_DEPRECATED_FORMAT'));
 			$element = $this->manifest->site->files;
 			if (!$this->_install('site', JPATH_SITE, 0, $element)) {
+=======
+		if ((string) $this->manifest->attributes()->client == 'both')
+		{
+			JError::raiseWarning(42, JText::_('JLIB_INSTALLER_ERROR_DEPRECATED_FORMAT'));
+			$element = $this->manifest->site->files;
+			if (!$this->_install('site', JPATH_SITE, 0, $element))
+			{
+>>>>>>> upstream/master
 				return false;
 			}
 
 			$element = $this->manifest->administration->files;
+<<<<<<< HEAD
 			if (!$this->_install('administrator', JPATH_ADMINISTRATOR, 1, $element)) {
+=======
+			if (!$this->_install('administrator', JPATH_ADMINISTRATOR, 1, $element))
+			{
+>>>>>>> upstream/master
 				return false;
 			}
 			// This causes an issue because we have two eid's, *sigh* nasty hacks!
 			return true;
 		}
+<<<<<<< HEAD
 		elseif ($cname = (string)$this->manifest->attributes()->client)
+=======
+		elseif ($cname = (string) $this->manifest->attributes()->client)
+>>>>>>> upstream/master
 		{
 			// Attempt to map the client to a base path
 			jimport('joomla.application.helper');
 			$client = JApplicationHelper::getClientInfo($cname, true);
+<<<<<<< HEAD
 			if ($client === null) {
+=======
+			if ($client === null)
+			{
+>>>>>>> upstream/master
 				$this->parent->abort(JText::sprintf('JLIB_INSTALLER_ABORT', JText::sprintf('JLIB_INSTALLER_ERROR_UNKNOWN_CLIENT_TYPE', $cname)));
 				return false;
 			}
@@ -88,6 +140,18 @@ class JInstallerLanguage extends JAdapterInstance
 
 	/**
 	 * Install function that is designed to handle individual clients
+<<<<<<< HEAD
+=======
+	 *
+	 * @param   string   $cname
+	 * @param   string   $basePath
+	 * @param   integer  $clientId
+	 * @param   object   &$element
+	 *
+	 * @return  boolean
+	 *
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	protected function _install($cname, $basePath, $clientId, &$element)
 	{
@@ -95,6 +159,7 @@ class JInstallerLanguage extends JAdapterInstance
 
 		// Get the language name
 		// Set the extensions name
+<<<<<<< HEAD
 		$name = JFilterInput::getInstance()->clean((string)$this->manifest->name, 'cmd');
 		$this->set('name', $name);
 
@@ -103,6 +168,16 @@ class JInstallerLanguage extends JAdapterInstance
 
 		// Check if we found the tag - if we didn't, we may be trying to install from an older language package
 		if ( ! $tag)
+=======
+		$name = JFilterInput::getInstance()->clean((string) $this->manifest->name, 'cmd');
+		$this->set('name', $name);
+
+		// Get the Language tag [ISO tag, eg. en-GB]
+		$tag = (string) $this->manifest->tag;
+
+		// Check if we found the tag - if we didn't, we may be trying to install from an older language package
+		if (!$tag)
+>>>>>>> upstream/master
 		{
 			$this->parent->abort(JText::sprintf('JLIB_INSTALLER_ABORT', JText::_('JLIB_INSTALLER_ERROR_NO_LANGUAGE_TAG')));
 			return false;
@@ -111,14 +186,25 @@ class JInstallerLanguage extends JAdapterInstance
 		$this->set('tag', $tag);
 
 		// Set the language installation path
+<<<<<<< HEAD
 		$this->parent->setPath('extension_site', $basePath.DS.'language'.DS.$tag);
+=======
+		$this->parent->setPath('extension_site', $basePath . '/language/' . $tag);
+>>>>>>> upstream/master
 
 		// Do we have a meta file in the file list?  In other words... is this a core language pack?
 		if ($element && count($element->children()))
 		{
 			$files = $element->children();
+<<<<<<< HEAD
 			foreach ($files as $file) {
 				if ((string)$file->attributes()->file == 'meta') {
+=======
+			foreach ($files as $file)
+			{
+				if ((string) $file->attributes()->file == 'meta')
+				{
+>>>>>>> upstream/master
 					$this->_core = true;
 					break;
 				}
@@ -128,8 +214,15 @@ class JInstallerLanguage extends JAdapterInstance
 		// Either we are installing a core pack or a core pack must exist for the language we are installing.
 		if (!$this->_core)
 		{
+<<<<<<< HEAD
 			if (!JFile::exists($this->parent->getPath('extension_site').DS.$this->get('tag').'.xml')) {
 				$this->parent->abort(JText::sprintf('JLIB_INSTALLER_ABORT', JText::sprintf('JLIB_INSTALLER_ERROR_NO_CORE_LANGUAGE', $this->get('tag'))));
+=======
+			if (!JFile::exists($this->parent->getPath('extension_site') . '/' . $this->get('tag') . '.xml'))
+			{
+				$this->parent
+					->abort(JText::sprintf('JLIB_INSTALLER_ABORT', JText::sprintf('JLIB_INSTALLER_ERROR_NO_CORE_LANGUAGE', $this->get('tag'))));
+>>>>>>> upstream/master
 				return false;
 			}
 		}
@@ -140,7 +233,17 @@ class JInstallerLanguage extends JAdapterInstance
 		{
 			if (!$created = JFolder::create($this->parent->getPath('extension_site')))
 			{
+<<<<<<< HEAD
 				$this->parent->abort(JText::sprintf('JLIB_INSTALLER_ABORT', JText::sprintf('JLIB_INSTALLER_ERROR_CREATE_FOLDER_FAILED', $this->parent->getPath('extension_site'))));
+=======
+				$this->parent
+					->abort(
+						JText::sprintf(
+							'JLIB_INSTALLER_ABORT',
+							JText::sprintf('JLIB_INSTALLER_ERROR_CREATE_FOLDER_FAILED', $this->parent->getPath('extension_site'))
+						)
+					);
+>>>>>>> upstream/master
 				return false;
 			}
 		}
@@ -151,13 +254,21 @@ class JInstallerLanguage extends JAdapterInstance
 			// Upgrade manually set or
 			// Update function available or
 			// Update tag detected
+<<<<<<< HEAD
 			if ($this->parent->getUpgrade() || ($this->parent->manifestClass && method_exists($this->parent->manifestClass,'update')) || is_a($updateElement, 'JXMLElement')) {
+=======
+			if ($this->parent->getUpgrade() || ($this->parent->manifestClass && method_exists($this->parent->manifestClass, 'update'))
+				|| is_a($updateElement, 'JXMLElement')
+			)
+			{
+>>>>>>> upstream/master
 				return $this->update(); // transfer control to the update function
 			}
 			else if (!$this->parent->getOverwrite())
 			{
 				// Overwrite is set
 				// We didn't have overwrite set, find an update function or find an update tag so lets call it safe
+<<<<<<< HEAD
 				if (file_exists($this->parent->getPath('extension_site'))) {
 					// If the site exists say so.
 					JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ABORT', JText::sprintf('JLIB_INSTALLER_ERROR_FOLDER_IN_USE', $this->parent->getPath('extension_site'))));
@@ -165,6 +276,29 @@ class JInstallerLanguage extends JAdapterInstance
 				else {
 					// If the admin exists say so.
 					JError::raiseWarning(1, JText::sprintf('JLIB_INSTALLER_ABORT', JText::sprintf('JLIB_INSTALLER_ERROR_FOLDER_IN_USE', $this->parent->getPath('extension_administrator'))));
+=======
+				if (file_exists($this->parent->getPath('extension_site')))
+				{
+					// If the site exists say so.
+					JError::raiseWarning(
+						1,
+						JText::sprintf(
+							'JLIB_INSTALLER_ABORT',
+							JText::sprintf('JLIB_INSTALLER_ERROR_FOLDER_IN_USE', $this->parent->getPath('extension_site'))
+						)
+					);
+				}
+				else
+				{
+					// If the admin exists say so.
+					JError::raiseWarning(
+						1,
+						JText::sprintf(
+							'JLIB_INSTALLER_ABORT',
+							JText::sprintf('JLIB_INSTALLER_ERROR_FOLDER_IN_USE', $this->parent->getPath('extension_administrator'))
+						)
+					);
+>>>>>>> upstream/master
 				}
 				return false;
 			}
@@ -175,8 +309,14 @@ class JInstallerLanguage extends JAdapterInstance
 		 * have to roll back the installation, so let's add it to the installation
 		 * step stack
 		 */
+<<<<<<< HEAD
 		if ($created) {
 			$this->parent->pushStep(array ('type' => 'folder', 'path' => $this->parent->getPath('extension_site')));
+=======
+		if ($created)
+		{
+			$this->parent->pushStep(array('type' => 'folder', 'path' => $this->parent->getPath('extension_site')));
+>>>>>>> upstream/master
 		}
 
 		// Copy all the necessary files
@@ -191,7 +331,11 @@ class JInstallerLanguage extends JAdapterInstance
 		$this->parent->parseMedia($this->manifest->media);
 
 		// Copy all the necessary font files to the common pdf_fonts directory
+<<<<<<< HEAD
 		$this->parent->setPath('extension_site', $basePath.DS.'language'.DS.'pdf_fonts');
+=======
+		$this->parent->setPath('extension_site', $basePath . '/language/pdf_fonts');
+>>>>>>> upstream/master
 		$overwrite = $this->parent->setOverwrite(true);
 		if ($this->parent->parseFiles($this->manifest->fonts) === false)
 		{
@@ -202,11 +346,21 @@ class JInstallerLanguage extends JAdapterInstance
 		$this->parent->setOverwrite($overwrite);
 
 		// Get the language description
+<<<<<<< HEAD
 		$description = (string)$this->manifest->description;
 		if ($description) {
 			$this->parent->set('message', JText::_($description));
 		}
 		else {
+=======
+		$description = (string) $this->manifest->description;
+		if ($description)
+		{
+			$this->parent->set('message', JText::_($description));
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->parent->set('message', '');
 		}
 
@@ -233,11 +387,17 @@ class JInstallerLanguage extends JAdapterInstance
 
 		// Clobber any possible pending updates
 		$update = JTable::getInstance('update');
+<<<<<<< HEAD
 		$uid = $update->find(Array('element'=>$this->get('tag'),
 								'type'=>'language',
 								'client_id'=>'',
 								'folder'=>''));
 		if ($uid) {
+=======
+		$uid = $update->find(Array('element' => $this->get('tag'), 'type' => 'language', 'client_id' => '', 'folder' => ''));
+		if ($uid)
+		{
+>>>>>>> upstream/master
 			$update->delete($uid);
 		}
 
@@ -248,15 +408,25 @@ class JInstallerLanguage extends JAdapterInstance
 	 * Custom update method
 	 *
 	 * @return  boolean  True on success, false on failure
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function update()
 	{
 		$xml = $this->parent->getManifest();
 
+<<<<<<< HEAD
 		$this->manifest	= $xml;
 
 		$cname		= $xml->attributes()->client;
+=======
+		$this->manifest = $xml;
+
+		$cname = $xml->attributes()->client;
+>>>>>>> upstream/master
 
 		// Attempt to map the client to a base path
 		jimport('joomla.application.helper');
@@ -271,12 +441,20 @@ class JInstallerLanguage extends JAdapterInstance
 
 		// Get the language name
 		// Set the extensions name
+<<<<<<< HEAD
 		$name = (string)$this->manifest->name;
+=======
+		$name = (string) $this->manifest->name;
+>>>>>>> upstream/master
 		$name = JFilterInput::getInstance()->clean($name, 'cmd');
 		$this->set('name', $name);
 
 		// Get the Language tag [ISO tag, eg. en-GB]
+<<<<<<< HEAD
 		$tag = (string)$xml->tag;
+=======
+		$tag = (string) $xml->tag;
+>>>>>>> upstream/master
 
 		// Check if we found the tag - if we didn't, we may be trying to install from an older language package
 		if (!$tag)
@@ -289,14 +467,22 @@ class JInstallerLanguage extends JAdapterInstance
 		$folder = $tag;
 
 		// Set the language installation path
+<<<<<<< HEAD
 		$this->parent->setPath('extension_site', $basePath.DS.'language'.DS.$this->get('tag'));
+=======
+		$this->parent->setPath('extension_site', $basePath . '/language/' . $this->get('tag'));
+>>>>>>> upstream/master
 
 		// Do we have a meta file in the file list?  In other words... is this a core language pack?
 		if (count($xml->files->children()))
 		{
 			foreach ($xml->files->children() as $file)
 			{
+<<<<<<< HEAD
 				if ((string)$file->attributes()->file == 'meta')
+=======
+				if ((string) $file->attributes()->file == 'meta')
+>>>>>>> upstream/master
 				{
 					$this->_core = true;
 					break;
@@ -307,9 +493,16 @@ class JInstallerLanguage extends JAdapterInstance
 		// Either we are installing a core pack or a core pack must exist for the language we are installing.
 		if (!$this->_core)
 		{
+<<<<<<< HEAD
 			if (!JFile::exists($this->parent->getPath('extension_site').DS.$this->get('tag').'.xml'))
 			{
 				$this->parent->abort(JText::sprintf('JLIB_INSTALLER_ABORT', JText::sprintf('JLIB_INSTALLER_ERROR_NO_CORE_LANGUAGE', $this->get('tag'))));
+=======
+			if (!JFile::exists($this->parent->getPath('extension_site') . '/' . $this->get('tag') . '.xml'))
+			{
+				$this->parent
+					->abort(JText::sprintf('JLIB_INSTALLER_ABORT', JText::sprintf('JLIB_INSTALLER_ERROR_NO_CORE_LANGUAGE', $this->get('tag'))));
+>>>>>>> upstream/master
 				return false;
 			}
 		}
@@ -326,7 +519,11 @@ class JInstallerLanguage extends JAdapterInstance
 		$this->parent->parseMedia($xml->media);
 
 		// Copy all the necessary font files to the common pdf_fonts directory
+<<<<<<< HEAD
 		$this->parent->setPath('extension_site', $basePath.DS.'language'.DS.'pdf_fonts');
+=======
+		$this->parent->setPath('extension_site', $basePath . '/language/pdf_fonts');
+>>>>>>> upstream/master
 		$overwrite = $this->parent->setOverwrite(true);
 		if ($this->parent->parseFiles($xml->fonts) === false)
 		{
@@ -337,6 +534,7 @@ class JInstallerLanguage extends JAdapterInstance
 		$this->parent->setOverwrite($overwrite);
 
 		// Get the language description and set it as message
+<<<<<<< HEAD
 		$this->parent->set('message', (string)$xml->description);
 
 		 // Finalization and Cleanup Section
@@ -346,6 +544,15 @@ class JInstallerLanguage extends JAdapterInstance
 		$uid = $update->find(Array('element'=>$this->get('tag'),
 								'type'=>'language',
 								'client_id'=>$clientId));
+=======
+		$this->parent->set('message', (string) $xml->description);
+
+		// Finalization and Cleanup Section
+
+		// Clobber any possible pending updates
+		$update = JTable::getInstance('update');
+		$uid = $update->find(Array('element' => $this->get('tag'), 'type' => 'language', 'client_id' => $clientId));
+>>>>>>> upstream/master
 		if ($uid)
 		{
 			$update->delete($uid);
@@ -353,9 +560,15 @@ class JInstallerLanguage extends JAdapterInstance
 
 		// Update an entry to the extension table
 		$row = JTable::getInstance('extension');
+<<<<<<< HEAD
 		$eid = $row->find(Array('element'=>strtolower($this->get('tag')),
 						'type'=>'language', 'client_id'=>$clientId));
 		if ($eid) {
+=======
+		$eid = $row->find(Array('element' => strtolower($this->get('tag')), 'type' => 'language', 'client_id' => $clientId));
+		if ($eid)
+		{
+>>>>>>> upstream/master
 			$row->load($eid);
 		}
 		else
@@ -383,13 +596,22 @@ class JInstallerLanguage extends JAdapterInstance
 		// And now we run the postflight
 		ob_start();
 		ob_implicit_flush(false);
+<<<<<<< HEAD
 		if ($this->parent->manifestClass && method_exists($this->parent->manifestClass,'postflight'))
+=======
+		if ($this->parent->manifestClass && method_exists($this->parent->manifestClass, 'postflight'))
+>>>>>>> upstream/master
 		{
 			$this->parent->manifestClass->postflight('update', $this);
 		}
 		$msg .= ob_get_contents(); // append messages
 		ob_end_clean();
+<<<<<<< HEAD
 		if ($msg != '') {
+=======
+		if ($msg != '')
+		{
+>>>>>>> upstream/master
 			$this->parent->set('extension_message', $msg);
 		}
 
@@ -399,9 +621,16 @@ class JInstallerLanguage extends JAdapterInstance
 	/**
 	 * Custom uninstall method
 	 *
+<<<<<<< HEAD
 	 * @param   string   $tag		The tag of the language to uninstall
 	 * @param   integer  $clientId	The id of the client (unused)
 	 * @return  mixed    Return value for uninstall method in component uninstall file
+=======
+	 * @param   string  $eid  The tag of the language to uninstall
+	 *
+	 * @return  mixed  Return value for uninstall method in component uninstall file
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function uninstall($eid)
@@ -421,21 +650,38 @@ class JInstallerLanguage extends JAdapterInstance
 		}
 
 		// Check that the language is not protected, Normally en-GB.
+<<<<<<< HEAD
 		$protected  = $extension->get('protected');
 		if ($protected == 1) {
+=======
+		$protected = $extension->get('protected');
+		if ($protected == 1)
+		{
+>>>>>>> upstream/master
 			JError::raiseWarning(100, JText::_('JLIB_INSTALLER_ERROR_LANG_UNINSTALL_PROTECTED'));
 			return false;
 		}
 
+<<<<<<< HEAD
 		// verify that it's not the default language for that client
 		$params = JComponentHelper::getParams('com_languages');
 		if ($params->get($client->name)==$element) {
+=======
+		// Verify that it's not the default language for that client
+		$params = JComponentHelper::getParams('com_languages');
+		if ($params->get($client->name) == $element)
+		{
+>>>>>>> upstream/master
 			JError::raiseWarning(100, JText::_('JLIB_INSTALLER_ERROR_LANG_UNINSTALL_DEFAULT'));
 			return false;
 		}
 
 		// Construct the path from the client, the language and the extension element name
+<<<<<<< HEAD
 		$path = $client->path.DS.'language'.DS.$element;
+=======
+		$path = $client->path . '/language/' . $element;
+>>>>>>> upstream/master
 
 		// Get the package manifest object and remove media
 		$this->parent->setPath('source', $path);
@@ -465,18 +711,32 @@ class JInstallerLanguage extends JAdapterInstance
 
 		// Setting the language of users which have this language as the default language
 		$db = JFactory::getDbo();
+<<<<<<< HEAD
 		$query=$db->getQuery(true);
+=======
+		$query = $db->getQuery(true);
+>>>>>>> upstream/master
 		$query->from('#__users');
 		$query->select('*');
 		$db->setQuery($query);
 		$users = $db->loadObjectList();
+<<<<<<< HEAD
 		if($client->name == 'administrator') {
 			$param_name = 'admin_language';
 		} else {
+=======
+		if ($client->name == 'administrator')
+		{
+			$param_name = 'admin_language';
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$param_name = 'language';
 		}
 
 		$count = 0;
+<<<<<<< HEAD
 		foreach ($users as $user) {
 			$registry = new JRegistry;
 			$registry->loadJSON($user->params);
@@ -486,12 +746,30 @@ class JInstallerLanguage extends JAdapterInstance
 				$query->update('#__users');
 				$query->set('params='.$db->quote($registry));
 				$query->where('id='.(int)$user->id);
+=======
+		foreach ($users as $user)
+		{
+			$registry = new JRegistry;
+			$registry->loadString($user->params);
+			if ($registry->get($param_name) == $element)
+			{
+				$registry->set($param_name, '');
+				$query = $db->getQuery(true);
+				$query->update('#__users');
+				$query->set('params=' . $db->quote($registry));
+				$query->where('id=' . (int) $user->id);
+>>>>>>> upstream/master
 				$db->setQuery($query);
 				$db->query();
 				$count = $count + 1;
 			}
 		}
+<<<<<<< HEAD
 		if (!empty($count)) {
+=======
+		if (!empty($count))
+		{
+>>>>>>> upstream/master
 			JError::raiseNotice(500, JText::plural('JLIB_INSTALLER_NOTICE_LANG_RESET_USERS', $count));
 		}
 
@@ -502,10 +780,18 @@ class JInstallerLanguage extends JAdapterInstance
 	/**
 	 * Custom discover method
 	 * Finds language files
+<<<<<<< HEAD
+=======
+	 *
+	 * @return  void
+	 *
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	public function discover()
 	{
 		$results = Array();
+<<<<<<< HEAD
 		$site_languages = JFolder::folders(JPATH_SITE.DS.'language');
 		$admin_languages = JFolder::folders(JPATH_ADMINISTRATOR.DS.'language');
 		foreach ($site_languages as $language)
@@ -513,6 +799,15 @@ class JInstallerLanguage extends JAdapterInstance
 			if (file_exists(JPATH_SITE.DS.'language'.DS.$language.DS.$language.'.xml'))
 			{
 				$manifest_details = JApplicationHelper::parseXMLInstallFile(JPATH_SITE.DS.'language'.DS.$language.DS.$language.'.xml');
+=======
+		$site_languages = JFolder::folders(JPATH_SITE . '/language');
+		$admin_languages = JFolder::folders(JPATH_ADMINISTRATOR . '/language');
+		foreach ($site_languages as $language)
+		{
+			if (file_exists(JPATH_SITE . '/language/' . $language . '/' . $language . '.xml'))
+			{
+				$manifest_details = JApplicationHelper::parseXMLInstallFile(JPATH_SITE . '/language/' . $language . '/' . $language . '.xml');
+>>>>>>> upstream/master
 				$extension = JTable::getInstance('extension');
 				$extension->set('type', 'language');
 				$extension->set('client_id', 0);
@@ -525,9 +820,15 @@ class JInstallerLanguage extends JAdapterInstance
 		}
 		foreach ($admin_languages as $language)
 		{
+<<<<<<< HEAD
 			if (file_exists(JPATH_ADMINISTRATOR.DS.'language'.DS.$language.DS.$language.'.xml'))
 			{
 				$manifest_details = JApplicationHelper::parseXMLInstallFile(JPATH_ADMINISTRATOR.DS.'language'.DS.$language.DS.$language.'.xml');
+=======
+			if (file_exists(JPATH_ADMINISTRATOR . '/language/' . $language . '/' . $language . '.xml'))
+			{
+				$manifest_details = JApplicationHelper::parseXMLInstallFile(JPATH_ADMINISTRATOR . '/language/' . $language . '/' . $language . '.xml');
+>>>>>>> upstream/master
 				$extension = JTable::getInstance('extension');
 				$extension->set('type', 'language');
 				$extension->set('client_id', 1);
@@ -544,16 +845,30 @@ class JInstallerLanguage extends JAdapterInstance
 	/**
 	 * Custom discover install method
 	 * Basically updates the manifest cache and leaves everything alone
+<<<<<<< HEAD
+=======
+	 *
+	 * @return  integer  The extrension id
+	 *
+	 * @since   11.1
+>>>>>>> upstream/master
 	 */
 	public function discover_install()
 	{
 		// Need to find to find where the XML file is since we don't store this normally
 		$client = JApplicationHelper::getClientInfo($this->parent->extension->client_id);
 		$short_element = $this->parent->extension->element;
+<<<<<<< HEAD
 		$manifestPath = $client->path . DS . 'language'. DS . $short_element . DS . $short_element . '.xml';
 		$this->parent->manifest = $this->parent->isManifest($manifestPath);
 		$this->parent->setPath('manifest', $manifestPath);
 		$this->parent->setPath('source', $client->path . DS . 'language'. DS . $short_element);
+=======
+		$manifestPath = $client->path . '/language/' . $short_element . '/' . $short_element . '.xml';
+		$this->parent->manifest = $this->parent->isManifest($manifestPath);
+		$this->parent->setPath('manifest', $manifestPath);
+		$this->parent->setPath('source', $client->path . '/language/' . $short_element);
+>>>>>>> upstream/master
 		$this->parent->setPath('extension_root', $this->parent->getPath('source'));
 		$manifest_details = JApplicationHelper::parseXMLInstallFile($this->parent->getPath('manifest'));
 		$this->parent->extension->manifest_cache = json_encode($manifest_details);
@@ -561,10 +876,18 @@ class JInstallerLanguage extends JAdapterInstance
 		$this->parent->extension->name = $manifest_details['name'];
 		$this->parent->extension->enabled = 1;
 		//$this->parent->extension->params = $this->parent->getParams();
+<<<<<<< HEAD
 		try {
 			$this->parent->extension->store();
 		}
 		catch(JException $e)
+=======
+		try
+		{
+			$this->parent->extension->store();
+		}
+		catch (JException $e)
+>>>>>>> upstream/master
 		{
 			JError::raiseWarning(101, JText::_('JLIB_INSTALLER_ERROR_LANG_DISCOVER_STORE_DETAILS'));
 			return false;
@@ -576,22 +899,39 @@ class JInstallerLanguage extends JAdapterInstance
 	 * Refreshes the extension table cache
 	 *
 	 * @return  boolean result of operation, true if updated, false on failure
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function refreshManifestCache()
 	{
 		$client = JApplicationHelper::getClientInfo($this->parent->extension->client_id);
+<<<<<<< HEAD
 		$manifestPath = $client->path . DS . 'language'. DS . $this->parent->extension->element . DS . $this->parent->extension->element . '.xml';
+=======
+		$manifestPath = $client->path . '/language/' . $this->parent->extension->element . '/' . $this->parent->extension->element . '.xml';
+>>>>>>> upstream/master
 		$this->parent->manifest = $this->parent->isManifest($manifestPath);
 		$this->parent->setPath('manifest', $manifestPath);
 		$manifest_details = JApplicationHelper::parseXMLInstallFile($this->parent->getPath('manifest'));
 		$this->parent->extension->manifest_cache = json_encode($manifest_details);
 		$this->parent->extension->name = $manifest_details['name'];
 
+<<<<<<< HEAD
 		if ($this->parent->extension->store()) {
 			return true;
 		}
 		else {
+=======
+		if ($this->parent->extension->store())
+		{
+			return true;
+		}
+		else
+		{
+>>>>>>> upstream/master
 			JError::raiseWarning(101, JText::_('JLIB_INSTALLER_ERROR_MOD_REFRESH_MANIFEST_CACHE'));
 
 			return false;

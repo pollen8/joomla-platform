@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.log.log');
 jimport('joomla.log.logger');
@@ -71,19 +75,28 @@ class JLoggerDatabase extends JLogger
 	/**
 	 * Constructor.
 	 *
+<<<<<<< HEAD
 	 * @param   array  $options  Log object options.
+=======
+	 * @param   array  &$options  Log object options.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 * @throws  LogException
 	 */
+<<<<<<< HEAD
 	public function __construct(array & $options)
+=======
+	public function __construct(array &$options)
+>>>>>>> upstream/master
 	{
 		// Call the parent constructor.
 		parent::__construct($options);
 
 		// If both the database object and driver options are empty we want to use the system database connection.
+<<<<<<< HEAD
 		if (empty($this->options['db_object']) && empty($this->options['db_driver'])) {
 			$this->dbo      = JFactory::getDBO();
 			$this->driver   = JFactory::getConfig()->get('dbtype');
@@ -101,6 +114,27 @@ class JLoggerDatabase extends JLogger
 			$this->password = (empty($this->options['db_pass']))     ? '' : $this->options['db_pass'];
 			$this->database = (empty($this->options['db_database'])) ? 'logging' : $this->options['db_database'];
 			$this->prefix   = (empty($this->options['db_prefix']))   ? 'jos_' : $this->options['db_prefix'];
+=======
+		if (empty($this->options['db_object']) && empty($this->options['db_driver']))
+		{
+			$this->dbo = JFactory::getDBO();
+			$this->driver = JFactory::getConfig()->get('dbtype');
+			$this->host = JFactory::getConfig()->get('host');
+			$this->user = JFactory::getConfig()->get('user');
+			$this->password = JFactory::getConfig()->get('password');
+			$this->database = JFactory::getConfig()->get('db');
+			$this->prefix = JFactory::getConfig()->get('dbprefix');
+		}
+		// We need to get the database connection settings from the configuration options.
+		else
+		{
+			$this->driver = (empty($this->options['db_driver'])) ? 'mysql' : $this->options['db_driver'];
+			$this->host = (empty($this->options['db_host'])) ? '127.0.0.1' : $this->options['db_host'];
+			$this->user = (empty($this->options['db_user'])) ? 'root' : $this->options['db_user'];
+			$this->password = (empty($this->options['db_pass'])) ? '' : $this->options['db_pass'];
+			$this->database = (empty($this->options['db_database'])) ? 'logging' : $this->options['db_database'];
+			$this->prefix = (empty($this->options['db_prefix'])) ? 'jos_' : $this->options['db_prefix'];
+>>>>>>> upstream/master
 		}
 
 		// The table name is independent of how we arrived at the connection object.
@@ -110,7 +144,11 @@ class JLoggerDatabase extends JLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
+<<<<<<< HEAD
 	 * @param   JLogEntry  The log entry object to add to the log.
+=======
+	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *
@@ -119,7 +157,12 @@ class JLoggerDatabase extends JLogger
 	public function addEntry(JLogEntry $entry)
 	{
 		// Connect to the database if not connected.
+<<<<<<< HEAD
 		if (empty($this->dbo)) {
+=======
+		if (empty($this->dbo))
+		{
+>>>>>>> upstream/master
 			$this->connect();
 		}
 
@@ -141,6 +184,7 @@ class JLoggerDatabase extends JLogger
 	{
 		// Build the configuration object to use for JDatabase.
 		$options = array(
+<<<<<<< HEAD
 			'driver'   => $this->driver,
 			'host'     => $this->host,
 			'user'     => $this->user,
@@ -157,13 +201,38 @@ class JLoggerDatabase extends JLogger
 			}
 
 			if ($db->getErrorNum() > 0) {
+=======
+			'driver' => $this->driver,
+			'host' => $this->host,
+			'user' => $this->user,
+			'password' => $this->password,
+			'database' => $this->database,
+			'prefix' => $this->prefix);
+
+		try
+		{
+			$db = JDatabase::getInstance($options);
+
+			if (JError::isError($db))
+			{
+				throw new LogException('Database Error: ' . (string) $db);
+			}
+
+			if ($db->getErrorNum() > 0)
+			{
+>>>>>>> upstream/master
 				throw new LogException(JText::sprintf('JLIB_UTIL_ERROR_CONNECT_DATABASE', $db->getErrorNum(), $db->getErrorMsg()));
 			}
 
 			// Assign the database connector to the class.
 			$this->dbo = $db;
 		}
+<<<<<<< HEAD
 		catch (DatabaseException $e) {
+=======
+		catch (JDatabaseException $e)
+		{
+>>>>>>> upstream/master
 			throw new LogException($e->getMessage());
 		}
 	}

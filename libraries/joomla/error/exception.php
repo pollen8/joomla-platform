@@ -7,18 +7,33 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+
+// Pull in JLog for deprecation logging.
+jimport('joomla.log.log');
+>>>>>>> upstream/master
 
 /**
  * Joomla! Exception object.
  *
+<<<<<<< HEAD
  * @package	Joomla.Platform
  * @subpackage  Error
  * @since       11.1
+=======
+ * @package     Joomla.Platform
+ * @subpackage  Error
+ * @since       11.1
+ * @deprecated  12.1
+>>>>>>> upstream/master
  */
 class JException extends Exception
 {
 	/**
+<<<<<<< HEAD
 	 * @var    string  Error level
 	 * @since  11.1
 	 */
@@ -26,19 +41,38 @@ class JException extends Exception
 
 	/**
 	 * @var    string  Error code
+=======
+	 * @var    string  Error level.
+	 * @since  11.1
+	 */
+	protected $level = null;
+
+	/**
+	 * @var    string  Error code.
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $code = null;
 
 	/**
+<<<<<<< HEAD
 	 * @var    string  Error message
+=======
+	 * @var    string  Error message.
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $message = null;
 
 	/**
+<<<<<<< HEAD
 	 * Additional info about the error relevant to the developer
 	 *  - e.g. if a database connect fails, the dsn used
+=======
+	 * Additional info about the error relevant to the developer,
+	 * for example, if a database connect fails, the dsn used
+	 *
+>>>>>>> upstream/master
 	 * @var    string
 	 * @since  11.1
 	 */
@@ -46,6 +80,10 @@ class JException extends Exception
 
 	/**
 	 * Name of the file the error occurred in [Available if backtrace is enabled]
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @var    string
 	 * @since  11.1
 	 */
@@ -53,6 +91,10 @@ class JException extends Exception
 
 	/**
 	 * Line number the error occurred in [Available if backtrace is enabled]
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @var    int
 	 * @since  11.1
 	 */
@@ -60,6 +102,7 @@ class JException extends Exception
 
 	/**
 	 * Name of the method the error occurred in [Available if backtrace is enabled]
+<<<<<<< HEAD
 	 * @var    string
 	 * @since  11.1
 	 */
@@ -67,12 +110,24 @@ class JException extends Exception
 
 	/**
 	 * Name of the class the error occurred in [Available if backtrace is enabled]
+=======
+	 *
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $function = null;
+
+	/**
+	 * Name of the class the error occurred in [Available if backtrace is enabled]
+	 *
+>>>>>>> upstream/master
 	 * @var    string
 	 * @since  11.1
 	 */
 	protected $class = null;
 
 	/**
+<<<<<<< HEAD
 	 * Error type
 	 * @var    string
 	 * @since  11.1
@@ -96,6 +151,30 @@ class JException extends Exception
 	/**
 	 * Constructor
 	 *	- used to set up the error with all needed error details.
+=======
+	 * @var    string  Error type.
+	 * @since  11.1
+	 */
+	protected $type = null;
+
+	/**
+	 * Arguments recieved by the method the error occurred in [Available if backtrace is enabled]
+	 *
+	 * @var    array
+	 * @since  11.1
+	 */
+	protected $args = array();
+
+	/**
+	 * @var    mixed  Backtrace information.
+	 * @since  11.1
+	 */
+	protected $backtrace = null;
+
+	/**
+	 * Constructor
+	 * - used to set up the error with all needed error details.
+>>>>>>> upstream/master
 	 *
 	 * @param   string   $msg        The error message
 	 * @param   string   $code       The error code from the application
@@ -104,6 +183,7 @@ class JException extends Exception
 	 * @param   boolean  $backtrace  True if backtrace information is to be collected
 	 *
 	 * @since   11.1
+<<<<<<< HEAD
 	 */
 	public function __construct($msg, $code = 0, $level = null, $info = null, $backtrace = false)
 	{
@@ -112,6 +192,22 @@ class JException extends Exception
 		$this->message	=	$msg;
 
 		if ($info != null) {
+=======
+	 *
+	 * @deprecated  12.1
+	 */
+	public function __construct($msg, $code = 0, $level = null, $info = null, $backtrace = false)
+	{
+		// Deprecation warning.
+		JLog::add('JException is deprecated.', JLog::WARNING, 'deprecated');
+
+		$this->level = $level;
+		$this->code = $code;
+		$this->message = $msg;
+
+		if ($info != null)
+		{
+>>>>>>> upstream/master
 			$this->info = $info;
 		}
 
@@ -119,6 +215,7 @@ class JException extends Exception
 		{
 			$this->backtrace = debug_backtrace();
 
+<<<<<<< HEAD
 			for($i = count($this->backtrace) - 1; $i >= 0; --$i)
 			{
 				++$i;
@@ -141,6 +238,36 @@ class JException extends Exception
 				$this->args		= false;
 				if (isset($this->backtrace[$i]['args'])) {
 					$this->args		= $this->backtrace[$i]['args'];
+=======
+			for ($i = count($this->backtrace) - 1; $i >= 0; --$i)
+			{
+				++$i;
+				if (isset($this->backtrace[$i]['file']))
+				{
+					$this->file = $this->backtrace[$i]['file'];
+				}
+				if (isset($this->backtrace[$i]['line']))
+				{
+					$this->line = $this->backtrace[$i]['line'];
+				}
+				if (isset($this->backtrace[$i]['class']))
+				{
+					$this->class = $this->backtrace[$i]['class'];
+				}
+				if (isset($this->backtrace[$i]['function']))
+				{
+					$this->function = $this->backtrace[$i]['function'];
+				}
+				if (isset($this->backtrace[$i]['type']))
+				{
+					$this->type = $this->backtrace[$i]['type'];
+				}
+
+				$this->args = false;
+				if (isset($this->backtrace[$i]['args']))
+				{
+					$this->args = $this->backtrace[$i]['args'];
+>>>>>>> upstream/master
 				}
 				break;
 			}
@@ -158,6 +285,11 @@ class JException extends Exception
 	 * @return  string  Error message
 	 *
 	 * @since   11.1
+<<<<<<< HEAD
+=======
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 */
 	public function __toString()
 	{
@@ -170,7 +302,11 @@ class JException extends Exception
 	 * @return  string   Error message
 	 *
 	 * @since   11.1
+<<<<<<< HEAD
 	 * @deprecated
+=======
+	 * @deprecated    12.1
+>>>>>>> upstream/master
 	 */
 	public function toString()
 	{
@@ -180,6 +316,7 @@ class JException extends Exception
 	/**
 	 * Returns a property of the object or the default value if the property is not set.
 	 *
+<<<<<<< HEAD
 	 * @param   string   $property  The name of the property
 	 * @param   mixed    $default   The default value
 	 *
@@ -191,6 +328,21 @@ class JException extends Exception
 	public function get($property, $default=null)
 	{
 		if (isset($this->$property)) {
+=======
+	 * @param   string  $property  The name of the property
+	 * @param   mixed   $default   The default value
+	 *
+	 * @return  mixed  The value of the property or null
+	 *
+	 * @deprecated  12.1
+	 * @see         getProperties()
+	 * @since       11.1
+	 */
+	public function get($property, $default = null)
+	{
+		if (isset($this->$property))
+		{
+>>>>>>> upstream/master
 			return $this->$property;
 		}
 		return $default;
@@ -203,17 +355,30 @@ class JException extends Exception
 	 *
 	 * @return  array  Object properties
 	 *
+<<<<<<< HEAD
+=======
+	 * @deprecated    12.1
+>>>>>>> upstream/master
 	 * @see     get()
 	 * @since   11.1
 	 */
 	public function getProperties($public = true)
 	{
+<<<<<<< HEAD
 		$vars  = get_object_vars($this);
+=======
+		$vars = get_object_vars($this);
+>>>>>>> upstream/master
 		if ($public)
 		{
 			foreach ($vars as $key => $value)
 			{
+<<<<<<< HEAD
 				if ('_' == substr($key, 0, 1)) {
+=======
+				if ('_' == substr($key, 0, 1))
+				{
+>>>>>>> upstream/master
 					unset($vars[$key]);
 				}
 			}
@@ -224,12 +389,18 @@ class JException extends Exception
 	/**
 	 * Get the most recent error message
 	 *
+<<<<<<< HEAD
 	 * @param   integer  $i Option error index
 	 * @param   boolean  $toString Indicates if JError objects should return their error message
+=======
+	 * @param   integer  $i         Option error index
+	 * @param   boolean  $toString  Indicates if JError objects should return their error message
+>>>>>>> upstream/master
 	 *
 	 * @return  string  Error message
 	 *
 	 * @since   11.1
+<<<<<<< HEAD
 	 */
 	public function getError($i = null, $toString = true)
 	{
@@ -250,6 +421,36 @@ class JException extends Exception
 		// Check if only the string is requested
 		if (JError::isError($error) && $toString) {
 			return (string)$error;
+=======
+	 *
+	 * @deprecated  12.1
+	 */
+	public function getError($i = null, $toString = true)
+	{
+		// Deprecation warning.
+		JLog::add('JException::getError is deprecated.', JLog::WARNING, 'deprecated');
+
+		// Find the error
+		if ($i === null)
+		{
+			// Default, return the last message
+			$error = end($this->_errors);
+		}
+		else if (!array_key_exists($i, $this->_errors))
+		{
+			// If $i has been specified but does not exist, return false
+			return false;
+		}
+		else
+		{
+			$error = $this->_errors[$i];
+		}
+
+		// Check if only the string is requested
+		if (JError::isError($error) && $toString)
+		{
+			return (string) $error;
+>>>>>>> upstream/master
 		}
 
 		return $error;
@@ -261,6 +462,7 @@ class JException extends Exception
 	 * @return  array  Array of error messages or JErrors
 	 *
 	 * @since   11.1
+<<<<<<< HEAD
 	 */
 	public function getErrors()
 	{
@@ -281,6 +483,36 @@ class JException extends Exception
 	 */
 	public function set($property, $value = null)
 	{
+=======
+	 *
+	 * @deprecated  12.1
+	 */
+	public function getErrors()
+	{
+		// Deprecation warning.
+		JLog::add('JException::getErrors is deprecated.', JLog::WARNING, 'deprecated');
+
+		return $this->_errors;
+	}
+
+	/**
+	 * Modifies a property of the object, creating it if it does not already exist.
+	 *
+	 * @param   string  $property  The name of the property
+	 * @param   mixed   $value     The value of the property to set
+	 *
+	 * @return  mixed  Previous value of the property
+	 *
+	 * @deprecated  12.1
+	 * @see         setProperties()
+	 * @since       11.1
+	 */
+	public function set($property, $value = null)
+	{
+		// Deprecation warning.
+		JLog::add('JException::set is deprecated.', JLog::WARNING, 'deprecated');
+
+>>>>>>> upstream/master
 		$previous = isset($this->$property) ? $this->$property : null;
 		$this->$property = $value;
 		return $previous;
@@ -289,6 +521,7 @@ class JException extends Exception
 	/**
 	 * Set the object properties based on a named array/hash
 	 *
+<<<<<<< HEAD
 	 * @param   $array  mixed Either and associative array or another object
 	 *
 	 * @return  boolean
@@ -298,12 +531,32 @@ class JException extends Exception
 	 */
 	public function setProperties($properties)
 	{
+=======
+	 * @param   mixed  $properties  Either and associative array or another object
+	 *
+	 * @return  boolean
+	 *
+	 * @deprecated  12.1
+	 * @see         set()
+	 * @since       11.1
+	 */
+	public function setProperties($properties)
+	{
+		// Deprecation warning.
+		JLog::add('JException::setProperties is deprecated.', JLog::WARNING, 'deprecated');
+
+>>>>>>> upstream/master
 		// Cast to an array
 		$properties = (array) $properties;
 
 		if (is_array($properties))
 		{
+<<<<<<< HEAD
 			foreach ($properties as $k => $v) {
+=======
+			foreach ($properties as $k => $v)
+			{
+>>>>>>> upstream/master
 				$this->$k = $v;
 			}
 
@@ -321,9 +574,20 @@ class JException extends Exception
 	 * @return  void
 	 *
 	 * @since   11.1
+<<<<<<< HEAD
 	 */
 	public function setError($error)
 	{
+=======
+	 *
+	 * @deprecated  12.1
+	 */
+	public function setError($error)
+	{
+		// Deprecation warning.
+		JLog::add('JException::setErrors is deprecated.', JLog::WARNING, 'deprecated');
+
+>>>>>>> upstream/master
 		array_push($this->_errors, $error);
 	}
 }

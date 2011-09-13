@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * Base object class.
@@ -22,9 +26,15 @@ defined('JPATH_PLATFORM') or die;
 class JObject
 {
 	/**
+<<<<<<< HEAD
 	 * An array of errors
 	 *
 	 * @var    array of error messages or JExceptions objects.
+=======
+	 * An array of error messages or JExceptions objects.
+	 *
+	 * @var    array
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $_errors = array();
@@ -32,8 +42,13 @@ class JObject
 	/**
 	 * Class constructor, overridden in descendant classes.
 	 *
+<<<<<<< HEAD
 	 * @param   mixed  $properties	Either and associative array or another
 	 *                 object to set the initial properties of the object.
+=======
+	 * @param   mixed  $properties  Either and associative array or another
+	 *                              object to set the initial properties of the object.
+>>>>>>> upstream/master
 	 *
 	 * @return  JObject
 	 *
@@ -41,7 +56,12 @@ class JObject
 	 */
 	public function __construct($properties = null)
 	{
+<<<<<<< HEAD
 		if ($properties !== null) {
+=======
+		if ($properties !== null)
+		{
+>>>>>>> upstream/master
 			$this->setProperties($properties);
 		}
 	}
@@ -50,6 +70,10 @@ class JObject
 	 * Magic method to convert the object to a string gracefully.
 	 *
 	 * @return  string  The classname.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function __toString()
@@ -64,9 +88,16 @@ class JObject
 	 * @param   mixed   $default   The default value.
 	 *
 	 * @return  mixed
+<<<<<<< HEAD
 	 * @since   11.1
 	 */
 	public function def($property, $default=null)
+=======
+	 *
+	 * @since   11.1
+	 */
+	public function def($property, $default = null)
+>>>>>>> upstream/master
 	{
 		$value = $this->get($property, $default);
 		return $this->set($property, $value);
@@ -80,12 +111,23 @@ class JObject
 	 *
 	 * @return  mixed    The value of the property.
 	 *
+<<<<<<< HEAD
 	 * @see     getProperties()
 	 * @since   11.1
 	 */
 	public function get($property, $default=null)
 	{
 		if (isset($this->$property)) {
+=======
+	 * @since   11.1
+	 *
+	 * @see     getProperties()
+	 */
+	public function get($property, $default = null)
+	{
+		if (isset($this->$property))
+		{
+>>>>>>> upstream/master
 			return $this->$property;
 		}
 		return $default;
@@ -98,17 +140,32 @@ class JObject
 	 *
 	 * @return  array
 	 *
+<<<<<<< HEAD
 	 * @see		get()
 	 * @since   11.1
 	 */
 	public function getProperties($public = true)
 	{
 		$vars  = get_object_vars($this);
+=======
+	 * @since   11.1
+	 *
+	 * @see     get()
+	 */
+	public function getProperties($public = true)
+	{
+		$vars = get_object_vars($this);
+>>>>>>> upstream/master
 		if ($public)
 		{
 			foreach ($vars as $key => $value)
 			{
+<<<<<<< HEAD
 				if ('_' == substr($key, 0, 1)) {
+=======
+				if ('_' == substr($key, 0, 1))
+				{
+>>>>>>> upstream/master
 					unset($vars[$key]);
 				}
 			}
@@ -124,6 +181,10 @@ class JObject
 	 * @param   boolean  $toString  Indicates if JError objects should return their error message.
 	 *
 	 * @return  string   Error message
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getError($i = null, $toString = true)
@@ -139,6 +200,7 @@ class JObject
 			// If $i has been specified but does not exist, return false
 			return false;
 		}
+<<<<<<< HEAD
 		else {
 			$error	= $this->_errors[$i];
 		}
@@ -146,6 +208,17 @@ class JObject
 		// Check if only the string is requested
 		if (JError::isError($error) && $toString) {
 			return (string)$error;
+=======
+		else
+		{
+			$error = $this->_errors[$i];
+		}
+
+		// Check if only the string is requested
+		if (JError::isError($error) && $toString)
+		{
+			return (string) $error;
+>>>>>>> upstream/master
 		}
 
 		return $error;
@@ -155,6 +228,10 @@ class JObject
 	 * Return all errors, if any.
 	 *
 	 * @return  array  Array of error messages or JErrors.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getErrors()
@@ -169,6 +246,10 @@ class JObject
 	 * @param   mixed   $value     The value of the property to set.
 	 *
 	 * @return  mixed  Previous value of the property.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function set($property, $value = null)
@@ -185,8 +266,14 @@ class JObject
 	 *
 	 * @return  boolean
 	 *
+<<<<<<< HEAD
 	 * @see     set()
 	 * @since   11.1
+=======
+	 * @since   11.1
+	 *
+	 * @see     set()
+>>>>>>> upstream/master
 	 */
 	public function setProperties($properties)
 	{
@@ -208,7 +295,12 @@ class JObject
 	 *
 	 * @param   string  $error  Error message.
 	 *
+<<<<<<< HEAD
 	 * @return  array  updated array or errors
+=======
+	 * @return  void
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function setError($error)
@@ -217,6 +309,7 @@ class JObject
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @return  string
 	 *
 	 * @deprecated
@@ -229,3 +322,21 @@ class JObject
 		return $this->__toString();
 	}
 }
+=======
+	 * Converts the object to a string (the class name).
+	 *
+	 * @return  string
+	 *
+	 * @since   11.1
+	 * @deprecated  12.1    Use magic method __toString()
+	 * @see         __toString()
+	 */
+	function toString()
+	{
+		// Deprecation warning.
+		JLog::add('JObject::toString() is deprecated.', JLog::WARNING, 'deprecated');
+
+		return $this->__toString();
+	}
+}
+>>>>>>> upstream/master

@@ -9,6 +9,7 @@
 
 defined('JPATH_PLATFORM') or die;
 
+<<<<<<< HEAD
 /**
  * PHP mbstring and iconv local configuration
  */
@@ -697,3 +698,8 @@ abstract class JString
 		return $result;
 	}
 }
+=======
+JLog::add('JString has moved to jimport(\'joomla.string.string\'), please update your code.', JLog::WARNING, 'deprecated');
+
+require_once JPATH_PLATFORM . '/joomla/string/string.php';
+>>>>>>> upstream/master

@@ -23,7 +23,11 @@ class JRegistryFormatTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test the JRegistryFormat::getInstance method.
 	 */
+<<<<<<< HEAD
 	public function testGetInstance()
+=======
+	public function testGetInstance01()
+>>>>>>> upstream/master
 	{
 		// Test INI format.
 		$object = JRegistryFormat::getInstance('INI');
@@ -53,4 +57,26 @@ class JRegistryFormatTest extends PHPUnit_Framework_TestCase
 			$this->isTrue()
 		);
 	}
+<<<<<<< HEAD
+=======
+
+	/**
+	 * Failing test of the JRegistryFormat::getInstance method.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.3
+	 *
+	 * @expectedException  JException
+	 */
+	public function testGetInstance02()
+	{
+		// Test SQL format.
+		$object = JRegistryFormat::getInstance('SQL');
+		$this->assertThat(
+			$object instanceof JRegistryFormatSQL,
+			$this->isTrue()
+		);
+	}
+>>>>>>> upstream/master
 }

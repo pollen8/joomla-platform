@@ -16,6 +16,20 @@ require_once JPATH_PLATFORM.'/joomla/application/router.php';
 class JRouterTest extends PHPUnit_Framework_TestCase
 {
 	/**
+<<<<<<< HEAD
+=======
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
+	 *
+	 * @access protected
+	 */
+	protected function setUp()
+	{
+		$this->object = new JRouter;
+	}
+
+	/**
+>>>>>>> upstream/master
 	 * @todo Implement testGetInstance().
 	 */
 	public function testGetInstance()
@@ -61,11 +75,35 @@ class JRouterTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @todo Implement testSetVar().
 	 */
 	public function testSetVar() {
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
+=======
+	 * Cases for testSetVar
+	 */
+	public function casesSetVar()
+	{
+		$cases = array();
+		$cases[] = array(array(), 'myvar', 'myvalue', true, 'myvalue');
+		$cases[] = array(array(), 'myvar', 'myvalue', false, null);
+		$cases[] = array(array('myvar'=>'myvalue1'), 'myvar', 'myvalue2', true, 'myvalue2');
+		$cases[] = array(array('myvar'=>'myvalue1'), 'myvar', 'myvalue2', false, 'myvalue2');
+		return $cases;
+	}
+
+    /**
+     * testAttributes()
+     *
+     * @dataProvider casesSetVar
+     */
+	public function testSetVar($vars, $var, $value, $create, $expected) {
+		$this->object->setVars($vars, false);
+		$this->object->setVar($var, $value, $create);
+		$this->assertEquals($this->object->getVar($var), $expected, __METHOD__ . ':' . __LINE__ . ': value is not expected');
+>>>>>>> upstream/master
 	}
 
 	/**
@@ -149,12 +187,64 @@ class JRouterTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @todo Implement test_processParseRules().
 	 */
 	public function test_processParseRules()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
+=======
+	 * Cases for test_processParseRules
+	 */
+	public function cases_processParseRules()
+	{
+		$cases = array();
+		$cases[] = array(array(), array());
+		$cases[] =
+			array(
+				array(
+					function(&$router, &$uri) {return array('myvar'=>'myvalue');}
+				),
+				array('myvar'=>'myvalue')
+			);
+		$cases[] =
+			array(
+				array(
+					function(&$router, &$uri) {return array('myvar1'=>'myvalue1');},
+					function(&$router, &$uri) {return array('myvar2'=>'myvalue2');},
+				),
+				array('myvar1'=>'myvalue1', 'myvar2'=>'myvalue2')
+			);
+		$cases[] =
+			array(
+				array(
+					function(&$router, &$uri) {return array('myvar1'=>'myvalue1');},
+					function(&$router, &$uri) {return array('myvar2'=>'myvalue2');},
+					function(&$router, &$uri) {return array('myvar1'=>'myvalue3');},
+				),
+				array('myvar1'=>'myvalue1', 'myvar2'=>'myvalue2')
+			);
+
+		return $cases;
+	}
+
+	/**
+	 * test_processParseRules().
+     *
+     * @dataProvider cases_processParseRules
+	 */
+	public function test_processParseRules($functions, $expected)
+	{
+		$myuri = 'http://localhost';
+		$stub = $this->getMock('JRouter', array('_parseRawRoute'));
+        $stub->expects($this->any())->method('_parseRawRoute')->will($this->returnValue(array()));
+		foreach ($functions as $function)
+		{
+			$stub->attachParseRule($function);
+		}
+		$this->assertEquals($stub->parse($myuri), $expected, __METHOD__ . ':' . __LINE__ . ': value is not expected');
+>>>>>>> upstream/master
 	}
 
 	/**
@@ -192,4 +282,8 @@ class JRouterTest extends PHPUnit_Framework_TestCase
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

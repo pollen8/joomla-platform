@@ -10,6 +10,7 @@
 defined('JPATH_PLATFORM') or die;
 
 jimport('joomla.updater.updateadapter');
+<<<<<<< HEAD
 
 class JUpdaterExtension extends JUpdateAdapter
 {
@@ -20,6 +21,37 @@ class JUpdaterExtension extends JUpdateAdapter
 		eval('$this->'. $tag .'->_data = "";');
 
 		switch($name) {
+=======
+/**
+ * Extension class for updater
+ *
+ * @package     Joomla.Platform
+ * @subpackage  Updater
+ * @since       11.1
+ * */
+class JUpdaterExtension extends JUpdateAdapter
+{
+	/**
+	 * Start element parser callback.
+	 *
+	 * @param   object  $parser  The parser object.
+	 * @param   string  $name    The name of the element.
+	 * @param   array   $attrs   The attributes of the element.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.1
+	 */
+	protected function _startElement($parser, $name, $attrs = Array())
+	{
+		array_push($this->_stack, $name);
+		$tag = $this->_getStackLocation();
+		// reset the data
+		eval('$this->' . $tag . '->_data = "";');
+
+		switch ($name)
+		{
+>>>>>>> upstream/master
 			case 'UPDATE':
 				$this->current_update = JTable::getInstance('update');
 				$this->current_update->update_site_id = $this->_update_site_id;
@@ -29,21 +61,45 @@ class JUpdaterExtension extends JUpdateAdapter
 			case 'UPDATES':
 				break;
 			default:
+<<<<<<< HEAD
 				if(in_array($name, $this->_updatecols)) {
 					$name = strtolower($name);
 					$this->current_update->$name = '';
 				}
 				if($name == 'TARGETPLATFORM') {
+=======
+				if (in_array($name, $this->_updatecols))
+				{
+					$name = strtolower($name);
+					$this->current_update->$name = '';
+				}
+				if ($name == 'TARGETPLATFORM')
+				{
+>>>>>>> upstream/master
 					$this->current_update->targetplatform = $attrs;
 				}
 				break;
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * Character Parser Function
+	 *
+	 * @param   object  $parser  Parser object.
+	 * @param   object  $name    The name of the element.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.1
+	 */
+>>>>>>> upstream/master
 	protected function _endElement($parser, $name)
 	{
 		array_pop($this->_stack);
 		//echo 'Closing: '. $name .'<br />';
+<<<<<<< HEAD
 		switch($name) {
 			case 'UPDATE':
 				$ver = new JVersion();
@@ -57,27 +113,74 @@ class JUpdaterExtension extends JUpdateAdapter
 							$this->latest = $this->current_update;
 						}
 					} else {
+=======
+		switch ($name)
+		{
+			case 'UPDATE':
+				$ver = new JVersion;
+				$product = strtolower(JFilterInput::getInstance()->clean($ver->PRODUCT, 'cmd')); // lower case and remove the exclamation mark
+				// Check that the product matches and that the version matches (optionally a regexp)
+				if ($product == $this->current_update->targetplatform['NAME']
+					&& preg_match('/' . $this->current_update->targetplatform['VERSION'] . '/', $ver->RELEASE)
+				)
+				{
+					// Target platform isn't a valid field in the update table so unset it to prevent J! from trying to store it
+					unset($this->current_update->targetplatform);
+					if (isset($this->latest))
+					{
+						if (version_compare($this->current_update->version, $this->latest->version, '>') == 1)
+						{
+							$this->latest = $this->current_update;
+						}
+					}
+					else
+					{
+>>>>>>> upstream/master
 						$this->latest = $this->current_update;
 					}
 				}
 				break;
 			case 'UPDATES':
+<<<<<<< HEAD
 				// :D
+=======
+			// :D
+>>>>>>> upstream/master
 				break;
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * Character Parser Function
+	 *
+	 * @param   object  $parser  Parser object.
+	 * @param   object  $data    The data.
+	 *
+	 * @return  void
+	 *
+	 * @note    This is public because its called externally.
+	 * @since   11.1
+	 */
+>>>>>>> upstream/master
 	protected function _characterData($parser, $data)
 	{
 		$tag = $this->_getLastTag();
 		//if(!isset($this->$tag->_data)) $this->$tag->_data = '';
 		//$this->$tag->_data .= $data;
+<<<<<<< HEAD
 		if(in_array($tag, $this->_updatecols)) {
+=======
+		if (in_array($tag, $this->_updatecols) || $tag == 'INFOURL')
+		{
+>>>>>>> upstream/master
 			$tag = strtolower($tag);
 			$this->current_update->$tag .= $data;
 		}
 	}
 
+<<<<<<< HEAD
 	public function findUpdate($options)
 	{
 		$url = $options['location'];
@@ -86,11 +189,33 @@ class JUpdaterExtension extends JUpdateAdapter
 		//echo '<p>Find update for extension run on <a href="'. $url .'">'. $url .'</a></p>';
 		if(substr($url, -4) != '.xml') {
 			if(substr($url, -1) != '/') {
+=======
+	/**
+	 * Finds an update.
+	 *
+	 * @param   array  $options
+	 *
+	 * @return  array  Array containing the array of update sites and array of updates
+	 *
+	 * @since   11.1
+	 */
+	public function findUpdate($options)
+	{
+		$url = $options['location'];
+		$this->_url = &$url;
+		$this->_update_site_id = $options['update_site_id'];
+		//echo '<p>Find update for extension run on <a href="'. $url .'">'. $url .'</a></p>';
+		if (substr($url, -4) != '.xml')
+		{
+			if (substr($url, -1) != '/')
+			{
+>>>>>>> upstream/master
 				$url .= '/';
 			}
 			$url .= 'extension.xml';
 		}
 
+<<<<<<< HEAD
 
 		$dbo = $this->parent->getDBO();
 
@@ -102,6 +227,22 @@ class JUpdaterExtension extends JUpdateAdapter
 			$dbo->setQuery($query);
 			$dbo->Query();
 			JError::raiseWarning('101', JText::sprintf('JLIB_UPDATER_ERROR_EXTENSION_OPEN_URL', $url));
+=======
+		$dbo = $this->parent->getDBO();
+
+		if (!($fp = @fopen($url, "r")))
+		{
+			$query = $dbo->getQuery(true);
+			$query->update('#__update_sites');
+			$query->set('enabled = 0');
+			$query->where('update_site_id = ' . $this->_update_site_id);
+			$dbo->setQuery($query);
+			$dbo->Query();
+
+			JLog::add("Error opening url: ".$url, JLog::WARNING, 'updater');
+			$app = JFactory::getApplication();
+			$app->enqueueMessage(JText::sprintf('JLIB_UPDATER_ERROR_EXTENSION_OPEN_URL', $url), 'warning');
+>>>>>>> upstream/master
 			return false;
 		}
 
@@ -110,6 +251,7 @@ class JUpdaterExtension extends JUpdateAdapter
 		xml_set_element_handler($this->xml_parser, '_startElement', '_endElement');
 		xml_set_character_data_handler($this->xml_parser, '_characterData');
 
+<<<<<<< HEAD
 		while ($data = fread($fp, 8192)) {
 			if (!xml_parse($this->xml_parser, $data, feof($fp))) {
 				die(sprintf("XML error: %s at line %d",
@@ -126,3 +268,27 @@ class JUpdaterExtension extends JUpdateAdapter
 		return Array('update_sites'=>Array(),'updates'=>$updates);
 	}
 }
+=======
+		while ($data = fread($fp, 8192))
+		{
+			if (!xml_parse($this->xml_parser, $data, feof($fp)))
+			{
+				JLog::add("Error parsing url: ".$url, JLog::WARNING, 'updater');
+				$app = JFactory::getApplication();
+				$app->enqueueMessage(JText::sprintf('JLIB_UPDATER_ERROR_EXTENSION_PARSE_URL', $url), 'warning');
+				return false;
+			}
+		}
+		xml_parser_free($this->xml_parser);
+		if (isset($this->latest))
+		{
+			$updates = Array($this->latest);
+		}
+		else
+		{
+			$updates = Array();
+		}
+		return Array('update_sites' => Array(), 'updates' => $updates);
+	}
+}
+>>>>>>> upstream/master

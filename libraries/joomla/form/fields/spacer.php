@@ -7,12 +7,21 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.form.formfield');
 
 /**
+<<<<<<< HEAD
  * Form Field class for the Joomla Framework.
+=======
+ * Form Field class for the Joomla Platform.
+ * Provides spacer markup to be used in form layouts.
+>>>>>>> upstream/master
  *
  * @package     Joomla.Platform
  * @subpackage  Form
@@ -29,9 +38,17 @@ class JFormFieldSpacer extends JFormField
 	protected $type = 'Spacer';
 
 	/**
+<<<<<<< HEAD
 	 * Method to get the field input markup.
 	 *
 	 * @return  string  The field input markup.
+=======
+	 * Method to get the field input markup for a spacer.
+	 * The spacer does not have accept input.
+	 *
+	 * @return  string  The field input markup.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getInput()
@@ -40,9 +57,18 @@ class JFormFieldSpacer extends JFormField
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Method to get the field label markup.
 	 *
 	 * @return  string  The field label markup.
+=======
+	 * Method to get the field label markup for a spacer.
+	 * Use the label text or name from the XML element as the spacer or
+	 * Use a hr="true" to automatically generate plain hr markup
+	 *
+	 * @return  string  The field label markup.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getLabel()
@@ -52,11 +78,21 @@ class JFormFieldSpacer extends JFormField
 
 		$html[] = '<span class="spacer">';
 		$html[] = '<span class="before"></span>';
+<<<<<<< HEAD
 		$html[] = '<span class="'.$class.'">';
 		if ((string) $this->element['hr'] == 'true') {
 			$html[] = '<hr class="'.$class.'" />';
 		}
 		else {
+=======
+		$html[] = '<span class="' . $class . '">';
+		if ((string) $this->element['hr'] == 'true')
+		{
+			$html[] = '<hr class="' . $class . '" />';
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$label = '';
 			// Get the label text from the XML element, defaulting to the element name.
 			$text = $this->element['label'] ? (string) $this->element['label'] : (string) $this->element['name'];
@@ -64,6 +100,7 @@ class JFormFieldSpacer extends JFormField
 
 			// Build the class for the label.
 			$class = !empty($this->description) ? 'hasTip' : '';
+<<<<<<< HEAD
 			$class = $this->required == true ? $class.' required' : $class;
 
 			// Add the opening label tag and main attributes attributes.
@@ -77,18 +114,46 @@ class JFormFieldSpacer extends JFormField
 
 			// Add the label text and closing tag.
 			$label .= '>'.$text.'</label>';
+=======
+			$class = $this->required == true ? $class . ' required' : $class;
+
+			// Add the opening label tag and main attributes attributes.
+			$label .= '<label id="' . $this->id . '-lbl" class="' . $class . '"';
+
+			// If a description is specified, use it to build a tooltip.
+			if (!empty($this->description))
+			{
+				$label .= ' title="'
+					. htmlspecialchars(
+						trim($text, ':') . '::' . ($this->translateDescription ? JText::_($this->description) : $this->description),
+						ENT_COMPAT, 'UTF-8'
+					) . '"';
+			}
+
+			// Add the label text and closing tag.
+			$label .= '>' . $text . '</label>';
+>>>>>>> upstream/master
 			$html[] = $label;
 		}
 		$html[] = '</span>';
 		$html[] = '<span class="after"></span>';
 		$html[] = '</span>';
+<<<<<<< HEAD
 		return implode('',$html);
+=======
+
+		return implode('', $html);
+>>>>>>> upstream/master
 	}
 
 	/**
 	 * Method to get the field title.
 	 *
 	 * @return  string  The field title.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getTitle()

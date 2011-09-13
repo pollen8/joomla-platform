@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.base.node');
 
@@ -22,14 +26,24 @@ class JTree extends JObject
 {
 	/**
 	 * Root node
+<<<<<<< HEAD
 	 * @var
+=======
+	 *
+	 * @var    object
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $_root = null;
 
 	/**
 	 * Current working node
+<<<<<<< HEAD
 	 * @var
+=======
+	 *
+	 * @var    object
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $_current = null;
@@ -50,16 +64,29 @@ class JTree extends JObject
 	/**
 	 * Method to add a child
 	 *
+<<<<<<< HEAD
 	 * @param   array   $node.
 	 * @param   boolean $setCurrent
 	 *
 	 * @return  mixed
+=======
+	 * @param   array    &$node       The node to process
+	 * @param   boolean  $setCurrent  True to set as current working node
+	 *
+	 * @return  mixed
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	function addChild(&$node, $setCurrent = false)
 	{
 		$this->_current->addChild($node);
+<<<<<<< HEAD
 		if ($setCurrent) {
+=======
+		if ($setCurrent)
+		{
+>>>>>>> upstream/master
 			$this->_current = &$node;
 		}
 	}
@@ -67,7 +94,12 @@ class JTree extends JObject
 	/**
 	 * Method to get the parent
 	 *
+<<<<<<< HEAD
 	 * @return
+=======
+	 * @return  void
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	function getParent()
@@ -78,7 +110,12 @@ class JTree extends JObject
 	/**
 	 * Method to get the parent
 	 *
+<<<<<<< HEAD
 	 * @return
+=======
+	 * @return  void
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	function reset()

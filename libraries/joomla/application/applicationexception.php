@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * Exception class definition for the Application subpackage.
@@ -18,4 +22,8 @@ defined('JPATH_PLATFORM') or die;
  */
 class ApplicationException extends Exception
 {
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

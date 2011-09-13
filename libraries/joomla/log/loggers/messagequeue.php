@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.log.log');
 jimport('joomla.log.logger');
@@ -28,7 +32,11 @@ class JLoggerMessageQueue extends JLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
+<<<<<<< HEAD
 	 * @param   JLogEntry  The log entry object to add to the log.
+=======
+	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *

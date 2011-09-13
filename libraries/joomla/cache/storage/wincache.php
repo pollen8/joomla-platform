@@ -7,13 +7,21 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * WINCACHE cache storage handler
  *
  * @package     Joomla.Platform
  * @subpackage  Cache
+<<<<<<< HEAD
+=======
+ * @see         http://php.net/manual/en/book.wincache.php
+>>>>>>> upstream/master
  * @since       11.1
  */
 class JCacheStorageWincache extends JCacheStorage
@@ -21,9 +29,19 @@ class JCacheStorageWincache extends JCacheStorage
 	/**
 	 * Constructor
 	 *
+<<<<<<< HEAD
 	 * @param   array    $options optional parameters
 	 */
 	public function __construct( $options = array() )
+=======
+	 * @param   array  $options  Optional parameters.
+	 *
+	 * @return  JCacheStorageWincache
+	 *
+	 * @since   11.1
+	 */
+	public function __construct($options = array())
+>>>>>>> upstream/master
 	{
 		parent::__construct($options);
 	}
@@ -31,10 +49,19 @@ class JCacheStorageWincache extends JCacheStorage
 	/**
 	 * Get cached data from WINCACHE by id and group
 	 *
+<<<<<<< HEAD
 	 * @param   string   $id		The cache data id
 	 * @param   string   $group		The cache data group
 	 * @param   boolean  $checkTime	True to verify cache time expiration threshold
 	 * @return  mixed    Boolean false on failure or a cached data string
+=======
+	 * @param   string   $id         The cache data id
+	 * @param   string   $group      The cache data group
+	 * @param   boolean  $checkTime  True to verify cache time expiration threshold
+	 *
+	 * @return  mixed  Boolean false on failure or a cached data string
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function get($id, $group, $checkTime = true)
@@ -48,12 +75,17 @@ class JCacheStorageWincache extends JCacheStorage
 	 * Get all cached data
 	 *
 	 * @return  array    data
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getAll()
 	{
 		parent::getAll();
 
+<<<<<<< HEAD
 		$allinfo 	= wincache_ucache_info();
 		$keys 		= $allinfo['cache_entries'];
 		$secret 	= $this->_hash;
@@ -75,6 +107,37 @@ class JCacheStorageWincache extends JCacheStorage
 				else {
 					$item->updateSize(1);
 				} // dummy, WINCACHE version is too low
+=======
+		$allinfo = wincache_ucache_info();
+		$keys = $allinfo['cache_entries'];
+		$secret = $this->_hash;
+		$data = array();
+
+		foreach ($keys as $key)
+		{
+			$name = $key['key_name'];
+			$namearr = explode('-', $name);
+			if ($namearr !== false && $namearr[0] == $secret && $namearr[1] == 'cache')
+			{
+				$group = $namearr[2];
+				if (!isset($data[$group]))
+				{
+					$item = new JCacheStorageHelper($group);
+				}
+				else
+				{
+					$item = $data[$group];
+				}
+				if (isset($key['value_size']))
+				{
+					$item->updateSize($key['value_size'] / 1024);
+				}
+				else
+				{
+					// Dummy, WINCACHE version is too low.
+					$item->updateSize(1);
+				}
+>>>>>>> upstream/master
 				$data[$group] = $item;
 			}
 		}
@@ -85,10 +148,19 @@ class JCacheStorageWincache extends JCacheStorage
 	/**
 	 * Store the data to WINCACHE by id and group
 	 *
+<<<<<<< HEAD
 	 * @param   string   $id	The cache data id
 	 * @param   string   $group	The cache data group
 	 * @param   string   $data	The data to store in cache
 	 * @return  boolean  True on success, false otherwise
+=======
+	 * @param   string  $id     The cache data id
+	 * @param   string  $group  The cache data group
+	 * @param   string  $data   The data to store in cache
+	 *
+	 * @return  boolean  True on success, false otherwise
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function store($id, $group, $data)
@@ -100,9 +172,17 @@ class JCacheStorageWincache extends JCacheStorage
 	/**
 	 * Remove a cached data entry by id and group
 	 *
+<<<<<<< HEAD
 	 * @param   string   $id		The cache data id
 	 * @param   string   $group	The cache data group
 	 * @return  boolean  True on success, false otherwise
+=======
+	 * @param   string  $id     The cache data id
+	 * @param   string  $group  The cache data group
+	 *
+	 * @return  boolean  True on success, false otherwise
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function remove($id, $group)
@@ -114,16 +194,27 @@ class JCacheStorageWincache extends JCacheStorage
 	/**
 	 * Clean cache for a group given a mode.
 	 *
+<<<<<<< HEAD
 	 * group mode		: cleans all cache in the group
 	 * notgroup mode	: cleans all cache not in the group
 	 *
 	 * @param   string   $group	The cache data group
 	 * @param   string   $mode	The mode for cleaning cache [group|notgroup]
 	 * @return  boolean  True on success, false otherwise
+=======
+	 * @param   string  $group  The cache data group
+	 * @param   string  $mode   The mode for cleaning cache [group|notgroup]
+	 * group mode    : cleans all cache in the group
+	 * notgroup mode : cleans all cache not in the group
+	 *
+	 * @return  boolean  True on success, false otherwise
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function clean($group, $mode = null)
 	{
+<<<<<<< HEAD
 		$allinfo 	= wincache_ucache_info();
 		$keys 		= $allinfo['cache_entries'];
 		$secret 	= $this->_hash;
@@ -131,6 +222,17 @@ class JCacheStorageWincache extends JCacheStorage
 		foreach ($keys as $key) {
 			if (strpos($key['key_name'], $secret.'-cache-'.$group.'-') === 0 xor $mode != 'group') {
 				wincache_ucache_delete ($key['key_name']);
+=======
+		$allinfo = wincache_ucache_info();
+		$keys = $allinfo['cache_entries'];
+		$secret = $this->_hash;
+
+		foreach ($keys as $key)
+		{
+			if (strpos($key['key_name'], $secret . '-cache-' . $group . '-') === 0 xor $mode != 'group')
+			{
+				wincache_ucache_delete($key['key_name']);
+>>>>>>> upstream/master
 			}
 		}
 		return true;
@@ -140,10 +242,15 @@ class JCacheStorageWincache extends JCacheStorage
 	 * Force garbage collect expired cache data as items are removed only on get/add/delete/info etc
 	 *
 	 * @return  boolean  True on success, false otherwise.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function gc()
 	{
+<<<<<<< HEAD
 		$lifetime	= $this->_lifetime;
 		$allinfo 	= wincache_ucache_info();
 		$keys 		= $allinfo['cache_entries'];
@@ -151,6 +258,17 @@ class JCacheStorageWincache extends JCacheStorage
 
 		foreach ($keys as $key) {
 			if (strpos($key['key_name'], $secret.'-cache-')) {
+=======
+		$lifetime = $this->_lifetime;
+		$allinfo = wincache_ucache_info();
+		$keys = $allinfo['cache_entries'];
+		$secret = $this->_hash;
+
+		foreach ($keys as $key)
+		{
+			if (strpos($key['key_name'], $secret . '-cache-'))
+			{
+>>>>>>> upstream/master
 				wincache_ucache_get($key['key_name']);
 			}
 		}

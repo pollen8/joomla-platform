@@ -7,10 +7,17 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
 
 /**
  * Abstract Form Field class for the Joomla Framework.
+=======
+defined('JPATH_PLATFORM') or die();
+
+/**
+ * Abstract Form Field class for the Joomla Platform.
+>>>>>>> upstream/master
  *
  * @package     Joomla.Platform
  * @subpackage  Form
@@ -168,18 +175,32 @@ abstract class JFormField
 	/**
 	 * The count value for generated name field
 	 *
+<<<<<<< HEAD
 	 * @var    int
 	 * @since  11.1
 	 */
 	static protected $count = 0;
+=======
+	 * @var    integer
+	 * @since  11.1
+	 */
+	protected static $count = 0;
+>>>>>>> upstream/master
 
 	/**
 	 * The string used for generated fields names
 	 *
+<<<<<<< HEAD
 	 * @var    int
 	 * @since  11.1
 	 */
 	static protected $generated_fieldname = '__field';
+=======
+	 * @var    integer
+	 * @since  11.1
+	 */
+	protected static $generated_fieldname = '__field';
+>>>>>>> upstream/master
 
 	/**
 	 * Method to instantiate the form field object.
@@ -193,7 +214,12 @@ abstract class JFormField
 	public function __construct($form = null)
 	{
 		// If there is a form passed into the constructor set the form and form control properties.
+<<<<<<< HEAD
 		if ($form instanceof JForm) {
+=======
+		if ($form instanceof JForm)
+		{
+>>>>>>> upstream/master
 			$this->form = $form;
 			$this->formControl = $form->getFormControl();
 		}
@@ -210,7 +236,12 @@ abstract class JFormField
 	 */
 	public function __get($name)
 	{
+<<<<<<< HEAD
 		switch ($name) {
+=======
+		switch ($name)
+		{
+>>>>>>> upstream/master
 			case 'class':
 			case 'description':
 			case 'formControl':
@@ -228,8 +259,14 @@ abstract class JFormField
 				break;
 
 			case 'input':
+<<<<<<< HEAD
 				// If the input hasn't yet been generated, generate it.
 				if (empty($this->input)) {
+=======
+			// If the input hasn't yet been generated, generate it.
+				if (empty($this->input))
+				{
+>>>>>>> upstream/master
 					$this->input = $this->getInput();
 				}
 
@@ -237,8 +274,14 @@ abstract class JFormField
 				break;
 
 			case 'label':
+<<<<<<< HEAD
 				// If the label hasn't yet been generated, generate it.
 				if (empty($this->label)) {
+=======
+			// If the label hasn't yet been generated, generate it.
+				if (empty($this->label))
+				{
+>>>>>>> upstream/master
 					$this->label = $this->getLabel();
 				}
 
@@ -250,7 +293,11 @@ abstract class JFormField
 		}
 
 		return null;
+<<<<<<< HEAD
     }
+=======
+	}
+>>>>>>> upstream/master
 
 	/**
 	 * Method to attach a JForm object to the field.
@@ -272,6 +319,7 @@ abstract class JFormField
 	/**
 	 * Method to attach a JForm object to the field.
 	 *
+<<<<<<< HEAD
 	 * @param   object  $element  The JXMLElement object representing the <field /> tag for the
 	 *                            form field object.
 	 * @param   mixed   $value    The form field default value for display.
@@ -279,15 +327,30 @@ abstract class JFormField
 	 *                            container for the field. For example if the field has name="foo"
 	 *                            and the group value is set to "bar" then the full field name
 	 *                            would end up being "bar[foo]".
+=======
+	 * @param   object  &$element  The JXmlElement object representing the <field /> tag for the form field object.
+	 * @param   mixed   $value     The form field value to validate.
+	 * @param   string  $group     The field name group control value. This acts as as an array container for the field.
+	 *                             For example if the field has name="foo" and the group value is set to "bar" then the
+	 *                             full field name would end up being "bar[foo]".
+>>>>>>> upstream/master
 	 *
 	 * @return  boolean  True on success.
 	 *
 	 * @since   11.1
 	 */
+<<<<<<< HEAD
 	public function setup(& $element, $value, $group = null)
 	{
 		// Make sure there is a valid JFormField XML element.
 		if (!($element instanceof JXMLElement) || (string) $element->getName() != 'field') {
+=======
+	public function setup(&$element, $value, $group = null)
+	{
+		// Make sure there is a valid JFormField XML element.
+		if (!($element instanceof JXMLElement) || (string) $element->getName() != 'field')
+		{
+>>>>>>> upstream/master
 			return false;
 		}
 
@@ -299,6 +362,7 @@ abstract class JFormField
 		$this->element = $element;
 
 		// Get some important attributes from the form field element.
+<<<<<<< HEAD
 		$class		= (string) $element['class'];
 		$id			= (string) $element['id'];
 		$multiple	= (string) $element['multiple'];
@@ -316,6 +380,30 @@ abstract class JFormField
 					$this->element['class'] = $class.' required';
 				}
 			} else {
+=======
+		$class = (string) $element['class'];
+		$id = (string) $element['id'];
+		$multiple = (string) $element['multiple'];
+		$name = (string) $element['name'];
+		$required = (string) $element['required'];
+
+		// Set the required and validation options.
+		$this->required = ($required == 'true' || $required == 'required' || $required == '1');
+		$this->validate = (string) $element['validate'];
+
+		// Add the required class if the field is required.
+		if ($this->required)
+		{
+			if ($class)
+			{
+				if (strpos($class, 'required') === false)
+				{
+					$this->element['class'] = $class . ' required';
+				}
+			}
+			else
+			{
+>>>>>>> upstream/master
 				$this->element->addAttribute('class', 'required');
 			}
 		}
@@ -324,27 +412,47 @@ abstract class JFormField
 		$this->multiple = ($multiple == 'true' || $multiple == 'multiple');
 
 		// Allow for field classes to force the multiple values option.
+<<<<<<< HEAD
 		if (isset($this->forceMultiple)) {
+=======
+		if (isset($this->forceMultiple))
+		{
+>>>>>>> upstream/master
 			$this->multiple = (bool) $this->forceMultiple;
 		}
 
 		// Set the field description text.
+<<<<<<< HEAD
 		$this->description	= (string) $element['description'];
+=======
+		$this->description = (string) $element['description'];
+>>>>>>> upstream/master
 
 		// Set the visibility.
 		$this->hidden = ((string) $element['type'] == 'hidden' || (string) $element['hidden'] == 'true');
 
 		// Determine whether to translate the field label and/or description.
 		$this->translateLabel = !((string) $this->element['translate_label'] == 'false' || (string) $this->element['translate_label'] == '0');
+<<<<<<< HEAD
 		$this->translateDescription = !((string) $this->element['translate_description'] == 'false' || (string) $this->element['translate_description'] == '0');
+=======
+		$this->translateDescription = !((string) $this->element['translate_description'] == 'false'
+			|| (string) $this->element['translate_description'] == '0');
+>>>>>>> upstream/master
 
 		// Set the group of the field.
 		$this->group = $group;
 
 		// Set the field name and id.
+<<<<<<< HEAD
 		$this->fieldname 	= $this->getFieldName($name);
 		$this->name			= $this->getName($this->fieldname);
 		$this->id			= $this->getId($id, $this->fieldname);
+=======
+		$this->fieldname = $this->getFieldName($name);
+		$this->name = $this->getName($this->fieldname);
+		$this->id = $this->getId($id, $this->fieldname);
+>>>>>>> upstream/master
 
 		// Set the field default value.
 		$this->value = $value;
@@ -368,26 +476,52 @@ abstract class JFormField
 		$id = '';
 
 		// If there is a form control set for the attached form add it first.
+<<<<<<< HEAD
 		if ($this->formControl) {
+=======
+		if ($this->formControl)
+		{
+>>>>>>> upstream/master
 			$id .= $this->formControl;
 		}
 
 		// If the field is in a group add the group control to the field id.
+<<<<<<< HEAD
 		if ($this->group) {
 			// If we already have an id segment add the group control as another level.
 			if ($id) {
 				$id .= '_'.str_replace('.', '_', $this->group);
 			}
 			else {
+=======
+		if ($this->group)
+		{
+			// If we already have an id segment add the group control as another level.
+			if ($id)
+			{
+				$id .= '_' . str_replace('.', '_', $this->group);
+			}
+			else
+			{
+>>>>>>> upstream/master
 				$id .= str_replace('.', '_', $this->group);
 			}
 		}
 
 		// If we already have an id segment add the field id/name as another level.
+<<<<<<< HEAD
 		if ($id) {
 			$id .= '_'.($fieldId ? $fieldId : $fieldName);
 		}
 		else {
+=======
+		if ($id)
+		{
+			$id .= '_' . ($fieldId ? $fieldId : $fieldName);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$id .= ($fieldId ? $fieldId : $fieldName);
 		}
 
@@ -401,6 +535,10 @@ abstract class JFormField
 	 * Method to get the field input markup.
 	 *
 	 * @return  string  The field input markup.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	abstract protected function getInput();
@@ -409,6 +547,10 @@ abstract class JFormField
 	 * Method to get the field title.
 	 *
 	 * @return  string  The field title.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getTitle()
@@ -416,7 +558,12 @@ abstract class JFormField
 		// Initialise variables.
 		$title = '';
 
+<<<<<<< HEAD
 		if ($this->hidden) {
+=======
+		if ($this->hidden)
+		{
+>>>>>>> upstream/master
 
 			return $title;
 		}
@@ -432,6 +579,10 @@ abstract class JFormField
 	 * Method to get the field label markup.
 	 *
 	 * @return  string  The field label markup.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getLabel()
@@ -439,7 +590,12 @@ abstract class JFormField
 		// Initialise variables.
 		$label = '';
 
+<<<<<<< HEAD
 		if ($this->hidden) {
+=======
+		if ($this->hidden)
+		{
+>>>>>>> upstream/master
 			return $label;
 		}
 
@@ -449,6 +605,7 @@ abstract class JFormField
 
 		// Build the class for the label.
 		$class = !empty($this->description) ? 'hasTip' : '';
+<<<<<<< HEAD
 		$class = $this->required == true ? $class.' required' : $class;
 
 		// Add the opening label tag and main attributes attributes.
@@ -465,6 +622,31 @@ abstract class JFormField
 			$label .= '>'.$text.'<span class="star">&#160;*</span></label>';
 		} else {
 			$label .= '>'.$text.'</label>';
+=======
+		$class = $this->required == true ? $class . ' required' : $class;
+
+		// Add the opening label tag and main attributes attributes.
+		$label .= '<label id="' . $this->id . '-lbl" for="' . $this->id . '" class="' . $class . '"';
+
+		// If a description is specified, use it to build a tooltip.
+		if (!empty($this->description))
+		{
+			$label .= ' title="'
+				. htmlspecialchars(
+					trim($text, ':') . '::' . ($this->translateDescription ? JText::_($this->description) : $this->description),
+					ENT_COMPAT, 'UTF-8'
+				) . '"';
+		}
+
+		// Add the label text and closing tag.
+		if ($this->required)
+		{
+			$label .= '>' . $text . '<span class="star">&#160;*</span></label>';
+		}
+		else
+		{
+			$label .= '>' . $text . '</label>';
+>>>>>>> upstream/master
 		}
 
 		return $label;
@@ -485,11 +667,17 @@ abstract class JFormField
 		$name = '';
 
 		// If there is a form control set for the attached form add it first.
+<<<<<<< HEAD
 		if ($this->formControl) {
+=======
+		if ($this->formControl)
+		{
+>>>>>>> upstream/master
 			$name .= $this->formControl;
 		}
 
 		// If the field is in a group add the group control to the field name.
+<<<<<<< HEAD
 		if ($this->group) {
 			// If we already have a name segment add the group control as another level.
 			$groups = explode('.', $this->group);
@@ -502,29 +690,70 @@ abstract class JFormField
 				$name .= array_shift($groups);
 				foreach ($groups as $group) {
 					$name .= '['.$group.']';
+=======
+		if ($this->group)
+		{
+			// If we already have a name segment add the group control as another level.
+			$groups = explode('.', $this->group);
+			if ($name)
+			{
+				foreach ($groups as $group)
+				{
+					$name .= '[' . $group . ']';
+				}
+			}
+			else
+			{
+				$name .= array_shift($groups);
+				foreach ($groups as $group)
+				{
+					$name .= '[' . $group . ']';
+>>>>>>> upstream/master
 				}
 			}
 		}
 
 		// If we already have a name segment add the field name as another level.
+<<<<<<< HEAD
 		if ($name) {
 			$name .= '['.$fieldName.']';
 		}
 		else {
+=======
+		if ($name)
+		{
+			$name .= '[' . $fieldName . ']';
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$name .= $fieldName;
 		}
 
 		// If the field should support multiple values add the final array segment.
+<<<<<<< HEAD
 		if ($this->multiple) {
+=======
+		if ($this->multiple)
+		{
+>>>>>>> upstream/master
 			$name .= '[]';
 		}
 
 		return $name;
 	}
+<<<<<<< HEAD
 	/**
 	 * Method to get the field name used.
 	 *
 	 * @param   string  $name  The field element name.
+=======
+
+	/**
+	 * Method to get the field name used.
+	 *
+	 * @param   string  $fieldName  The field element name.
+>>>>>>> upstream/master
 	 *
 	 * @return  string  The field name
 	 *
@@ -532,10 +761,19 @@ abstract class JFormField
 	 */
 	protected function getFieldName($fieldName)
 	{
+<<<<<<< HEAD
 		if ($fieldName) {
 			return $fieldName;
 		}
 		else {
+=======
+		if ($fieldName)
+		{
+			return $fieldName;
+		}
+		else
+		{
+>>>>>>> upstream/master
 			self::$count = self::$count + 1;
 			return self::$generated_fieldname . self::$count;
 		}

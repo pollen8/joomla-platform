@@ -13,11 +13,16 @@ defined('JPATH_PLATFORM') or die;
  * Update class.
  *
  * @package     Joomla.Platform
+<<<<<<< HEAD
  * @subpackage  Update
+=======
+ * @subpackage  Updater
+>>>>>>> upstream/master
  * @since       11.1
  */
 class JUpdate extends JObject
 {
+<<<<<<< HEAD
 	protected $name;
 	protected $description;
 	protected $element;
@@ -36,23 +41,144 @@ class JUpdate extends JObject
 
 	protected $_xml_parser;
 	protected $_stack = Array('base');
+=======
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $name;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $description;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $element;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $type;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $version;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $infourl;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $client;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $group;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $downloads;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $tags;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $maintainer;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $maintainerurl;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $category;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $relationships;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $targetplatform;
+
+	/**
+	 * @var    string
+	 * @since  11.1
+	 */
+	protected $_xml_parser;
+
+	/**
+	 * @var    array
+	 * @since  11.1
+	 */
+	protected $_stack = Array('base');
+
+	/**
+	 * @var    array
+	 * @since  11.1
+	 */
+>>>>>>> upstream/master
 	protected $_state_store = Array();
 
 	/**
 	 * Gets the reference to the current direct parent
 	 *
 	 * @return  object
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function _getStackLocation()
 	{
+<<<<<<< HEAD
 			return implode('->', $this->_stack);
+=======
+		return implode('->', $this->_stack);
+>>>>>>> upstream/master
 	}
 
 	/**
 	 * Get the last position in stack count
 	 *
 	 * @return  string
+<<<<<<< HEAD
+=======
+	 *
+	 * @since   11.1
+>>>>>>> upstream/master
 	 */
 	protected function _getLastTag()
 	{
@@ -61,23 +187,45 @@ class JUpdate extends JObject
 
 	/**
 	 * XML Start Element callback
+<<<<<<< HEAD
 	 * Note: This is public because it is called externally
 	 * @param object parser object
 	 * @param string name of the tag found
 	 * @param array attributes of the tag
 	 *
+=======
+	 *
+	 * @param   object  $parser  Parser object
+	 * @param   string  $name    Name of the tag found
+	 * @param   array   $attrs   Attributes of the tag
+	 *
+	 * @return  void
+	 *
+	 * @note    This is public because it is called externally
+	 * @since   11.1
+>>>>>>> upstream/master
 	 */
 	public function _startElement($parser, $name, $attrs = Array())
 	{
 		array_push($this->_stack, $name);
 		$tag = $this->_getStackLocation();
 		// Reset the data
+<<<<<<< HEAD
 		eval('$this->'. $tag .'->_data = "";');
 
 		switch($name) {
 			// This is a new update; create a current update
 			case 'UPDATE':
 				$this->_current_update = new stdClass();
+=======
+		eval('$this->' . $tag . '->_data = "";');
+
+		switch ($name)
+		{
+			// This is a new update; create a current update
+			case 'UPDATE':
+				$this->_current_update = new stdClass;
+>>>>>>> upstream/master
 				break;
 			// Don't do anything
 			case 'UPDATES':
@@ -86,7 +234,12 @@ class JUpdate extends JObject
 			default:
 				$name = strtolower($name);
 				$this->_current_update->$name->_data = '';
+<<<<<<< HEAD
 				foreach($attrs as $key=>$data) {
+=======
+				foreach ($attrs as $key => $data)
+				{
+>>>>>>> upstream/master
 					$key = strtolower($key);
 					$this->_current_update->$name->$key = $data;
 				}
@@ -96,14 +249,26 @@ class JUpdate extends JObject
 
 	/**
 	 * Callback for closing the element
+<<<<<<< HEAD
 	 * Note: This is public because it is called externally
 	 *
 	 * @param object parser object
 	 * @param string name of element that was closed
+=======
+	 *
+	 * @param   object  $parser  Parser object
+	 * @param   string  $name    Name of element that was closed
+	 *
+	 * @return  void
+	 *
+	 * @note This is public because it is called externally
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	public function _endElement($parser, $name)
 	{
 		array_pop($this->_stack);
+<<<<<<< HEAD
 		switch($name)
 		{
 			// Closing update, find the latest version and check
@@ -119,21 +284,54 @@ class JUpdate extends JObject
 						}
 					}
 					else {
+=======
+		switch ($name)
+		{
+			// Closing update, find the latest version and check
+			case 'UPDATE':
+				$ver = new JVersion;
+				$product = strtolower(JFilterInput::getInstance()->clean($ver->PRODUCT, 'cmd'));
+				if ($product == $this->_current_update->targetplatform->name
+					&& preg_match('/' . $this->_current_update->targetplatform->version . '/', $ver->RELEASE)
+				)
+				{
+					if (isset($this->_latest))
+					{
+						if (version_compare($this->_current_update->version->_data, $this->_latest->version->_data, '>') == 1)
+						{
+							$this->_latest = $this->_current_update;
+						}
+					}
+					else
+					{
+>>>>>>> upstream/master
 						$this->_latest = $this->_current_update;
 					}
 				}
 				break;
 			case 'UPDATES':
+<<<<<<< HEAD
 				// If the latest item is set then we transfer it to where we want to
 				if(isset($this->_latest))
 				{
 					foreach(get_object_vars($this->_latest) as $key=>$val) {
+=======
+			// If the latest item is set then we transfer it to where we want to
+				if (isset($this->_latest))
+				{
+					foreach (get_object_vars($this->_latest) as $key => $val)
+					{
+>>>>>>> upstream/master
 						$this->$key = $val;
 					}
 					unset($this->_latest);
 					unset($this->_current_update);
 				}
+<<<<<<< HEAD
 				else if(isset($this->_current_update))
+=======
+				else if (isset($this->_current_update))
+>>>>>>> upstream/master
 				{
 					// The update might be for an older version of j!
 					unset($this->_current_update);
@@ -144,6 +342,7 @@ class JUpdate extends JObject
 
 	/**
 	 * Character Parser Function
+<<<<<<< HEAD
 	 * Note: This is public because its called externally
 	 *
 	 * @param		$data
@@ -151,6 +350,19 @@ class JUpdate extends JObject
 	 *
 	 */
 	public function _characterData($parser, $data) {
+=======
+	 *
+	 * @param   object  $parser  Parser object.
+	 * @param   object  $data    The data.
+	 *
+	 * @return  void
+	 *
+	 * @note    This is public because its called externally.
+	 * @since   11.1
+	 */
+	public function _characterData($parser, $data)
+	{
+>>>>>>> upstream/master
 		$tag = $this->_getLastTag();
 		//if(!isset($this->$tag->_data)) $this->$tag->_data = '';
 		//$this->$tag->_data .= $data;
@@ -159,9 +371,24 @@ class JUpdate extends JObject
 		$this->_current_update->$tag->_data .= $data;
 	}
 
+<<<<<<< HEAD
 	public function loadFromXML($url)
 	{
 		if (!($fp = @fopen($url, "r")))
+=======
+	/**
+	 * Loads an XML file from a URL.
+	 *
+	 * @param   string  $url  The URL.
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since   11.1
+	 */
+	public function loadFromXML($url)
+	{
+		if (!($fp = @fopen($url, 'r')))
+>>>>>>> upstream/master
 		{
 			// TODO: Add a 'mark bad' setting here somehow
 			JError::raiseWarning('101', JText::sprintf('JLIB_UPDATER_ERROR_EXTENSION_OPEN_URL', $url));
@@ -177,12 +404,25 @@ class JUpdate extends JObject
 		{
 			if (!xml_parse($this->xml_parser, $data, feof($fp)))
 			{
+<<<<<<< HEAD
 				die(sprintf("XML error: %s at line %d",
 							xml_error_string(xml_get_error_code($this->xml_parser)),
 							xml_get_current_line_number($this->xml_parser)));
+=======
+				die(
+					sprintf(
+						"XML error: %s at line %d", xml_error_string(xml_get_error_code($this->xml_parser)),
+						xml_get_current_line_number($this->xml_parser)
+					)
+				);
+>>>>>>> upstream/master
 			}
 		}
 		xml_parser_free($this->xml_parser);
 		return true;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

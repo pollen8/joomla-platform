@@ -1,9 +1,17 @@
 <?php
 /**
+<<<<<<< HEAD
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  * @package     Joomla.Platform
  * @subpackage  HTML
+=======
+ * @package     Joomla.Platform
+ * @subpackage  HTML
+ *
+ * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE
+>>>>>>> upstream/master
  */
 
 defined('JPATH_PLATFORM') or die;
@@ -26,11 +34,15 @@ abstract class JHtmlTel
 	 * @param   integer  $number       The integers in a phone number with dot separated country code
 	 *                                 ccc.nnnnnnn where ccc represents country code and nnn represents the local number.
 	 * @param   string   $displayplan  The numbering plan used to display the numbers.
+<<<<<<< HEAD
 	 * @param   string   $layout       Optional user defined layout to be used.
+=======
+>>>>>>> upstream/master
 	 *
 	 * @return  string  The formatted telephone number.
 	 *
 	 * @since   11.1
+<<<<<<< HEAD
 	 */
 	public static function tel($number, $displayplan)
 	{
@@ -55,21 +67,66 @@ abstract class JHtmlTel
 			$display[5] = substr($number,6,4);
 		} else
 		if ($displayplan == 'EPP' || $displayplan == 'IETF'){
+=======
+	 *
+	 * @see     JFormRuleTel
+	 */
+	public static function tel($number, $displayplan)
+	{
+		$number = explode('.', $number);
+		$countrycode = $number[0];
+		$number = $number[1];
+
+		if ($displayplan == 'ITU-T' || $displayplan == 'International' || $displayplan == 'int' || $displayplan == 'missdn' || $displayplan == null)
+		{
+			$display[0] = '+';
+			$display[1] = $countrycode;
+			$display[2] = ' ';
+			$display[3] = implode(str_split($number, 2), ' ');
+		}
+		else if ($displayplan == 'NANP' || $displayplan == 'northamerica' || $displayplan == 'US')
+		{
+			$display[0] = '(';
+			$display[1] = substr($number, 0, 3);
+			$display[2] = ') ';
+			$display[3] = substr($number, 3, 3);
+			$display[4] = '-';
+			$display[5] = substr($number, 6, 4);
+		}
+		else if ($displayplan == 'EPP' || $displayplan == 'IETF')
+		{
+>>>>>>> upstream/master
 			$display[0] = '+';
 			$display[1] = $countrycode;
 			$display[2] = '.';
 			$display[3] = $number;
 
+<<<<<<< HEAD
 		} else
 		if ($displayplan == 'ARPA' || $displayplan== 'ENUM'){
 			$number = implode(str_split(strrev($number),1),'.');
+=======
+		}
+		else if ($displayplan == 'ARPA' || $displayplan == 'ENUM')
+		{
+			$number = implode(str_split(strrev($number), 1), '.');
+>>>>>>> upstream/master
 			$display[0] = '+';
 			$display[1] = $number;
 			$display[2] = '.';
 			$display[3] = $countrycode;
 			$display[4] = '.e164.arpa';
 		}
+<<<<<<< HEAD
 		$display = implode($display,'');
 		return $display;
 	}
 }
+=======
+
+		$display = implode($display, '');
+
+		return $display;
+	}
+}
+>>>>>>> upstream/master

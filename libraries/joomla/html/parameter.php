@@ -12,7 +12,11 @@ defined('JPATH_PLATFORM') or die;
 jimport('joomla.registry.registry');
 
 // Register the element class with the loader.
+<<<<<<< HEAD
 JLoader::register('JElement', dirname(__FILE__).'/parameter/element.php');
+=======
+JLoader::register('JElement', dirname(__FILE__) . '/parameter/element.php');
+>>>>>>> upstream/master
 
 /**
  * Parameter handler
@@ -20,7 +24,11 @@ JLoader::register('JElement', dirname(__FILE__).'/parameter/element.php');
  * @package     Joomla.Platform
  * @subpackage  Parameter
  * @since       11.1
+<<<<<<< HEAD
  * @deprecated  Use JForm instead
+=======
+ * @deprecated  12.1  Use JForm instead
+>>>>>>> upstream/master
  */
 class JParameter extends JRegistry
 {
@@ -37,6 +45,7 @@ class JParameter extends JRegistry
 	protected $_xml = null;
 
 	/**
+<<<<<<< HEAD
 	* @var    array  Loaded elements
 	* @since  11.1
 	*/
@@ -46,17 +55,38 @@ class JParameter extends JRegistry
 	* @var    array  Directories, where element types can be stored
 	* @since  11.1
 	*/
+=======
+	 * @var    array  Loaded elements
+	 * @since  11.1
+	 */
+	protected $_elements = array();
+
+	/**
+	 * @var    array  Directories, where element types can be stored
+	 * @since  11.1
+	 */
+>>>>>>> upstream/master
 	protected $_elementPath = array();
 
 	/**
 	 * Constructor
 	 *
+<<<<<<< HEAD
 	 * @param   string   The raw parms text.
 	 * @param   string   Path to the XML setup file.
+=======
+	 * @param   string  $data  The raw parms text.
+	 * @param   string  $path  Path to the XML setup file.
+	 *
+	 * @return  JParameter
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function __construct($data = '', $path = '')
 	{
+<<<<<<< HEAD
 		parent::__construct('_default');
 
 		// Set base path.
@@ -66,11 +96,34 @@ class JParameter extends JRegistry
 			if (strpos($data, '{') === 0) {
 				$this->loadJSON($data);
 			} else {
+=======
+		// Deprecation warning.
+		JLog::add('JParameter::__construct is deprecated.', JLog::WARNING, 'deprecated');
+
+		parent::__construct('_default');
+
+		// Set base path.
+		$this->_elementPath[] = dirname(__FILE__) . '/parameter/element';
+
+		if ($data = trim($data))
+		{
+			if (strpos($data, '{') === 0)
+			{
+				$this->loadString($data);
+			}
+			else
+			{
+>>>>>>> upstream/master
 				$this->loadINI($data);
 			}
 		}
 
+<<<<<<< HEAD
 		if ($path) {
+=======
+		if ($path)
+		{
+>>>>>>> upstream/master
 			$this->loadSetupFile($path);
 		}
 
@@ -80,15 +133,31 @@ class JParameter extends JRegistry
 	/**
 	 * Sets a default value if not alreay assigned.
 	 *
+<<<<<<< HEAD
 	 * @param   string  The name of the parameter.
 	 * @param   string  An optional value for the parameter.
 	 * @param   string  An optional group for the parameter.
 	 *
 	 * @return  string  The value set, or the default if the value was not previously set (or null).
+=======
+	 * @param   string  $key      The name of the parameter.
+	 * @param   string  $default  An optional value for the parameter.
+	 * @param   string  $group    An optional group for the parameter.
+	 *
+	 * @return  string  The value set, or the default if the value was not previously set (or null).
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function def($key, $default = '', $group = '_default')
 	{
+<<<<<<< HEAD
+=======
+		// Deprecation warning.
+		JLog::add('JParameter::def is deprecated.', JLog::WARNING, 'deprecated');
+
+>>>>>>> upstream/master
 		$value = $this->get($key, (string) $default, $group);
 
 		return $this->set($key, $value);
@@ -97,11 +166,20 @@ class JParameter extends JRegistry
 	/**
 	 * Sets the XML object from custom XML files.
 	 *
+<<<<<<< HEAD
 	 * @param   JSimpleXMLElement	An XML object.
+=======
+	 * @param   JSimpleXMLElement  &$xml  An XML object.
+	 *
+	 * @return  void
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function setXML(&$xml)
 	{
+<<<<<<< HEAD
 		if (is_object($xml)) {
 			if ($group = $xml->attributes('group')) {
 				$this->_xml[$group] = $xml;
@@ -110,6 +188,25 @@ class JParameter extends JRegistry
 			}
 
 			if ($dir = $xml->attributes('addpath')) {
+=======
+
+		// Deprecation warning.
+		JLog::add('JParameter::setXML is deprecated.', JLog::WARNING, 'deprecated');
+
+		if (is_object($xml))
+		{
+			if ($group = $xml->attributes('group'))
+			{
+				$this->_xml[$group] = $xml;
+			}
+			else
+			{
+				$this->_xml['_default'] = $xml;
+			}
+
+			if ($dir = $xml->attributes('addpath'))
+			{
+>>>>>>> upstream/master
 				$this->addElementPath(JPATH_ROOT . str_replace('/', DS, $dir));
 			}
 		}
@@ -118,39 +215,84 @@ class JParameter extends JRegistry
 	/**
 	 * Bind data to the parameter.
 	 *
+<<<<<<< HEAD
 	 * @param   mixed   An array or object.
 	 * @param   string  An optional group that the data should bind to. The default group is used if not supplied.
 	 *
 	 * @return  boolean  True if the data was successfully bound, false otherwise.
+=======
+	 * @param   mixed   $data   An array or object.
+	 * @param   string  $group  An optional group that the data should bind to. The default group is used if not supplied.
+	 *
+	 * @return  boolean  True if the data was successfully bound, false otherwise.
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function bind($data, $group = '_default')
 	{
+<<<<<<< HEAD
 		if (is_array($data)) {
 			return $this->loadArray($data, $group);
 		} elseif (is_object($data)) {
 			return $this->loadObject($data, $group);
 		} else {
 			return $this->loadJSON($data, $group);
+=======
+		// Deprecation warning.
+		JLog::add('JParameter::bind is deprecated.', JLog::WARNING, 'deprecated');
+
+		if (is_array($data))
+		{
+
+			return $this->loadArray($data);
+		}
+		elseif (is_object($data))
+		{
+			return $this->loadObject($data);
+		}
+		else
+		{
+			return $this->loadString($data);
+>>>>>>> upstream/master
 		}
 	}
 
 	/**
 	 * Render the form control.
 	 *
+<<<<<<< HEAD
 	 * @param   string  An optional name of the HTML form control. The default is 'params' if not supplied.
 	 * @param   string  An optional group to render.  The default group is used if not supplied.
 	 *
 	 * @return  string  HTML
+=======
+	 * @param   string  $name   An optional name of the HTML form control. The default is 'params' if not supplied.
+	 * @param   string  $group  An optional group to render.  The default group is used if not supplied.
+	 *
+	 * @return  string  HTML
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function render($name = 'params', $group = '_default')
 	{
+<<<<<<< HEAD
 		if (!isset($this->_xml[$group])) {
+=======
+		// Deprecation warning.
+		JLog::add('JParameter::render is deprecated.', JLog::WARNING, 'deprecated');
+
+		if (!isset($this->_xml[$group]))
+		{
+>>>>>>> upstream/master
 			return false;
 		}
 
 		$params = $this->getParams($name, $group);
+<<<<<<< HEAD
 		$html = array ();
 
 		if ($description = $this->_xml[$group]->attributes('description')) {
@@ -164,12 +306,38 @@ class JParameter extends JRegistry
 				$html[] = $param[0];
 				$html[] = $param[1];
 			} else {
+=======
+		$html = array();
+
+		if ($description = $this->_xml[$group]->attributes('description'))
+		{
+			// Add the params description to the display
+			$desc = JText::_($description);
+			$html[] = '<p class="paramrow_desc">' . $desc . '</p>';
+		}
+
+		foreach ($params as $param)
+		{
+			if ($param[0])
+			{
+				$html[] = $param[0];
+				$html[] = $param[1];
+			}
+			else
+			{
+>>>>>>> upstream/master
 				$html[] = $param[1];
 			}
 		}
 
+<<<<<<< HEAD
 		if (count($params) < 1) {
 			$html[] = "<p class=\"noparams\">".JText::_('JLIB_HTML_NO_PARAMETERS_FOR_THIS_ITEM')."</p>";
+=======
+		if (count($params) < 1)
+		{
+			$html[] = "<p class=\"noparams\">" . JText::_('JLIB_HTML_NO_PARAMETERS_FOR_THIS_ITEM') . "</p>";
+>>>>>>> upstream/master
 		}
 
 		return implode(PHP_EOL, $html);
@@ -178,19 +346,42 @@ class JParameter extends JRegistry
 	/**
 	 * Render all parameters to an array.
 	 *
+<<<<<<< HEAD
 	 * @param   string  An optional name of the HTML form control. The default is 'params' if not supplied.
 	 * @param   string  An optional group to render.  The default group is used if not supplied.
 	 *
 	 * @return  array
+=======
+	 * @param   string  $name   An optional name of the HTML form control. The default is 'params' if not supplied.
+	 * @param   string  $group  An optional group to render.  The default group is used if not supplied.
+	 *
+	 * @return  array
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function renderToArray($name = 'params', $group = '_default')
 	{
+<<<<<<< HEAD
 		if (!isset($this->_xml[$group])) {
 			return false;
 		}
 		$results = array();
 		foreach ($this->_xml[$group]->children() as $param)  {
+=======
+
+		// Deprecation warning.
+		JLog::add('JParameter::renderToArray is deprecated.', JLog::WARNING, 'deprecated');
+
+		if (!isset($this->_xml[$group]))
+		{
+			return false;
+		}
+		$results = array();
+		foreach ($this->_xml[$group]->children() as $param)
+		{
+>>>>>>> upstream/master
 			$result = $this->getParam($param, $name, $group);
 			$results[$result[5]] = $result;
 		}
@@ -200,16 +391,36 @@ class JParameter extends JRegistry
 	/**
 	 * Return the number of parameters in a group.
 	 *
+<<<<<<< HEAD
 	 * @param   string  An optional group.  The default group is used if not supplied.
 	 *
 	 * @return  mixed  False if no params exist or integer number of parameters that exist.
+=======
+	 * @param   string  $group  An optional group. The default group is used if not supplied.
+	 *
+	 * @return  mixed  False if no params exist or integer number of parameters that exist.
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getNumParams($group = '_default')
 	{
+<<<<<<< HEAD
 		if (!isset($this->_xml[$group]) || !count($this->_xml[$group]->children())) {
 			return false;
 		} else {
+=======
+		// Deprecation warning.
+		JLog::add('JParameter::getNumParams is deprecated.', JLog::WARNING, 'deprecated');
+
+		if (!isset($this->_xml[$group]) || !count($this->_xml[$group]->children()))
+		{
+			return false;
+		}
+		else
+		{
+>>>>>>> upstream/master
 			return count($this->_xml[$group]->children());
 		}
 	}
@@ -218,16 +429,35 @@ class JParameter extends JRegistry
 	 * Get the number of params in each group.
 	 *
 	 * @return  array  Array of all group names as key and parameters count as value.
+<<<<<<< HEAD
+=======
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getGroups()
 	{
+<<<<<<< HEAD
 		if (!is_array($this->_xml)) {
+=======
+		// Deprecation warning.
+		JLog::add('JParameter::getGroups is deprecated.', JLog::WARNING, 'deprecated');
+
+		if (!is_array($this->_xml))
+		{
+
+>>>>>>> upstream/master
 			return false;
 		}
 
 		$results = array();
+<<<<<<< HEAD
 		foreach ($this->_xml as $name => $group)  {
+=======
+		foreach ($this->_xml as $name => $group)
+		{
+>>>>>>> upstream/master
 			$results[$name] = $this->getNumParams($name);
 		}
 		return $results;
@@ -236,20 +466,44 @@ class JParameter extends JRegistry
 	/**
 	 * Render all parameters.
 	 *
+<<<<<<< HEAD
 	 * @param   string  An optional name of the HTML form control. The default is 'params' if not supplied.
 	 * @param   string  An optional group to render.  The default group is used if not supplied.
 	 *
 	 * @return  array  An array of all parameters, each as array of the label, the form element and the tooltip.
+=======
+	 * @param   string  $name   An optional name of the HTML form control. The default is 'params' if not supplied.
+	 * @param   string  $group  An optional group to render.  The default group is used if not supplied.
+	 *
+	 * @return  array  An array of all parameters, each as array of the label, the form element and the tooltip.
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getParams($name = 'params', $group = '_default')
 	{
+<<<<<<< HEAD
 		if (!isset($this->_xml[$group])) {
+=======
+
+		// Deprecation warning.
+		JLog::add('JParameter::getParams is deprecated.', JLog::WARNING, 'deprecated');
+
+		if (!isset($this->_xml[$group]))
+		{
+
+>>>>>>> upstream/master
 			return false;
 		}
 
 		$results = array();
+<<<<<<< HEAD
 		foreach ($this->_xml[$group]->children() as $param)  {
+=======
+		foreach ($this->_xml[$group]->children() as $param)
+		{
+>>>>>>> upstream/master
 			$results[] = $this->getParam($param, $name, $group);
 		}
 		return $results;
@@ -258,25 +512,49 @@ class JParameter extends JRegistry
 	/**
 	 * Render a parameter type.
 	 *
+<<<<<<< HEAD
 	 * @param   object  A parameter XML element.
 	 * @param   string  An optional name of the HTML form control. The default is 'params' if not supplied.
 	 * @param   string  An optional group to render.  The default group is used if not supplied.
 	 *
 	 * @return  array  Any array of the label, the form element and the tooltip.
+=======
+	 * @param   object  &$node         A parameter XML element.
+	 * @param   string  $control_name  An optional name of the HTML form control. The default is 'params' if not supplied.
+	 * @param   string  $group         An optional group to render.  The default group is used if not supplied.
+	 *
+	 * @return  array  Any array of the label, the form element and the tooltip.
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getParam(&$node, $control_name = 'params', $group = '_default')
 	{
+<<<<<<< HEAD
+=======
+		// Deprecation warning.
+		JLog::add('JParameter::__construct is deprecated.', JLog::WARNING, 'deprecated');
+
+>>>>>>> upstream/master
 		// Get the type of the parameter.
 		$type = $node->attributes('type');
 
 		$element = $this->loadElement($type);
 
 		// Check for an error.
+<<<<<<< HEAD
 		if ($element === false) {
 			$result = array();
 			$result[0] = $node->attributes('name');
 			$result[1] = JText::_('Element not defined for type').' = '.$type;
+=======
+		if ($element === false)
+		{
+			$result = array();
+			$result[0] = $node->attributes('name');
+			$result[1] = JText::_('Element not defined for type') . ' = ' . $type;
+>>>>>>> upstream/master
 			$result[5] = $result[0];
 			return $result;
 		}
@@ -290,26 +568,53 @@ class JParameter extends JRegistry
 	/**
 	 * Loads an XML setup file and parses it.
 	 *
+<<<<<<< HEAD
 	 * @param   string  A path to the XML setup file.
 	 * @return  object
+=======
+	 * @param   string  $path  A path to the XML setup file.
+	 *
+	 * @return  object
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function loadSetupFile($path)
 	{
 		$result = false;
 
+<<<<<<< HEAD
 		if ($path) {
 			$xml = JFactory::getXMLParser('Simple');
 
 			if ($xml->loadFile($path)) {
 				if ($params = $xml->document->params) {
 					foreach ($params as $param) {
+=======
+		if ($path)
+		{
+			$xml = JFactory::getXMLParser('Simple');
+
+			if ($xml->loadFile($path))
+			{
+				if ($params = $xml->document->params)
+				{
+					foreach ($params as $param)
+					{
+>>>>>>> upstream/master
 						$this->setXML($param);
 						$result = true;
 					}
 				}
 			}
+<<<<<<< HEAD
 		} else {
+=======
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$result = true;
 		}
 
@@ -319,16 +624,26 @@ class JParameter extends JRegistry
 	/**
 	 * Loads an element type.
 	 *
+<<<<<<< HEAD
 	 * @param   string   The element type.
 	 * @param   boolean  False (default) to reuse parameter elements; true to load the parameter element type again.
 	 *
 	 * @return  object
+=======
+	 * @param   string   $type  The element type.
+	 * @param   boolean  $new   False (default) to reuse parameter elements; true to load the parameter element type again.
+	 *
+	 * @return  object
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function loadElement($type, $new = false)
 	{
 		$signature = md5($type);
 
+<<<<<<< HEAD
 		if ((isset($this->_elements[$signature]) && !($this->_elements[$signature] instanceof __PHP_Incomplete_Class))  && $new === false) {
 			return	$this->_elements[$signature];
 		}
@@ -347,12 +662,45 @@ class JParameter extends JRegistry
 			if ($elementFile = JPath::find($dirs, $file)) {
 				include_once $elementFile;
 			} else {
+=======
+		if ((isset($this->_elements[$signature]) && !($this->_elements[$signature] instanceof __PHP_Incomplete_Class)) && $new === false)
+		{
+			return $this->_elements[$signature];
+		}
+
+		$elementClass = 'JElement' . $type;
+		if (!class_exists($elementClass))
+		{
+			if (isset($this->_elementPath))
+			{
+				$dirs = $this->_elementPath;
+			}
+			else
+			{
+				$dirs = array();
+			}
+
+			$file = JFilterInput::getInstance()->clean(str_replace('_', DS, $type) . '.php', 'path');
+
+			jimport('joomla.filesystem.path');
+			if ($elementFile = JPath::find($dirs, $file))
+			{
+				include_once $elementFile;
+			}
+			else
+			{
+>>>>>>> upstream/master
 				$false = false;
 				return $false;
 			}
 		}
 
+<<<<<<< HEAD
 		if (!class_exists($elementClass)) {
+=======
+		if (!class_exists($elementClass))
+		{
+>>>>>>> upstream/master
 			$false = false;
 			return $false;
 		}
@@ -372,7 +720,15 @@ class JParameter extends JRegistry
 	 * the custom folders, it will look in
 	 * JParameter/types.
 	 *
+<<<<<<< HEAD
 	 * @param   string|array	Directory or directories to search.
+=======
+	 * @param   mixed  $path  Directory (string) or directories (array) to search.
+	 *
+	 * @return  void
+	 *
+	 * @deprecated  12.1
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function addElementPath($path)
@@ -381,12 +737,22 @@ class JParameter extends JRegistry
 		settype($path, 'array');
 
 		// Loop through the path directories.
+<<<<<<< HEAD
 		foreach ($path as $dir) {
+=======
+		foreach ($path as $dir)
+		{
+>>>>>>> upstream/master
 			// No surrounding spaces allowed!
 			$dir = trim($dir);
 
 			// Add trailing separators as needed.
+<<<<<<< HEAD
 			if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
+=======
+			if (substr($dir, -1) != DIRECTORY_SEPARATOR)
+			{
+>>>>>>> upstream/master
 				// Directory
 				$dir .= DIRECTORY_SEPARATOR;
 			}
@@ -395,4 +761,8 @@ class JParameter extends JRegistry
 			array_unshift($this->_elementPath, $dir);
 		}
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

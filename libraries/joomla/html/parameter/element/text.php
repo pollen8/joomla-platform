@@ -15,6 +15,7 @@ defined('JPATH_PLATFORM') or die;
  * @package     Joomla.Platform
  * @subpackage  Parameter
  * @since       11.1
+<<<<<<< HEAD
  * @deprecated  Use JForm instead
  */
 
@@ -31,11 +32,51 @@ class JElementText extends JElement
 	{
 		$size = ($node->attributes('size') ? 'size="'.$node->attributes('size').'"' : '');
 		$class = ($node->attributes('class') ? 'class="'.$node->attributes('class').'"' : 'class="text_area"');
+=======
+ * @deprecated  12.1   Use JFormFormFieldText instead
+ */
+class JElementText extends JElement
+{
+	/**
+	 * Element name
+	 *
+	 * @var    string
+	 */
+	protected $_name = 'Text';
+
+	/**
+	 * Fetch the text field element
+	 *
+	 * @param   string  $name          Element name
+	 * @param   string  $value         Element value
+	 * @param   object  &$node         The current JSimpleXMLElement node.
+	 * @param   string  $control_name  Control name
+	 *
+	 * @return  string
+	 *
+	 * @deprecated  12.1  Use JFormFieldText::getInput instead.
+	 * @since   11.1
+	 */
+	public function fetchElement($name, $value, &$node, $control_name)
+	{
+		// Deprecation warning.
+		JLog::add('JElementText::_fetchElement() is deprecated.', JLog::WARNING, 'deprecated');
+
+		$size = ($node->attributes('size') ? 'size="' . $node->attributes('size') . '"' : '');
+		$class = ($node->attributes('class') ? 'class="' . $node->attributes('class') . '"' : 'class="text_area"');
+>>>>>>> upstream/master
 
 		// Required to avoid a cycle of encoding &
 
 		$value = htmlspecialchars(htmlspecialchars_decode($value, ENT_QUOTES), ENT_QUOTES, 'UTF-8');
 
+<<<<<<< HEAD
 		return '<input type="text" name="'.$control_name.'['.$name.']" id="'.$control_name.$name.'" value="'.$value.'" '.$class.' '.$size.' />';
 	}
 }
+=======
+		return '<input type="text" name="' . $control_name . '[' . $name . ']" id="' . $control_name . $name . '" value="' . $value . '" ' . $class
+			. ' ' . $size . ' />';
+	}
+}
+>>>>>>> upstream/master

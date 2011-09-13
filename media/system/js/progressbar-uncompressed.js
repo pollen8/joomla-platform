@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * Fx.ProgressBar
  *
@@ -8,6 +9,23 @@
  * @author		Harald Kirschner <mail [at] digitarald [dot] de>
  * @copyright	Authors
  */
+=======
+/*
+name: Fx.ProgressBar
+
+description: Creates a progressbar with WAI-ARIA and optional HTML5 support.
+
+license: MIT-style
+
+authors:
+- Harald Kirschner <mail [at] digitarald [dot] de>
+- Rouven Weßling <me [at] rouvenwessling [dot] de>
+
+requires: [Core/Fx, Core/Class, Core/Element]
+
+provides: Fx.ProgressBar
+*/
+>>>>>>> upstream/master
 
 Fx.ProgressBar = new Class({
 
@@ -18,6 +36,7 @@ Fx.ProgressBar = new Class({
 		url: null,
 		transition: Fx.Transitions.Circ.easeOut,
 		fit: true,
+<<<<<<< HEAD
 		link: 'cancel'
 	},
 
@@ -34,6 +53,38 @@ Fx.ProgressBar = new Class({
 		}
 
 		if (this.options.fit) {
+=======
+		link: 'cancel',
+		html5: true
+	},
+
+	initialize: function(element, options) {
+		this.element = document.id(element);
+		this.parent(options);
+		var url = this.options.url;
+		this.useHtml5 = this.options.html5 && this.supportsHtml5();
+
+		if (this.useHtml5) {
+			this.progressElement = new Element('progress').replaces(this.element);
+			this.progressElement.max = 100;
+			this.progressElement.value = 0;
+		} else {
+			//WAI-ARIA
+			this.element.set('role', 'progressbar');
+			this.element.set('aria-valuenow', '0');
+			this.element.set('aria-valuemin', '0');
+			this.element.set('aria-valuemax', '100');
+
+			if (url) {
+				this.element.setStyles({
+					'background-image': 'url(' + url + ')',
+					'background-repeat': 'no-repeat'
+				});
+			}
+		}
+
+		if (this.options.fit && !this.useHtml5) {
+>>>>>>> upstream/master
 			url = url || this.element.getStyle('background-image').replace(/^url\(["']?|["']?\)$/g, '');
 			if (url) {
 				var fill = new Image();
@@ -50,12 +101,20 @@ Fx.ProgressBar = new Class({
 		}
 	},
 
+<<<<<<< HEAD
+=======
+	supportsHtml5: function () {
+		return 'value' in document.createElement('progress');
+	},
+
+>>>>>>> upstream/master
 	start: function(to, total) {
 		return this.parent(this.now, (arguments.length == 1) ? to.limit(0, 100) : to / total * 100);
 	},
 
 	set: function(to) {
 		this.now = to;
+<<<<<<< HEAD
 		var css = (this.fill)
 			? (((this.fill / -2) + (to / 100) * (this.element.width || 1) || 0).round() + 'px')
 			: ((100 - to) + '%');
@@ -63,9 +122,28 @@ Fx.ProgressBar = new Class({
 		this.element.setStyle('backgroundPosition', css + ' 0px').title = Math.round(to) + '%';
 
 		var text = $(this.options.text);
+=======
+
+		if (this.useHtml5) {
+			this.progressElement.value = to;
+		} else {
+			var css = (this.fill)
+			? (((this.fill / -2) + (to / 100) * (this.element.width || 1) || 0).round() + 'px')
+			: ((100 - to) + '%');
+		
+			this.element.setStyle('backgroundPosition', css + ' 0px').title = Math.round(to) + '%';
+			this.element.set('aria-valuenow', to);
+		}
+
+		var text = document.id(this.options.text);
+>>>>>>> upstream/master
 		if (text) text.set('text', Math.round(to) + '%');
 
 		return this;
 	}
+<<<<<<< HEAD
 
 });
+=======
+});
+>>>>>>> upstream/master

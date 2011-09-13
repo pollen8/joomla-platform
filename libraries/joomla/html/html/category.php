@@ -19,13 +19,21 @@ defined('JPATH_PLATFORM') or die;
 abstract class JHtmlCategory
 {
 	/**
+<<<<<<< HEAD
 	 * @var    array  Cached array of the category items.
+=======
+	 * Cached array of the category items.
+	 *
+	 * @var    array
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	protected static $items = array();
 
 	/**
 	 * Returns an array of categories for the given extension.
 	 *
+<<<<<<< HEAD
 	 * @param   string  The extension option.
 	 * @param   array   An array of configuration options. By default, only published and unpulbished categories are returned.
 	 *
@@ -39,12 +47,32 @@ abstract class JHtmlCategory
 			$config	= (array) $config;
 			$db		= JFactory::getDbo();
 			$query	= $db->getQuery(true);
+=======
+	 * @param   string  $extension  The extension option e.g. com_something.
+	 * @param   array   $config     An array of configuration options. By default, only
+	 *                              published and unpublished categories are returned.
+	 *
+	 * @return  array
+	 *
+	 * @since   11.1
+	 */
+	public static function options($extension, $config = array('filter.published' => array(0, 1)))
+	{
+		$hash = md5($extension . '.' . serialize($config));
+
+		if (!isset(self::$items[$hash]))
+		{
+			$config = (array) $config;
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true);
+>>>>>>> upstream/master
 
 			$query->select('a.id, a.title, a.level');
 			$query->from('#__categories AS a');
 			$query->where('a.parent_id > 0');
 
 			// Filter on extension.
+<<<<<<< HEAD
 			$query->where('extension = '.$db->quote($extension));
 
 			// Filter on the published state
@@ -54,6 +82,21 @@ abstract class JHtmlCategory
 				} else if (is_array($config['filter.published'])) {
 					JArrayHelper::toInteger($config['filter.published']);
 					$query->where('a.published IN ('.implode(',', $config['filter.published']).')');
+=======
+			$query->where('extension = ' . $db->quote($extension));
+
+			// Filter on the published state
+			if (isset($config['filter.published']))
+			{
+				if (is_numeric($config['filter.published']))
+				{
+					$query->where('a.published = ' . (int) $config['filter.published']);
+				}
+				else if (is_array($config['filter.published']))
+				{
+					JArrayHelper::toInteger($config['filter.published']);
+					$query->where('a.published IN (' . implode(',', $config['filter.published']) . ')');
+>>>>>>> upstream/master
 				}
 			}
 
@@ -65,9 +108,16 @@ abstract class JHtmlCategory
 			// Assemble the list options.
 			self::$items[$hash] = array();
 
+<<<<<<< HEAD
 			foreach ($items as &$item) {
 				$repeat = ( $item->level - 1 >= 0 ) ? $item->level - 1 : 0;
 				$item->title = str_repeat('- ', $repeat).$item->title;
+=======
+			foreach ($items as &$item)
+			{
+				$repeat = ($item->level - 1 >= 0) ? $item->level - 1 : 0;
+				$item->title = str_repeat('- ', $repeat) . $item->title;
+>>>>>>> upstream/master
 				self::$items[$hash][] = JHtml::_('select.option', $item->id, $item->title);
 			}
 		}
@@ -78,6 +128,7 @@ abstract class JHtmlCategory
 	/**
 	 * Returns an array of categories for the given extension.
 	 *
+<<<<<<< HEAD
 	 * @param   string  The extension option.
 	 * @param   array   An array of configuration options. By default, only published and unpulbished categories are returned.
 	 *
@@ -91,12 +142,31 @@ abstract class JHtmlCategory
 			$config	= (array) $config;
 			$db		= JFactory::getDbo();
 			$query	= $db->getQuery(true);
+=======
+	 * @param   string  $extension  The extension option.
+	 * @param   array   $config     An array of configuration options. By default, only published and unpulbished categories are returned.
+	 *
+	 * @return  array   Categories for the extension
+	 *
+	 * @since   11.1
+	 */
+	public static function categories($extension, $config = array('filter.published' => array(0, 1)))
+	{
+		$hash = md5($extension . '.' . serialize($config));
+
+		if (!isset(self::$items[$hash]))
+		{
+			$config = (array) $config;
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true);
+>>>>>>> upstream/master
 
 			$query->select('a.id, a.title, a.level, a.parent_id');
 			$query->from('#__categories AS a');
 			$query->where('a.parent_id > 0');
 
 			// Filter on extension.
+<<<<<<< HEAD
 			$query->where('extension = '.$db->quote($extension));
 
 			// Filter on the published state
@@ -106,6 +176,21 @@ abstract class JHtmlCategory
 				} else if (is_array($config['filter.published'])) {
 					JArrayHelper::toInteger($config['filter.published']);
 					$query->where('a.published IN ('.implode(',', $config['filter.published']).')');
+=======
+			$query->where('extension = ' . $db->quote($extension));
+
+			// Filter on the published state
+			if (isset($config['filter.published']))
+			{
+				if (is_numeric($config['filter.published']))
+				{
+					$query->where('a.published = ' . (int) $config['filter.published']);
+				}
+				else if (is_array($config['filter.published']))
+				{
+					JArrayHelper::toInteger($config['filter.published']);
+					$query->where('a.published IN (' . implode(',', $config['filter.published']) . ')');
+>>>>>>> upstream/master
 				}
 			}
 
@@ -117,6 +202,7 @@ abstract class JHtmlCategory
 			// Assemble the list options.
 			self::$items[$hash] = array();
 
+<<<<<<< HEAD
 				foreach ($items as &$item) {
 					$repeat = ( $item->level - 1 >= 0 ) ? $item->level - 1 : 0;
 					$item->title = str_repeat('- ', $repeat).$item->title;
@@ -124,8 +210,22 @@ abstract class JHtmlCategory
 				}
 				// Special "Add to root" option:
 				self::$items[$hash][] = JHtml::_('select.option', '1', JText::_('JLIB_HTML_ADD_TO_ROOT'));
+=======
+			foreach ($items as &$item)
+			{
+				$repeat = ($item->level - 1 >= 0) ? $item->level - 1 : 0;
+				$item->title = str_repeat('- ', $repeat) . $item->title;
+				self::$items[$hash][] = JHtml::_('select.option', $item->id, $item->title);
+			}
+			// Special "Add to root" option:
+			self::$items[$hash][] = JHtml::_('select.option', '1', JText::_('JLIB_HTML_ADD_TO_ROOT'));
+>>>>>>> upstream/master
 		}
 
 		return self::$items[$hash];
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

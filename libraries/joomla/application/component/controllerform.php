@@ -7,47 +7,88 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
 
 jimport('joomla.application.component.controller');
 
 // @TODO Add ability to set redirect manually to better cope with frontend usage.
 
+=======
+defined('JPATH_PLATFORM') or die();
+
+jimport('joomla.application.component.controller');
+
+>>>>>>> upstream/master
 /**
  * Controller tailored to suit most form-based admin operations.
  *
  * @package     Joomla.Platform
  * @subpackage  Application
  * @since       11.1
+<<<<<<< HEAD
+=======
+ * @todo        Add ability to set redirect manually to better cope with frontend usage.
+>>>>>>> upstream/master
  */
 class JControllerForm extends JController
 {
 	/**
+<<<<<<< HEAD
 	 * @var    string	The context for storing internal data, e.g. record.
+=======
+	 * The context for storing internal data, e.g. record.
+	 *
+	 * @var    string
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $context;
 
 	/**
+<<<<<<< HEAD
 	 * @var    string	The URL option for the component.
+=======
+	 * The URL option for the component.
+	 *
+	 * @var    string
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $option;
 
 	/**
+<<<<<<< HEAD
 	 * @var    string	The URL view item variable.
+=======
+	 * The URL view item variable.
+	 *
+	 * @var    string
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $view_item;
 
 	/**
+<<<<<<< HEAD
 	 * @var    string	The URL view list variable.
+=======
+	 * The URL view list variable.
+	 *
+	 * @var    string
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $view_list;
 
 	/**
+<<<<<<< HEAD
 	 * @var    string	The prefix to use with controller messages.
+=======
+	 * The prefix to use with controller messages.
+	 *
+	 * @var    string
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $text_prefix;
@@ -67,37 +108,67 @@ class JControllerForm extends JController
 		parent::__construct($config);
 
 		// Guess the option as com_NameOfController
+<<<<<<< HEAD
 		if (empty($this->option)) {
 			$this->option = 'com_'.strtolower($this->getName());
 		}
 
 		// Guess the JText message prefix. Defaults to the option.
 		if (empty($this->text_prefix)) {
+=======
+		if (empty($this->option))
+		{
+			$this->option = 'com_' . strtolower($this->getName());
+		}
+
+		// Guess the JText message prefix. Defaults to the option.
+		if (empty($this->text_prefix))
+		{
+>>>>>>> upstream/master
 			$this->text_prefix = strtoupper($this->option);
 		}
 
 		// Guess the context as the suffix, eg: OptionControllerContent.
+<<<<<<< HEAD
 		if (empty($this->context)) {
 			$r = null;
 			if (!preg_match('/(.*)Controller(.*)/i', get_class($this), $r)) {
+=======
+		if (empty($this->context))
+		{
+			$r = null;
+			if (!preg_match('/(.*)Controller(.*)/i', get_class($this), $r))
+			{
+>>>>>>> upstream/master
 				JError::raiseError(500, JText::_('JLIB_APPLICATION_ERROR_CONTROLLER_GET_NAME'));
 			}
 			$this->context = strtolower($r[2]);
 		}
 
 		// Guess the item view as the context.
+<<<<<<< HEAD
 		if (empty($this->view_item)) {
+=======
+		if (empty($this->view_item))
+		{
+>>>>>>> upstream/master
 			$this->view_item = $this->context;
 		}
 
 		// Guess the list view as the plural of the item view.
+<<<<<<< HEAD
 		if (empty($this->view_list)) {
+=======
+		if (empty($this->view_list))
+		{
+>>>>>>> upstream/master
 			// @TODO Probably worth moving to an inflector class based on
 			// http://kuwamoto.org/2007/12/17/improved-pluralizing-in-php-actionscript-and-ror/
 
 			// Simple pluralisation based on public domain snippet by Paul Osman
 			// For more complex types, just manually set the variable in your class.
 			$plural = array(
+<<<<<<< HEAD
 				array( '/(x|ch|ss|sh)$/i',		"$1es"),
 				array( '/([^aeiouy]|qu)y$/i',	"$1ies"),
 				array( '/([^aeiouy]|qu)ies$/i',	"$1y"),
@@ -105,32 +176,57 @@ class JControllerForm extends JController
 				array( '/s$/i',					"s"),
 				array( '/$/',					"s")
 			);
+=======
+				array('/(x|ch|ss|sh)$/i', "$1es"),
+				array('/([^aeiouy]|qu)y$/i', "$1ies"),
+				array('/([^aeiouy]|qu)ies$/i', "$1y"),
+				array('/(bu)s$/i', "$1ses"),
+				array('/s$/i', "s"),
+				array('/$/', "s"));
+>>>>>>> upstream/master
 
 			// check for matches using regular expressions
 			foreach ($plural as $pattern)
 			{
+<<<<<<< HEAD
 				if (preg_match($pattern[0], $this->view_item)) {
 					$this->view_list = preg_replace( $pattern[0], $pattern[1], $this->view_item);
+=======
+				if (preg_match($pattern[0], $this->view_item))
+				{
+					$this->view_list = preg_replace($pattern[0], $pattern[1], $this->view_item);
+>>>>>>> upstream/master
 					break;
 				}
 			}
 		}
 
 		// Apply, Save & New, and Save As copy should be standard on forms.
+<<<<<<< HEAD
 		$this->registerTask('apply',		'save');
 		$this->registerTask('save2new',		'save');
 		$this->registerTask('save2copy',	'save');
+=======
+		$this->registerTask('apply', 'save');
+		$this->registerTask('save2new', 'save');
+		$this->registerTask('save2copy', 'save');
+>>>>>>> upstream/master
 	}
 
 	/**
 	 * Method to add a new record.
 	 *
 	 * @return  mixed  True if the record can be added, a JError object if not.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function add()
 	{
 		// Initialise variables.
+<<<<<<< HEAD
 		$app		= JFactory::getApplication();
 		$context	= "$this->option.edit.$this->context";
 
@@ -140,15 +236,39 @@ class JControllerForm extends JController
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_CREATE_RECORD_NOT_PERMITTED'));
 			$this->setMessage($this->getError(), 'error');
 			$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_list.$this->getRedirectToListAppend(), false));
+=======
+		$app = JFactory::getApplication();
+		$context = "$this->option.edit.$this->context";
+
+		// Access check.
+		if (!$this->allowAdd())
+		{
+			// Set the internal error and also the redirect error.
+			$this->setError(JText::_('JLIB_APPLICATION_ERROR_CREATE_RECORD_NOT_PERMITTED'));
+			$this->setMessage($this->getError(), 'error');
+			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+>>>>>>> upstream/master
 
 			return false;
 		}
 
 		// Clear the record edit information from the session.
+<<<<<<< HEAD
 		$app->setUserState($context.'.data', null);
 
 		// Redirect to the edit screen.
 		$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend(), false));
+=======
+		$app->setUserState($context . '.data', null);
+
+		// Redirect to the edit screen.
+		$this->setRedirect(
+			JRoute::_(
+				'index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend(),
+				false
+			)
+		);
+>>>>>>> upstream/master
 
 		return true;
 	}
@@ -161,13 +281,21 @@ class JControllerForm extends JController
 	 * @param   array  $data  An array of input data.
 	 *
 	 * @return  boolean
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function allowAdd($data = array())
 	{
 		$user = JFactory::getUser();
+<<<<<<< HEAD
 		return ($user->authorise('core.create', $this->option) ||
 			count($user->getAuthorisedCategories($this->option, 'core.create')));
+=======
+		return ($user->authorise('core.create', $this->option) || count($user->getAuthorisedCategories($this->option, 'core.create')));
+>>>>>>> upstream/master
 	}
 
 	/**
@@ -176,9 +304,16 @@ class JControllerForm extends JController
 	 * Extended classes can override this if necessary.
 	 *
 	 * @param   array   $data  An array of input data.
+<<<<<<< HEAD
 	 * @param   string  $key   The name of the key for the primary key.
 	 *
 	 * @return  boolean
+=======
+	 * @param   string  $key   The name of the key for the primary key; default is id.
+	 *
+	 * @return  boolean
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
@@ -195,26 +330,79 @@ class JControllerForm extends JController
 	 * @param   string  $key   The name of the key for the primary key.
 	 *
 	 * @return  boolean
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function allowSave($data, $key = 'id')
 	{
 		// Initialise variables.
+<<<<<<< HEAD
 		$recordId	= isset($data[$key]) ? $data[$key] : '0';
 
 		if ($recordId) {
 			return $this->allowEdit($data, $key);
 		} else {
+=======
+		$recordId = isset($data[$key]) ? $data[$key] : '0';
+
+		if ($recordId)
+		{
+			return $this->allowEdit($data, $key);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			return $this->allowAdd($data);
 		}
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Method to run batch operations.
+	 *
+	 * @param   object  $model  The model of the component being processed.
+	 *
+	 * @return	boolean	 True if successful, false otherwise and internal error is set.
+	 *
+	 * @since	11.1
+	 */
+	public function batch($model)
+	{
+		// Initialise variables.
+		$app = JFactory::getApplication();
+		$vars = JRequest::getVar('batch', array(), 'post', 'array');
+		$cid = JRequest::getVar('cid', array(), 'post', 'array');
+
+		// Attempt to run the batch operation.
+		if ($model->batch($vars, $cid))
+		{
+			$this->setMessage(JText::_('JLIB_APPLICATION_SUCCESS_BATCH'));
+
+			return true;
+		}
+		else
+		{
+			$this->setMessage(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_FAILED', $model->getError()));
+			return false;
+		}
+	}
+
+	/**
+>>>>>>> upstream/master
 	 * Method to cancel an edit.
 	 *
 	 * @param   string  $key  The name of the primary key of the URL variable.
 	 *
+<<<<<<< HEAD
 	 * @return  bool  True if access level checks pass, false otherwise.
+=======
+	 * @return  boolean  True if access level checks pass, false otherwise.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function cancel($key = null)
@@ -222,6 +410,7 @@ class JControllerForm extends JController
 		JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
+<<<<<<< HEAD
 		$app		= JFactory::getApplication();
 		$model		= $this->getModel();
 		$table		= $model->getTable();
@@ -242,16 +431,60 @@ class JControllerForm extends JController
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $recordId));
 				$this->setMessage($this->getError(), 'error');
 				$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_list.$this->getRedirectToListAppend(), false));
+=======
+		$app = JFactory::getApplication();
+		$model = $this->getModel();
+		$table = $model->getTable();
+		$checkin = property_exists($table, 'checked_out');
+		$context = "$this->option.edit.$this->context";
+
+		if (empty($key))
+		{
+			$key = $table->getKeyName();
+		}
+
+		$recordId = JRequest::getInt($key);
+
+		// Attempt to check-in the current record.
+		if ($recordId)
+		{
+			// Check we are holding the id in the edit list.
+			if (!$this->checkEditId($context, $recordId))
+			{
+				// Somehow the person just went to the form - we don't allow that.
+				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $recordId));
+				$this->setMessage($this->getError(), 'error');
+				$this->setRedirect(
+					JRoute::_(
+						'index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(),
+						false
+					)
+				);
+>>>>>>> upstream/master
 
 				return false;
 			}
 
+<<<<<<< HEAD
 			if ($checkin) {
 				if ($model->checkin($recordId) === false) {
 					// Check-in failed, go back to the record and display a notice.
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()));
 					$this->setMessage($this->getError(), 'error');
 					$this->setRedirect('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend($recordId, $key));
+=======
+			if ($checkin)
+			{
+				if ($model->checkin($recordId) === false)
+				{
+					// Check-in failed, go back to the record and display a notice.
+					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()));
+					$this->setMessage($this->getError(), 'error');
+					$this->setRedirect(
+						'index.php?option=' . $this->option . '&view=' . $this->view_item .
+						$this->getRedirectToItemAppend($recordId, $key)
+					);
+>>>>>>> upstream/master
 
 					return false;
 				}
@@ -260,8 +493,13 @@ class JControllerForm extends JController
 
 		// Clean the session data and redirect.
 		$this->releaseEditId($context, $recordId);
+<<<<<<< HEAD
 		$app->setUserState($context.'.data',	null);
 		$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_list.$this->getRedirectToListAppend(), false));
+=======
+		$app->setUserState($context . '.data', null);
+		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+>>>>>>> upstream/master
 
 		return true;
 	}
@@ -270,14 +508,23 @@ class JControllerForm extends JController
 	 * Method to edit an existing record.
 	 *
 	 * @param   string  $key     The name of the primary key of the URL variable.
+<<<<<<< HEAD
 	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
 	 *
 	 * @return  boolean  True if access level check and checkout passes, false otherwise.
+=======
+	 * @param   string  $urlVar  The name of the URL variable if different from the primary key
+	 * (sometimes required to avoid router collisions).
+	 *
+	 * @return  boolean  True if access level check and checkout passes, false otherwise.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function edit($key = null, $urlVar = null)
 	{
 		// Initialise variables.
+<<<<<<< HEAD
 		$app		= JFactory::getApplication();
 		$model		= $this->getModel();
 		$table		= $model->getTable();
@@ -287,15 +534,33 @@ class JControllerForm extends JController
 
 		// Determine the name of the primary key for the data.
 		if (empty($key)) {
+=======
+		$app = JFactory::getApplication();
+		$model = $this->getModel();
+		$table = $model->getTable();
+		$cid = JRequest::getVar('cid', array(), 'post', 'array');
+		$context = "$this->option.edit.$this->context";
+		$append = '';
+
+		// Determine the name of the primary key for the data.
+		if (empty($key))
+		{
+>>>>>>> upstream/master
 			$key = $table->getKeyName();
 		}
 
 		// To avoid data collisions the urlVar may be different from the primary key.
+<<<<<<< HEAD
 		if (empty($urlVar)) {
+=======
+		if (empty($urlVar))
+		{
+>>>>>>> upstream/master
 			$urlVar = $key;
 		}
 
 		// Get the previous record id (if any) and the current record id.
+<<<<<<< HEAD
 		$recordId	= (int) (count($cid) ? $cid[0] : JRequest::getInt($urlVar));
 		$checkin	= property_exists($table, 'checked_out');
 
@@ -304,11 +569,23 @@ class JControllerForm extends JController
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'));
 			$this->setMessage($this->getError(), 'error');
 			$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_list.$this->getRedirectToListAppend(), false));
+=======
+		$recordId = (int) (count($cid) ? $cid[0] : JRequest::getInt($urlVar));
+		$checkin = property_exists($table, 'checked_out');
+
+		// Access check.
+		if (!$this->allowEdit(array($key => $recordId), $key))
+		{
+			$this->setError(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'));
+			$this->setMessage($this->getError(), 'error');
+			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+>>>>>>> upstream/master
 
 			return false;
 		}
 
 		// Attempt to check-out the new record for editing and redirect.
+<<<<<<< HEAD
 		if ($checkin && !$model->checkout($recordId)) {
 			// Check-out failed, display a notice but allow the user to see the record.
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKOUT_FAILED', $model->getError()));
@@ -322,6 +599,23 @@ class JControllerForm extends JController
 			$this->holdEditId($context, $recordId);
 			$app->setUserState($context.'.data', null);
 			$this->setRedirect('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend($recordId, $urlVar));
+=======
+		if ($checkin && !$model->checkout($recordId))
+		{
+			// Check-out failed, display a notice but allow the user to see the record.
+			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKOUT_FAILED', $model->getError()));
+			$this->setMessage($this->getError(), 'error');
+			$this->setRedirect('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $urlVar));
+
+			return false;
+		}
+		else
+		{
+			// Check-out succeeded, push the new record id into the session.
+			$this->holdEditId($context, $recordId);
+			$app->setUserState($context . '.data', null);
+			$this->setRedirect('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $urlVar));
+>>>>>>> upstream/master
 
 			return true;
 		}
@@ -330,16 +624,30 @@ class JControllerForm extends JController
 	/**
 	 * Method to get a model object, loading it if required.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $name	The model name. Optional.
 	 * @param   string  $prefix	The class prefix. Optional.
 	 * @param   array   $config	Configuration array for model. Optional.
 	 *
 	 * @return  object  The model.
+=======
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  object  The model.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getModel($name = '', $prefix = '', $config = array('ignore_request' => true))
 	{
+<<<<<<< HEAD
 		if (empty($name)) {
+=======
+		if (empty($name))
+		{
+>>>>>>> upstream/master
 			$name = $this->context;
 		}
 
@@ -353,10 +661,15 @@ class JControllerForm extends JController
 	 * @param   string   $urlVar    The name of the URL variable for the id.
 	 *
 	 * @return  string  The arguments to append to the redirect URL.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = 'id')
 	{
+<<<<<<< HEAD
 		$tmpl		= JRequest::getCmd('tmpl');
 		$layout		= JRequest::getCmd('layout', 'edit');
 		$append		= '';
@@ -372,6 +685,26 @@ class JControllerForm extends JController
 
 		if ($recordId) {
 			$append .= '&'.$urlVar.'='.$recordId;
+=======
+		$tmpl = JRequest::getCmd('tmpl');
+		$layout = JRequest::getCmd('layout', 'edit');
+		$append = '';
+
+		// Setup redirect info.
+		if ($tmpl)
+		{
+			$append .= '&tmpl=' . $tmpl;
+		}
+
+		if ($layout)
+		{
+			$append .= '&layout=' . $layout;
+		}
+
+		if ($recordId)
+		{
+			$append .= '&' . $urlVar . '=' . $recordId;
+>>>>>>> upstream/master
 		}
 
 		return $append;
@@ -381,28 +714,53 @@ class JControllerForm extends JController
 	 * Gets the URL arguments to append to a list redirect.
 	 *
 	 * @return  string  The arguments to append to the redirect URL.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getRedirectToListAppend()
 	{
+<<<<<<< HEAD
 		$tmpl		= JRequest::getCmd('tmpl');
 		$append		= '';
 
 		// Setup redirect info.
 		if ($tmpl) {
 			$append .= '&tmpl='.$tmpl;
+=======
+		$tmpl = JRequest::getCmd('tmpl');
+		$append = '';
+
+		// Setup redirect info.
+		if ($tmpl)
+		{
+			$append .= '&tmpl=' . $tmpl;
+>>>>>>> upstream/master
 		}
 
 		return $append;
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Function that allows child controller access to model data after the data has been saved.
 	 *
 	 * @param   JModel	$model      The data model object.
 	 * @param   array   $validData  The validated data.
 	 *
 	 * @return  void
+=======
+	 * Function that allows child controller access to model data
+	 * after the data has been saved.
+	 *
+	 * @param   JModel  &$model     The data model object.
+	 * @param   array   $validData  The validated data.
+	 *
+	 * @return  void
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function postSaveHook(JModel &$model, $validData = array())
@@ -412,10 +770,18 @@ class JControllerForm extends JController
 	/**
 	 * Method to save a record.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $key	The name of the primary key of the URL variable.
 	 * @param   string  $urlVar	The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
 	 *
 	 * @return  boolean  True if successful, false otherwise.
+=======
+	 * @param   string  $key     The name of the primary key of the URL variable.
+	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
+	 *
+	 * @return  boolean  True if successful, false otherwise.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function save($key = null, $urlVar = null)
@@ -424,6 +790,7 @@ class JControllerForm extends JController
 		JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
+<<<<<<< HEAD
 		$app		= JFactory::getApplication();
 		$lang		= JFactory::getLanguage();
 		$model		= $this->getModel();
@@ -435,10 +802,25 @@ class JControllerForm extends JController
 
 		// Determine the name of the primary key for the data.
 		if (empty($key)) {
+=======
+		$app = JFactory::getApplication();
+		$lang = JFactory::getLanguage();
+		$model = $this->getModel();
+		$table = $model->getTable();
+		$data = JRequest::getVar('jform', array(), 'post', 'array');
+		$checkin = property_exists($table, 'checked_out');
+		$context = "$this->option.edit.$this->context";
+		$task = $this->getTask();
+
+		// Determine the name of the primary key for the data.
+		if (empty($key))
+		{
+>>>>>>> upstream/master
 			$key = $table->getKeyName();
 		}
 
 		// To avoid data collisions the urlVar may be different from the primary key.
+<<<<<<< HEAD
 		if (empty($urlVar)) {
 			$urlVar = $key;
 		}
@@ -453,6 +835,24 @@ class JControllerForm extends JController
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $recordId));
 			$this->setMessage($this->getError(), 'error');
 			$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_list.$this->getRedirectToListAppend(), false));
+=======
+		if (empty($urlVar))
+		{
+			$urlVar = $key;
+		}
+
+		$recordId = JRequest::getInt($urlVar);
+
+		$session = JFactory::getSession();
+		$registry = $session->get('registry');
+
+		if (!$this->checkEditId($context, $recordId))
+		{
+			// Somehow the person just went to the form and tried to save it. We don't allow that.
+			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $recordId));
+			$this->setMessage($this->getError(), 'error');
+			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+>>>>>>> upstream/master
 
 			return false;
 		}
@@ -461,6 +861,7 @@ class JControllerForm extends JController
 		$data[$key] = $recordId;
 
 		// The save2copy task needs to be handled slightly differently.
+<<<<<<< HEAD
 		if ($task == 'save2copy') {
 			// Check-in the original row.
 			if ($checkin  && $model->checkin($data[$key]) === false) {
@@ -468,11 +869,26 @@ class JControllerForm extends JController
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()));
 				$this->setMessage($this->getError(), 'error');
 				$this->setRedirect('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend($recordId, $urlVar));
+=======
+		if ($task == 'save2copy')
+		{
+			// Check-in the original row.
+			if ($checkin && $model->checkin($data[$key]) === false)
+			{
+				// Check-in failed. Go back to the item and display a notice.
+				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()));
+				$this->setMessage($this->getError(), 'error');
+				$this->setRedirect(
+					'index.php?option=' . $this->option . '&view=' . $this->view_item .
+					$this->getRedirectToItemAppend($recordId, $urlVar)
+				);
+>>>>>>> upstream/master
 
 				return false;
 			}
 
 			// Reset the ID and then treat the request as for Apply.
+<<<<<<< HEAD
 			$data[$key]	= 0;
 			$task		= 'apply';
 		}
@@ -482,6 +898,18 @@ class JControllerForm extends JController
 			$this->setError(JText::_('JLIB_APPLICATION_ERROR_SAVE_NOT_PERMITTED'));
 			$this->setMessage($this->getError(), 'error');
 			$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_list.$this->getRedirectToListAppend(), false));
+=======
+			$data[$key] = 0;
+			$task = 'apply';
+		}
+
+		// Access check.
+		if (!$this->allowSave($data, $key))
+		{
+			$this->setError(JText::_('JLIB_APPLICATION_ERROR_SAVE_NOT_PERMITTED'));
+			$this->setMessage($this->getError(), 'error');
+			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+>>>>>>> upstream/master
 
 			return false;
 		}
@@ -490,7 +918,12 @@ class JControllerForm extends JController
 		// Sometimes the form needs some posted data, such as for plugins and modules.
 		$form = $model->getForm($data, false);
 
+<<<<<<< HEAD
 		if (!$form) {
+=======
+		if (!$form)
+		{
+>>>>>>> upstream/master
 			$app->enqueueMessage($model->getError(), 'error');
 
 			return false;
@@ -500,63 +933,129 @@ class JControllerForm extends JController
 		$validData = $model->validate($form, $data);
 
 		// Check for validation errors.
+<<<<<<< HEAD
 		if ($validData === false) {
 			// Get the validation messages.
 			$errors	= $model->getErrors();
+=======
+		if ($validData === false)
+		{
+			// Get the validation messages.
+			$errors = $model->getErrors();
+>>>>>>> upstream/master
 
 			// Push up to three validation messages out to the user.
 			for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++)
 			{
+<<<<<<< HEAD
 				if (JError::isError($errors[$i])) {
 					$app->enqueueMessage($errors[$i]->getMessage(), 'warning');
 				}
 				else {
+=======
+				if (JError::isError($errors[$i]))
+				{
+					$app->enqueueMessage($errors[$i]->getMessage(), 'warning');
+				}
+				else
+				{
+>>>>>>> upstream/master
 					$app->enqueueMessage($errors[$i], 'warning');
 				}
 			}
 
 			// Save the data in the session.
+<<<<<<< HEAD
 			$app->setUserState($context.'.data', $data);
 
 			// Redirect back to the edit screen.
 			$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend($recordId, $key), false));
+=======
+			$app->setUserState($context . '.data', $data);
+
+			// Redirect back to the edit screen.
+			$this->setRedirect(
+				JRoute::_(
+					'index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $key),
+					false
+				)
+			);
+>>>>>>> upstream/master
 
 			return false;
 		}
 
 		// Attempt to save the data.
+<<<<<<< HEAD
 		if (!$model->save($validData)) {
 			// Save the data in the session.
 			$app->setUserState($context.'.data', $validData);
+=======
+		if (!$model->save($validData))
+		{
+			// Save the data in the session.
+			$app->setUserState($context . '.data', $validData);
+>>>>>>> upstream/master
 
 			// Redirect back to the edit screen.
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
 			$this->setMessage($this->getError(), 'error');
+<<<<<<< HEAD
 			$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend($recordId, $key), false));
+=======
+			$this->setRedirect(
+				JRoute::_(
+					'index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $key),
+					false
+				)
+			);
+>>>>>>> upstream/master
 
 			return false;
 		}
 
 		// Save succeeded, so check-in the record.
+<<<<<<< HEAD
 		if ($checkin && $model->checkin($validData[$key]) === false) {
 			// Save the data in the session.
 			$app->setUserState($context.'.data', $validData);
+=======
+		if ($checkin && $model->checkin($validData[$key]) === false)
+		{
+			// Save the data in the session.
+			$app->setUserState($context . '.data', $validData);
+>>>>>>> upstream/master
 
 			// Check-in failed, so go back to the record and display a notice.
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()));
 			$this->setMessage($this->getError(), 'error');
+<<<<<<< HEAD
 			$this->setRedirect('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend($recordId, $key));
+=======
+			$this->setRedirect('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $key));
+>>>>>>> upstream/master
 
 			return false;
 		}
 
+<<<<<<< HEAD
 		$this->setMessage(JText::_(($lang->hasKey($this->text_prefix.($recordId==0 && $app->isSite() ? '_SUBMIT' : '').'_SAVE_SUCCESS') ? $this->text_prefix : 'JLIB_APPLICATION') . ($recordId==0 && $app->isSite() ? '_SUBMIT' : '') . '_SAVE_SUCCESS'));
+=======
+		$this->setMessage(
+			JText::_(
+				($lang->hasKey($this->text_prefix . ($recordId == 0 && $app->isSite() ? '_SUBMIT' : '') . '_SAVE_SUCCESS')
+				? $this->text_prefix
+				: 'JLIB_APPLICATION') . ($recordId == 0 && $app->isSite() ? '_SUBMIT' : '') . '_SAVE_SUCCESS'
+			)
+		);
+>>>>>>> upstream/master
 
 		// Redirect the user and adjust session state based on the chosen task.
 		switch ($task)
 		{
 			case 'apply':
 				// Set the record data in the session.
+<<<<<<< HEAD
 				$recordId = $model->getState($this->context.'.id');
 				$this->holdEditId($context, $recordId);
 				$app->setUserState($context.'.data', null);
@@ -564,24 +1063,62 @@ class JControllerForm extends JController
 
 				// Redirect back to the edit screen.
 				$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend($recordId, $key), false));
+=======
+				$recordId = $model->getState($this->context . '.id');
+				$this->holdEditId($context, $recordId);
+				$app->setUserState($context . '.data', null);
+				$model->checkout($recordId);
+
+				// Redirect back to the edit screen.
+				$this->setRedirect(
+					JRoute::_(
+						'index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $key),
+						false
+					)
+				);
+>>>>>>> upstream/master
 				break;
 
 			case 'save2new':
 				// Clear the record id and data from the session.
 				$this->releaseEditId($context, $recordId);
+<<<<<<< HEAD
 				$app->setUserState($context.'.data', null);
 
 				// Redirect back to the edit screen.
 				$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_item.$this->getRedirectToItemAppend(null, $key), false));
+=======
+				$app->setUserState($context . '.data', null);
+
+				// Redirect back to the edit screen.
+				$this->setRedirect(
+					JRoute::_(
+						'index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend(null, $key),
+						false
+					)
+				);
+>>>>>>> upstream/master
 				break;
 
 			default:
 				// Clear the record id and data from the session.
 				$this->releaseEditId($context, $recordId);
+<<<<<<< HEAD
 				$app->setUserState($context.'.data', null);
 
 				// Redirect to the list screen.
 				$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view='.$this->view_list.$this->getRedirectToListAppend(), false));
+=======
+				$app->setUserState($context . '.data', null);
+
+				// Redirect to the list screen.
+				$this->setRedirect(
+					JRoute::_(
+						'index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(),
+						false
+					)
+				);
+>>>>>>> upstream/master
 				break;
 		}
 

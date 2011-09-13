@@ -401,7 +401,11 @@ class JFormTest extends JoomlaTestCase
 			$form->filterField($form->findField('tel'), '+2,2,2.3,3,3,3,3,3,3,3,3,3,3,3'),
 			$this->equalTo('222.333333333333'),
 			'Line:'.__LINE__.' The tel filter should be correctly applied.'
+<<<<<<< HEAD
 		);		
+=======
+		);
+>>>>>>> upstream/master
 		$this->assertThat(
 			$form->filterField($form->findField('tel'), '33333333333'),
 			$this->equalTo('.33333333333'),
@@ -411,7 +415,11 @@ class JFormTest extends JoomlaTestCase
 			$form->filterField($form->findField('tel'), '222333333333333'),
 			$this->equalTo('222.333333333333'),
 			'Line:'.__LINE__.' The tel filter should be correctly applied.'
+<<<<<<< HEAD
 		);				
+=======
+		);
+>>>>>>> upstream/master
 		$this->assertThat(
 			$form->filterField($form->findField('tel'), '1 (202) 555-5555'),
 			$this->equalTo('1.2025555555'),
@@ -422,12 +430,21 @@ class JFormTest extends JoomlaTestCase
 			$this->equalTo('222.33333333333'),
 			'Line:'.__LINE__.' The tel filter should be correctly applied.'
 		);
+<<<<<<< HEAD
 		$this->assertThat(	
 			$form->filterField($form->findField('tel'), 'ABCabc/?.!*x'),
 			$this->equalTo(''),
 			'Line:'.__LINE__.' The tel filter should be correctly applied.'
 		);	
 			
+=======
+		$this->assertThat(
+			$form->filterField($form->findField('tel'), 'ABCabc/?.!*x'),
+			$this->equalTo(''),
+			'Line:'.__LINE__.' The tel filter should be correctly applied.'
+		);
+
+>>>>>>> upstream/master
 		$this->assertThat(
 			$form->filterField($form->findField('server_utc'), 'foo'),
 			$this->equalTo(''),
@@ -1511,6 +1528,27 @@ class JFormTest extends JoomlaTestCase
 			$this->isTrue(),
 			'Line:'.__LINE__.' Loading the username rule should return a rule object.'
 		);
+<<<<<<< HEAD
+=======
+
+		$this->assertThat(
+			($form->loadRuleType('options') instanceof JFormRule),
+			$this->isTrue(),
+			'Line:'.__LINE__.' Loading the options rule should return a rule object.'
+		);
+
+		$this->assertThat(
+			($form->loadRuleType('color') instanceof JFormRule),
+			$this->isTrue(),
+			'Line:'.__LINE__.' Loading the color rule should return a rule object.'
+		);
+		
+		$this->assertThat(
+			($form->loadRuleType('tel') instanceof JFormRule),
+			$this->isTrue(),
+			'Line:'.__LINE__.' Loading the tel rule should return a rule object.'
+		);
+>>>>>>> upstream/master
 	}
 
 	/**
@@ -2120,4 +2158,8 @@ class JFormTest extends JoomlaTestCase
 			'Line:'.__LINE__.' A required field with a value should return true.'
 		);
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

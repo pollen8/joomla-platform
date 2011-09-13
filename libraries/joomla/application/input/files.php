@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.application.input');
 
@@ -20,8 +24,12 @@ jimport('joomla.application.input');
  */
 class JInputFiles extends JInput
 {
+<<<<<<< HEAD
 
 	protected $_decodedData = array();
+=======
+	protected $decodedData = array();
+>>>>>>> upstream/master
 
 	/**
 	 * Gets a value from the input data.
@@ -36,7 +44,12 @@ class JInputFiles extends JInput
 	 */
 	public function get($name, $default = null, $filter = 'cmd')
 	{
+<<<<<<< HEAD
 		if (isset ($this->data[$name])) {
+=======
+		if (isset($this->data[$name]))
+		{
+>>>>>>> upstream/master
 			$results = $this->decodeData(
 				array(
 					$this->data[$name]['name'],
@@ -53,20 +66,43 @@ class JInputFiles extends JInput
 
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * Method to decode a data array.
+	 *
+	 * @param   array  $data  The data array to decode.
+	 *
+	 * @return  array
+	 *
+	 * @since   11.1
+	 */
+>>>>>>> upstream/master
 	protected function decodeData($data)
 	{
 		$result = array();
 
+<<<<<<< HEAD
 		if (is_array($data[0])) {
 			foreach ($data[0] AS $k => $v) {
+=======
+		if (is_array($data[0]))
+		{
+			foreach ($data[0] as $k => $v)
+			{
+>>>>>>> upstream/master
 				$result[$k] = $this->decodeData(array($data[0][$k], $data[1][$k], $data[2][$k], $data[3][$k], $data[4][$k]));
 			}
 			return $result;
 		}
 
+<<<<<<< HEAD
 		return array(
 				'name' => $data[0], 'type' => $data[1], 'tmp_name' => $data[2], 'error' => $data[3], 'size' => $data[4]
 		);
+=======
+		return array('name' => $data[0], 'type' => $data[1], 'tmp_name' => $data[2], 'error' => $data[3], 'size' => $data[4]);
+>>>>>>> upstream/master
 	}
 
 	/**

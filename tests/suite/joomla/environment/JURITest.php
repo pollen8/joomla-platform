@@ -30,6 +30,18 @@ class JURITest extends PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
+<<<<<<< HEAD
+=======
+		parent::setUp();
+
+		JURI::reset();
+
+		$_SERVER['HTTP_HOST'] = 'www.example.com:80';
+		$_SERVER['SCRIPT_NAME'] = '/joomla/index.php';
+		$_SERVER['PHP_SELF'] = '/joomla/index.php';
+		$_SERVER['REQUEST_URI'] = '/joomla/index.php?var=value 10';
+
+>>>>>>> upstream/master
 		$this->object = new JURI;
 	}
 

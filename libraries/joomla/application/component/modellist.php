@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.application.component.model');
 
@@ -56,21 +60,41 @@ class JModelList extends JModel
 	/**
 	 * Constructor.
 	 *
+<<<<<<< HEAD
 	 * @param   array  An optional associative array of configuration settings.
 	 * @see		JController
+=======
+	 * @param   array  $config  An optional associative array of configuration settings.
+	 *
+	 * @return  JModelList
+	 *
+	 * @see     JController
+	 * @since   11.1
+>>>>>>> upstream/master
 	 */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
 
 		// Add the ordering filtering fields white list.
+<<<<<<< HEAD
 		if (isset($config['filter_fields'])) {
+=======
+		if (isset($config['filter_fields']))
+		{
+>>>>>>> upstream/master
 			$this->filter_fields = $config['filter_fields'];
 		}
 
 		// Guess the context as Option.ModelName.
+<<<<<<< HEAD
 		if (empty($this->context)) {
 			$this->context = strtolower($this->option.'.'.$this->getName());
+=======
+		if (empty($this->context))
+		{
+			$this->context = strtolower($this->option . '.' . $this->getName());
+>>>>>>> upstream/master
 		}
 	}
 
@@ -80,6 +104,10 @@ class JModelList extends JModel
 	 * This method ensures that the query is contructed only once for a given state of the model.
 	 *
 	 * @return  JDatabaseQuery  A JDatabaseQuery object
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function _getListQuery()
@@ -91,7 +119,12 @@ class JModelList extends JModel
 		$currentStoreId = $this->getStoreId();
 
 		// If the last store id is different from the current, refresh the query.
+<<<<<<< HEAD
 		if ($lastStoreId != $currentStoreId || empty($this->query)) {
+=======
+		if ($lastStoreId != $currentStoreId || empty($this->query))
+		{
+>>>>>>> upstream/master
 			$lastStoreId = $currentStoreId;
 			$this->query = $this->getListQuery();
 		}
@@ -102,7 +135,12 @@ class JModelList extends JModel
 	/**
 	 * Method to get an array of data items.
 	 *
+<<<<<<< HEAD
 	 * @return  mixed    An array of data items on success, false on failure.
+=======
+	 * @return  mixed  An array of data items on success, false on failure.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getItems()
@@ -111,16 +149,30 @@ class JModelList extends JModel
 		$store = $this->getStoreId();
 
 		// Try to load the data from internal storage.
+<<<<<<< HEAD
 		if (!empty($this->cache[$store])) {
+=======
+		if (!empty($this->cache[$store]))
+		{
+>>>>>>> upstream/master
 			return $this->cache[$store];
 		}
 
 		// Load the list items.
+<<<<<<< HEAD
 		$query	= $this->_getListQuery();
 		$items	= $this->_getList($query, $this->getStart(), $this->getState('list.limit'));
 
 		// Check for a database error.
 		if ($this->_db->getErrorNum()) {
+=======
+		$query = $this->_getListQuery();
+		$items = $this->_getList($query, $this->getStart(), $this->getState('list.limit'));
+
+		// Check for a database error.
+		if ($this->_db->getErrorNum())
+		{
+>>>>>>> upstream/master
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
@@ -135,12 +187,21 @@ class JModelList extends JModel
 	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
 	 *
 	 * @return  JDatabaseQuery   A JDatabaseQuery object to retrieve the data set.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getListQuery()
 	{
+<<<<<<< HEAD
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
+=======
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+>>>>>>> upstream/master
 
 		return $query;
 	}
@@ -149,6 +210,10 @@ class JModelList extends JModel
 	 * Method to get a JPagination object for the data set.
 	 *
 	 * @return  JPagination  A JPagination object for the data set.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getPagination()
@@ -157,7 +222,12 @@ class JModelList extends JModel
 		$store = $this->getStoreId('getPagination');
 
 		// Try to load the data from internal storage.
+<<<<<<< HEAD
 		if (!empty($this->cache[$store])) {
+=======
+		if (!empty($this->cache[$store]))
+		{
+>>>>>>> upstream/master
 			return $this->cache[$store];
 		}
 
@@ -179,25 +249,45 @@ class JModelList extends JModel
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
+<<<<<<< HEAD
 	 * @param   string   An identifier string to generate the store id.
 	 * @return  string   A store id.
+=======
+	 * @param   string  $id  An identifier string to generate the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function getStoreId($id = '')
 	{
 		// Add the list state to the store id.
+<<<<<<< HEAD
 		$id	.= ':'.$this->getState('list.start');
 		$id	.= ':'.$this->getState('list.limit');
 		$id	.= ':'.$this->getState('list.ordering');
 		$id	.= ':'.$this->getState('list.direction');
 
 		return md5($this->context.':'.$id);
+=======
+		$id .= ':' . $this->getState('list.start');
+		$id .= ':' . $this->getState('list.limit');
+		$id .= ':' . $this->getState('list.ordering');
+		$id .= ':' . $this->getState('list.direction');
+
+		return md5($this->context . ':' . $id);
+>>>>>>> upstream/master
 	}
 
 	/**
 	 * Method to get the total number of items for the data set.
 	 *
 	 * @return  integer  The total number of items available in the data set.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getTotal()
@@ -206,16 +296,29 @@ class JModelList extends JModel
 		$store = $this->getStoreId('getTotal');
 
 		// Try to load the data from internal storage.
+<<<<<<< HEAD
 		if (!empty($this->cache[$store])) {
+=======
+		if (!empty($this->cache[$store]))
+		{
+>>>>>>> upstream/master
 			return $this->cache[$store];
 		}
 
 		// Load the total.
 		$query = $this->_getListQuery();
+<<<<<<< HEAD
 		$total = (int) $this->_getListCount((string) $query);
 
 		// Check for a database error.
 		if ($this->_db->getErrorNum()) {
+=======
+		$total = (int) $this->_getListCount($query);
+
+		// Check for a database error.
+		if ($this->_db->getErrorNum())
+		{
+>>>>>>> upstream/master
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
@@ -230,6 +333,10 @@ class JModelList extends JModel
 	 * Method to get the starting number of items for the data set.
 	 *
 	 * @return  integer  The starting number of items available in the data set.
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getstart()
@@ -237,15 +344,26 @@ class JModelList extends JModel
 		$store = $this->getStoreId('getstart');
 
 		// Try to load the data from internal storage.
+<<<<<<< HEAD
 		if (!empty($this->cache[$store])) {
+=======
+		if (!empty($this->cache[$store]))
+		{
+>>>>>>> upstream/master
 			return $this->cache[$store];
 		}
 
 		$start = $this->getState('list.start');
 		$limit = $this->getState('list.limit');
 		$total = $this->getTotal();
+<<<<<<< HEAD
 		if ($start > $total - $limit) {
 			$start = max(0, (int)(ceil($total / $limit) - 1) * $limit);
+=======
+		if ($start > $total - $limit)
+		{
+			$start = max(0, (int) (ceil($total / $limit) - 1) * $limit);
+>>>>>>> upstream/master
 		}
 
 		// Add the total to the internal cache.
@@ -263,33 +381,59 @@ class JModelList extends JModel
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
+<<<<<<< HEAD
 	 * @param   string   An optional ordering field.
 	 * @param   string   An optional direction (asc|desc).
+=======
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
+	 * @return  void
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
 		// If the context is set, assume that stateful lists are used.
+<<<<<<< HEAD
 		if ($this->context) {
+=======
+		if ($this->context)
+		{
+>>>>>>> upstream/master
 			$app = JFactory::getApplication();
 
 			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
 			$limit = $value;
 			$this->setState('list.limit', $limit);
 
+<<<<<<< HEAD
 			$value = $app->getUserStateFromRequest($this->context.'.limitstart', 'limitstart', 0);
+=======
+			$value = $app->getUserStateFromRequest($this->context . '.limitstart', 'limitstart', 0);
+>>>>>>> upstream/master
 			$limitstart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 			$this->setState('list.start', $limitstart);
 
 			// Check if the ordering field is in the white list, otherwise use the incoming value.
+<<<<<<< HEAD
 			$value = $app->getUserStateFromRequest($this->context.'.ordercol', 'filter_order', $ordering);
 			if (!in_array($value, $this->filter_fields)) {
 				$value = $ordering;
 				$app->setUserState($this->context.'.ordercol', $value);
+=======
+			$value = $app->getUserStateFromRequest($this->context . '.ordercol', 'filter_order', $ordering);
+			if (!in_array($value, $this->filter_fields))
+			{
+				$value = $ordering;
+				$app->setUserState($this->context . '.ordercol', $value);
+>>>>>>> upstream/master
 			}
 			$this->setState('list.ordering', $value);
 
 			// Check if the ordering direction is valid, otherwise use the incoming value.
+<<<<<<< HEAD
 			$value = $app->getUserStateFromRequest($this->context.'.orderdirn', 'filter_order_Dir', $direction);
 			if (!in_array(strtoupper($value), array('ASC', 'DESC', ''))) {
 				$value = $direction;
@@ -298,6 +442,18 @@ class JModelList extends JModel
 			$this->setState('list.direction', $value);
 		}
 		else {
+=======
+			$value = $app->getUserStateFromRequest($this->context . '.orderdirn', 'filter_order_Dir', $direction);
+			if (!in_array(strtoupper($value), array('ASC', 'DESC', '')))
+			{
+				$value = $direction;
+				$app->setUserState($this->context . '.orderdirn', $value);
+			}
+			$this->setState('list.direction', $value);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$this->setState('list.start', 0);
 			$this->state->set('list.limit', 0);
 		}
@@ -305,6 +461,7 @@ class JModelList extends JModel
 
 	/**
 	 * Gets the value of a user state variable and sets it in the session
+<<<<<<< HEAD
 	 * This is the same as the method in JApplication except that this also can optionally
 	 *    force you back to the first page when a filter has changed
 	 *
@@ -314,6 +471,20 @@ class JModelList extends JModel
 	 * @param   string   Filter for the variable, for valid values see {@link JFilterInput::clean()}. Optional.
 	 * @param   boolean  If true, the limitstart in request is set to zero
 	 * @return  The request user state.
+=======
+	 *
+	 * This is the same as the method in JApplication except that this also can optionally
+	 * force you back to the first page when a filter has changed
+	 *
+	 * @param   string   $key        The key of the user state variable.
+	 * @param   string   $request    The name of the variable passed in a request.
+	 * @param   string   $default    The default value for the variable if not found. Optional.
+	 * @param   string   $type       Filter for the variable, for valid values see {@link JFilterInput::clean()}. Optional.
+	 * @param   boolean  $resetPage  If true, the limitstart in request is set to zero
+	 *
+	 * @return  The request user state.
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getUserStateFromRequest($key, $request, $default = null, $type = 'none', $resetPage = true)
@@ -323,18 +494,36 @@ class JModelList extends JModel
 		$cur_state = (!is_null($old_state)) ? $old_state : $default;
 		$new_state = JRequest::getVar($request, null, 'default', $type);
 
+<<<<<<< HEAD
 		if (($cur_state != $new_state) && ($resetPage)){
+=======
+		if (($cur_state != $new_state) && ($resetPage))
+		{
+>>>>>>> upstream/master
 			JRequest::setVar('limitstart', 0);
 		}
 
 		// Save the new value only if it is set in this request.
+<<<<<<< HEAD
 		if ($new_state !== null) {
 			$app->setUserState($key, $new_state);
 		}
 		else {
+=======
+		if ($new_state !== null)
+		{
+			$app->setUserState($key, $new_state);
+		}
+		else
+		{
+>>>>>>> upstream/master
 			$new_state = $cur_state;
 		}
 
 		return $new_state;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

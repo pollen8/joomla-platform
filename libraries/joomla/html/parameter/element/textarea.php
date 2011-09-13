@@ -15,6 +15,7 @@ defined('JPATH_PLATFORM') or die;
  * @package     Joomla.Platform
  * @subpackage  Parameter
  * @since       11.1
+<<<<<<< HEAD
  * @deprecated  Use JForm instead
  */
 
@@ -36,5 +37,44 @@ class JElementTextarea extends JElement
 		$value = str_replace('<br />', "\n", $value);
 
 		return '<textarea name="'.$control_name.'['.$name.']" cols="'.$cols.'" rows="'.$rows.'" '.$class.' id="'.$control_name.$name.'" >'.$value.'</textarea>';
+=======
+ * @deprecated  12.1   Use JFormFieldTextArea instead
+ */
+class JElementTextarea extends JElement
+{
+	/**
+	 * Element name
+	 *
+	 * @var    string
+	 */
+	protected $_name = 'Textarea';
+
+	/**
+	 * Fetch the element
+	 *
+	 * @param   string  $name          Element name
+	 * @param   string  $value         Element value
+	 * @param   object  &$node         The current JSimpleXMLElement node.
+	 * @param   string  $control_name  Control name
+	 *
+	 * @return  string
+	 *
+	 * @deprecated  12.1  Use JFormFieldTextArea::getInput
+	 * @since   11.1
+	 */
+	public function fetchElement($name, $value, &$node, $control_name)
+	{
+		// Deprecation warning.
+		JLog::add('JElementTextArea::_fetchElement() is deprecated.', JLog::WARNING, 'deprecated');
+
+		$rows = $node->attributes('rows');
+		$cols = $node->attributes('cols');
+		$class = ($node->attributes('class') ? 'class="' . $node->attributes('class') . '"' : 'class="text_area"');
+		// Convert <br /> tags so they are not visible when editing
+		$value = str_replace('<br />', "\n", $value);
+
+		return '<textarea name="' . $control_name . '[' . $name . ']" cols="' . $cols . '" rows="' . $rows . '" ' . $class . ' id="' . $control_name
+			. $name . '" >' . $value . '</textarea>';
+>>>>>>> upstream/master
 	}
 }

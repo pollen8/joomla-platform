@@ -9,14 +9,25 @@
 
 defined('JPATH_PLATFORM') or die;
 
+<<<<<<< HEAD
 require_once dirname(__FILE__).DS.'list.php';
+=======
+require_once dirname(__FILE__) . '/list.php';
+>>>>>>> upstream/master
 
 /**
  * Parameter to display a list of the layouts for a component view from the extension or default template overrides.
  *
  * @package     Joomla.Platform
  * @subpackage  Parameter
+<<<<<<< HEAD
  * @deprecated  User JForm instead
+=======
+ * @see         JFormFieldComponentLayout
+ * @note        When replacing take note that JFormFieldComponentLayout does not end in s.
+ * @since       11.1
+ * @deprecated  Use JFormFieldComponentLayouts instead
+>>>>>>> upstream/master
  */
 class JElementComponentLayouts extends JElementList
 {
@@ -27,6 +38,7 @@ class JElementComponentLayouts extends JElementList
 
 	/**
 	 * Get the options for the list.
+<<<<<<< HEAD
 	 */
 	protected function _getOptions(&$node)
 	{
@@ -49,6 +61,40 @@ class JElementComponentLayouts extends JElementList
 			$path1	= JPATH_SITE.DS.'components'.DS.$extn.DS.'views'.DS.$view.DS.'tmpl';
 			$path2	= JPATH_SITE.DS.'templates'.DS.$template.DS.'html'.DS.$extn.DS.$view;
 			$options[]	= JHtml::_('select.option', '', JText::_('JOPTION_USE_MENU_REQUEST_SETTING'));
+=======
+	 *
+	 * @param   JSimpleXMLElement  &$node  Node object containing the settings for the element
+	 *
+	 * @return  array
+	 *
+	 * @since   11.1
+	 *
+	 * @deprecated  12.1
+	 * @see         JFormFieldComponentLayout
+	 */
+	protected function _getOptions(&$node)
+	{
+		// Deprecation warning.
+		JLog::add('JElementComponentLayouts::_getOptions() is deprecated.', JLog::WARNING, 'deprecated');
+
+		$options = array();
+		$path1 = null;
+		$path2 = null;
+
+		// Load template entries for each menuid
+		$db = JFactory::getDBO();
+		$query = 'SELECT template' . ' FROM #__template_styles' . ' WHERE client_id = 0 AND home = 1';
+		$db->setQuery($query);
+		$template = $db->loadResult();
+
+		if ($view = $node->attributes('view') && $extn = $node->attributes('extension'))
+		{
+			$view = preg_replace('#\W#', '', $view);
+			$extn = preg_replace('#\W#', '', $extn);
+			$path1 = JPATH_SITE . '/components/' . $extn . '/views/' . $view . '/tmpl';
+			$path2 = JPATH_SITE . '/templates/' . $template . '/html/' . $extn . '/' . $view;
+			$options[] = JHtml::_('select.option', '', JText::_('JOPTION_USE_MENU_REQUEST_SETTING'));
+>>>>>>> upstream/master
 		}
 
 		if ($path1 && $path2)
@@ -57,18 +103,34 @@ class JElementComponentLayouts extends JElementList
 			$path1 = JPath::clean($path1);
 			$path2 = JPath::clean($path2);
 
+<<<<<<< HEAD
 			$files	= JFolder::files($path1, '^[^_]*\.php$');
 			foreach ($files as $file) {
 				$options[]	= JHtml::_('select.option', JFile::stripExt($file));
+=======
+			$files = JFolder::files($path1, '^[^_]*\.php$');
+			foreach ($files as $file)
+			{
+				$options[] = JHtml::_('select.option', JFile::stripExt($file));
+>>>>>>> upstream/master
 			}
 
 			if (is_dir($path2) && $files = JFolder::files($path2, '^[^_]*\.php$'))
 			{
+<<<<<<< HEAD
 				$options[]	= JHtml::_('select.optgroup', JText::_('JOPTION_FROM_DEFAULT_TEMPLATE'));
 				foreach ($files as $file) {
 					$options[]	= JHtml::_('select.option', JFile::stripExt($file));
 				}
 				$options[]	= JHtml::_('select.optgroup', JText::_('JOPTION_FROM_DEFAULT_TEMPLATE'));
+=======
+				$options[] = JHtml::_('select.optgroup', JText::_('JOPTION_FROM_DEFAULT_TEMPLATE'));
+				foreach ($files as $file)
+				{
+					$options[] = JHtml::_('select.option', JFile::stripExt($file));
+				}
+				$options[] = JHtml::_('select.optgroup', JText::_('JOPTION_FROM_DEFAULT_TEMPLATE'));
+>>>>>>> upstream/master
 			}
 		}
 
@@ -77,4 +139,8 @@ class JElementComponentLayouts extends JElementList
 
 		return $options;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master

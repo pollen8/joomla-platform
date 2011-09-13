@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * JDocument system message renderer
@@ -21,25 +25,49 @@ class JDocumentRendererMessage extends JDocumentRenderer
 	/**
 	 * Renders the error stack and returns the results as a string
 	 *
+<<<<<<< HEAD
 	 * @param   string  $name	(unused)
 	 * @param   array  $params	Associative array of values
 	 *
 	 * @return  string  The output of the script
+=======
+	 * @param   string  $name     Not used.
+	 * @param   array   $params   Associative array of values
+	 * @param   string  $content  Not used.
+	 *
+	 * @return  string  The output of the script
+	 *
+	 * @since   11.1
+>>>>>>> upstream/master
 	 */
 	public function render($name, $params = array (), $content = null)
 	{
 		// Initialise variables.
+<<<<<<< HEAD
 		$buffer	= null;
 		$lists	= null;
+=======
+		$buffer = null;
+		$lists = null;
+>>>>>>> upstream/master
 
 		// Get the message queue
 		$messages = JFactory::getApplication()->getMessageQueue();
 
 		// Build the sorted message list
+<<<<<<< HEAD
 		if (is_array($messages) && !empty($messages)) {
 			foreach ($messages as $msg)
 			{
 				if (isset($msg['type']) && isset($msg['message'])) {
+=======
+		if (is_array($messages) && !empty($messages))
+		{
+			foreach ($messages as $msg)
+			{
+				if (isset($msg['type']) && isset($msg['message']))
+				{
+>>>>>>> upstream/master
 					$lists[$msg['type']][] = $msg['message'];
 				}
 			}
@@ -49,6 +77,7 @@ class JDocumentRendererMessage extends JDocumentRenderer
 		$buffer .= "\n<div id=\"system-message-container\">";
 
 		// If messages exist render them
+<<<<<<< HEAD
 		if (is_array($lists)) {
 			$buffer .= "\n<dl id=\"system-message\">";
 			foreach ($lists as $type => $msgs)
@@ -60,6 +89,21 @@ class JDocumentRendererMessage extends JDocumentRenderer
 					foreach ($msgs as $msg)
 					{
 						$buffer .="\n\t\t<li>".$msg."</li>";
+=======
+		if (is_array($lists))
+		{
+			$buffer .= "\n<dl id=\"system-message\">";
+			foreach ($lists as $type => $msgs)
+			{
+				if (count($msgs))
+				{
+					$buffer .= "\n<dt class=\"" . strtolower($type) . "\">" . JText::_($type) . "</dt>";
+					$buffer .= "\n<dd class=\"" . strtolower($type) . " message\">";
+					$buffer .= "\n\t<ul>";
+					foreach ($msgs as $msg)
+					{
+						$buffer .= "\n\t\t<li>" . $msg . "</li>";
+>>>>>>> upstream/master
 					}
 					$buffer .= "\n\t</ul>";
 					$buffer .= "\n</dd>";

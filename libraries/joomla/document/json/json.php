@@ -7,24 +7,40 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+
+jimport('joomla.document.document');
+>>>>>>> upstream/master
 
 /**
  * JDocumentJSON class, provides an easy interface to parse and display JSON output
  *
  * @package     Joomla.Platform
  * @subpackage  Document
+<<<<<<< HEAD
  * @since       11.1
  */
 
 jimport('joomla.document.document');
 
+=======
+ * @see         http://www.json.org/
+ * @since       11.1
+ */
+>>>>>>> upstream/master
 class JDocumentJSON extends JDocument
 {
 	/**
 	 * Document name
 	 *
 	 * @var    string
+<<<<<<< HEAD
+=======
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	protected $_name = 'joomla';
 
@@ -32,6 +48,13 @@ class JDocumentJSON extends JDocument
 	 * Class constructor
 	 *
 	 * @param   array  $options  Associative array of options
+<<<<<<< HEAD
+=======
+	 *
+	 * @return  JDocumentJson
+	 *
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	public function __construct($options = array())
 	{
@@ -51,11 +74,20 @@ class JDocumentJSON extends JDocument
 	 * @param   array    $params  Associative array of attributes
 	 *
 	 * @return  The rendered data
+<<<<<<< HEAD
+=======
+	 *
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	public function render($cache = false, $params = array())
 	{
 		JResponse::allowCache(false);
+<<<<<<< HEAD
 		JResponse::setHeader('Content-disposition', 'attachment; filename="'.$this->getName().'.json"', true);
+=======
+		JResponse::setHeader('Content-disposition', 'attachment; filename="' . $this->getName() . '.json"', true);
+>>>>>>> upstream/master
 
 		parent::render();
 
@@ -66,8 +98,16 @@ class JDocumentJSON extends JDocument
 	 * Returns the document name
 	 *
 	 * @return  string
+<<<<<<< HEAD
 	 */
 	public function getName() {
+=======
+	 *
+	 * @since  11.1
+	 */
+	public function getName()
+	{
+>>>>>>> upstream/master
 		return $this->_name;
 	}
 
@@ -75,9 +115,22 @@ class JDocumentJSON extends JDocument
 	 * Sets the document name
 	 *
 	 * @param   string  $name  Document name
+<<<<<<< HEAD
 	 * @return  void
 	 */
 	public function setName($name = 'joomla') {
 		$this->_name = $name;
+=======
+	 *
+	 * @return  JDocumentJSON instance of $this to allow chaining
+	 *
+	 * @since   11.1
+	 */
+	public function setName($name = 'joomla')
+	{
+		$this->_name = $name;
+
+		return $this;
+>>>>>>> upstream/master
 	}
 }

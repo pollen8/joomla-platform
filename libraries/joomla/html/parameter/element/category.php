@@ -15,6 +15,7 @@ defined('JPATH_PLATFORM') or die;
  * @package     Joomla.Platform
  * @subpackage  Parameter
  * @since       11.1
+<<<<<<< HEAD
  * @deprecated  Use JForm instead.
  */
 
@@ -39,10 +40,54 @@ class JElementCategory extends JElement
 			// Alias for extension
 			$extension = $node->attributes('scope');
 			if (!isset ($extension)) {
+=======
+ * @deprecated  Use JFormFieldCategory instead.
+ */
+class JElementCategory extends JElement
+{
+	/**
+	 * Element name
+	 *
+	 * @var    string
+	 */
+	protected $_name = 'Category';
+
+	/**
+	 * Fetch the element
+	 *
+	 * @param   string  $name          Element name
+	 * @param   string  $value         Element value
+	 * @param   object  &$node         Extension
+	 * @param   string  $control_name  Control name
+	 *
+	 * @return  string
+	 *
+	 * @since   11.1
+	 * @deprecated    12.1
+	 */
+	public function fetchElement($name, $value, &$node, $control_name)
+	{
+		// Deprecation warning.
+		JLog::add('JElementCategory::fetchElement() is deprecated.', JLog::WARNING, 'deprecated');
+
+		$db = JFactory::getDbo();
+
+		$extension = $node->attributes('extension');
+		$class = $node->attributes('class');
+		$filter = explode(',', $node->attributes('filter'));
+
+		if (!isset($extension))
+		{
+			// Alias for extension
+			$extension = $node->attributes('scope');
+			if (!isset($extension))
+			{
+>>>>>>> upstream/master
 				$extension = 'com_content';
 			}
 		}
 
+<<<<<<< HEAD
 		if (!$class) {
 			$class = "inputbox";
 		}
@@ -54,3 +99,29 @@ class JElementCategory extends JElement
 		return JHtml::_('list.category', $control_name.'['.$name.']', $extension, $extension.'.view', $filter, (int) $value, $class, null, 1, $control_name.$name);
 	}
 }
+=======
+		if (!$class)
+		{
+			$class = "inputbox";
+		}
+
+		if (count($filter) < 1)
+		{
+			$filter = null;
+		}
+
+		return JHtml::_(
+			'list.category',
+			$control_name . '[' . $name . ']',
+			$extension,
+			$extension . '.view',
+			$filter,
+			(int) $value,
+			$class,
+			null,
+			1,
+			$control_name . $name
+		);
+	}
+}
+>>>>>>> upstream/master

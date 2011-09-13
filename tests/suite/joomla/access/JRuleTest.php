@@ -10,7 +10,11 @@
 require_once JPATH_PLATFORM.'/joomla/access/rule.php';
 
 /**
+<<<<<<< HEAD
  * @package		JoomlaFramework
+=======
+ * @package     Joomla.Platform
+>>>>>>> upstream/master
  */
 class JRuleTest extends PHPUnit_Framework_TestCase
 {

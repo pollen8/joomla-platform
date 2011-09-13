@@ -59,7 +59,16 @@ class JDatabaseMySQLTest extends JoomlaDatabaseTestCase
 	 */
 	protected function setUp()
 	{
+<<<<<<< HEAD
 		$config = new JTestConfig;
+=======
+		@include_once JPATH_TESTS . '/config_mysql.php';
+		if (class_exists('JMySQLTestConfig')) {
+			$config = new JMySQLTestConfig;
+		} else {
+			$this->markTestSkipped('There is no mysql test config file present.');
+		}
+>>>>>>> upstream/master
 		$this->object = JDatabase::getInstance(
 			array(
 				'driver' => $config->dbtype,
@@ -94,8 +103,13 @@ class JDatabaseMySQLTest extends JoomlaDatabaseTestCase
 	/**
 	 * Tests the JDatabaseMySQL escape method.
 	 *
+<<<<<<< HEAD
 	 * @param   string  $text   The string to be escaped.
 	 * @param   bool    $extra  Optional parameter to provide extra escaping.
+=======
+	 * @param   string   $text   The string to be escaped.
+	 * @param   boolean  $extra  Optional parameter to provide extra escaping.
+>>>>>>> upstream/master
 	 *
 	 * @return  void
 	 *

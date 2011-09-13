@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * Tree Node Class.
@@ -18,15 +22,28 @@ defined('JPATH_PLATFORM') or die;
  */
 class JNode extends JObject
 {
+<<<<<<< HEAD
 
 	/**
 	 * @var    object  Parent node.
+=======
+	/**
+	 * Parent node
+	 * @var    object
+	 *
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $_parent = null;
 
 	/**
+<<<<<<< HEAD
 	 * @var    array  Array of Children
+=======
+	 * Array of Children
+	 *
+	 * @var    array
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $_children = array();
@@ -46,10 +63,18 @@ class JNode extends JObject
 	 *
 	 * If the child already has a parent, the link is unset
 	 *
+<<<<<<< HEAD
 	 * @param JNode the child to be added
 	 *
 	 * @return
 	 * @since       11.1
+=======
+	 * @param   JNode  &$child  The child to be added
+	 *
+	 * @return  void
+	 *
+	 * @since   11.1
+>>>>>>> upstream/master
 	 */
 	function addChild(&$child)
 	{
@@ -64,9 +89,16 @@ class JNode extends JObject
 	 *
 	 * If the node already has a parent, the link is unset
 	 *
+<<<<<<< HEAD
 	 * @param    JNode|null  The parent to be set
 	 *
 	 * @return
+=======
+	 * @param   mixed  &$parent  The JNode for parent to be set or null
+	 *
+	 * @return  void
+	 *
+>>>>>>> upstream/master
 	 * @since    11.1
 	 */
 	function setParent(&$parent)
@@ -90,6 +122,10 @@ class JNode extends JObject
 	 * Get the children of this node
 	 *
 	 * @return  array    The children
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	function &getChildren()
@@ -101,6 +137,10 @@ class JNode extends JObject
 	 * Get the parent of this node
 	 *
 	 * @return  mixed   JNode object with the parent or null for no parent
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	function &getParent()
@@ -111,18 +151,32 @@ class JNode extends JObject
 	/**
 	 * Test if this node has children
 	 *
+<<<<<<< HEAD
 	 * @return   bool
+=======
+	 * @return   boolean  True if there are chilren
+	 *
+>>>>>>> upstream/master
 	 * @since    11.1
 	 */
 	function hasChildren()
 	{
+<<<<<<< HEAD
 		return (bool)count($this->_children);
+=======
+		return (bool) count($this->_children);
+>>>>>>> upstream/master
 	}
 
 	/**
 	 * Test if this node has a parent
 	 *
+<<<<<<< HEAD
 	 * @return  bool
+=======
+	 * @return  boolean  True if there is a parent
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	function hasParent()

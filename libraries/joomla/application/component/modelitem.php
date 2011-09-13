@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 jimport('joomla.application.component.model');
 
@@ -24,6 +28,10 @@ abstract class JModelItem extends JModel
 	 * An item.
 	 *
 	 * @var    array
+<<<<<<< HEAD
+=======
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	protected $_item = null;
 
@@ -31,6 +39,10 @@ abstract class JModelItem extends JModel
 	 * Model context string.
 	 *
 	 * @var    string
+<<<<<<< HEAD
+=======
+	 * @since  11.1
+>>>>>>> upstream/master
 	 */
 	protected $_context = 'group.type';
 
@@ -41,13 +53,24 @@ abstract class JModelItem extends JModel
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
+<<<<<<< HEAD
 	 * @param   string   $context	A prefix for the store id.
 	 * @return  string   	A store id.
+=======
+	 * @param   string  $id  A prefix for the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+	 * @since   11.1
+>>>>>>> upstream/master
 	 */
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 		return md5($id);
 	}
 }

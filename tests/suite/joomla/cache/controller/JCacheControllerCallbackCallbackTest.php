@@ -22,6 +22,11 @@ class JCacheControllerCallbackTest_Callback extends PHPUnit_Extensions_OutputTes
 
 		require_once dirname(__FILE__).'/JCacheControllerCallback.helper.php';
 
+<<<<<<< HEAD
+=======
+		// some tests are affected by the output of the logger, so we clear the logger here.
+		JLog::setInstance(null);
+>>>>>>> upstream/master
 	}
 
 	public function testCallbackFunction() {

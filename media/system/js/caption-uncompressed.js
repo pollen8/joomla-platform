@@ -1,5 +1,8 @@
 /**
+<<<<<<< HEAD
  * @version		$Id: caption.js 19172 2010-10-20 23:54:25Z chdemko $
+=======
+>>>>>>> upstream/master
  * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -49,7 +52,11 @@ var JCaption = new Class({
 
 		element.parentNode.insertBefore(container, element);
 		container.appendChild(element);
+<<<<<<< HEAD
 		if ( element.title != "" ) {
+=======
+		if (element.title != "") {
+>>>>>>> upstream/master
 			container.appendChild(text);
 		}
 		container.className   = this.selector.replace('.', '_');
@@ -61,8 +68,11 @@ var JCaption = new Class({
 	}
 });
 
+<<<<<<< HEAD
 document.caption = null;
 window.addEvent('load', function() {
 	var caption = new JCaption('img.caption')
 	document.caption = caption
 });
+=======
+>>>>>>> upstream/master

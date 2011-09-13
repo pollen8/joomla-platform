@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+<<<<<<< HEAD
 defined('JPATH_PLATFORM') or die;
+=======
+defined('JPATH_PLATFORM') or die();
+>>>>>>> upstream/master
 
 /**
  * Adapter Instance Class
@@ -16,16 +20,31 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Base
  * @since       11.1
  */
+<<<<<<< HEAD
 class JAdapterInstance extends JObject {
 
 	/**
 	 * @var   object  Parent
+=======
+class JAdapterInstance extends JObject
+{
+	/**
+	 * Parent
+	 *
+	 * @var   object
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $parent = null;
 
 	/**
+<<<<<<< HEAD
 	 * @var    object  Database
+=======
+	 * Database
+	 *
+	 * @var    object
+>>>>>>> upstream/master
 	 * @since  11.1
 	 */
 	protected $db = null;
@@ -33,8 +52,13 @@ class JAdapterInstance extends JObject {
 	/**
 	 * Constructor
 	 *
+<<<<<<< HEAD
 	 * @param   object  $parent   Parent object [JAdapter instance]
 	 * @param   object  $db       Database object [JDatabase instance]
+=======
+	 * @param   object  &$parent  Parent object [JAdapter instance]
+	 * @param   object  &$db      Database object [JDatabase instance]
+>>>>>>> upstream/master
 	 * @param   array   $options  Configuration Options
 	 *
 	 * @return  JAdapterInstance
@@ -56,6 +80,10 @@ class JAdapterInstance extends JObject {
 	 * Retrieves the parent object
 	 *
 	 * @return  object parent
+<<<<<<< HEAD
+=======
+	 *
+>>>>>>> upstream/master
 	 * @since   11.1
 	 */
 	public function getParent()
